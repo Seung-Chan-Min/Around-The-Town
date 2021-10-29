@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.accommodation.room;
+package com.prgm.aroundthetown.product.room.entity;
 
 import com.prgm.aroundthetown.common.BaseEntity;
 import lombok.AccessLevel;

@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.order;
+package com.prgm.aroundthetown.order.entity;
 
 import com.prgm.aroundthetown.common.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.product.Product;

@@ -1,7 +1,7 @@
-package com.prgm.aroundthetown.order;
+package com.prgm.aroundthetown.order.entity;
 
 import com.prgm.aroundthetown.common.BaseTimeAndDeletedEntity;
-import com.prgm.aroundthetown.member.Member;
+import com.prgm.aroundthetown.member.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;

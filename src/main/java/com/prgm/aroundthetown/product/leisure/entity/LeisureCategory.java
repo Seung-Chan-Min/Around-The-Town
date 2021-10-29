@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.leisure;
+package com.prgm.aroundthetown.product.leisure.entity;
 
 import lombok.Getter;
 

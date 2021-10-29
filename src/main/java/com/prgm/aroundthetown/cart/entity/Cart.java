@@ -1,22 +1,23 @@
-package com.prgm.aroundthetown.member;
+package com.prgm.aroundthetown.cart.entity;
 
 import com.prgm.aroundthetown.common.BaseTimeAndDeletedEntity;
+import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.product.Product;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "wishlist")
+@Table(name = "cart")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class WishList extends BaseTimeAndDeletedEntity {
+public class Cart extends BaseTimeAndDeletedEntity {
 
     @Id
-    @Column(name = "wishlist_id")
+    @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long wishlistId;
+    private Long cartId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
@@ -27,10 +28,10 @@ public class WishList extends BaseTimeAndDeletedEntity {
     private Member member;
 
     @Builder
-    public WishList(final Product product, final Member member) {
+    public Cart(final Product product, final Member member) {
         this.product = product;
         this.member = member;
-        product.addWishList(this);
-        member.addWishList(this);
+        product.addCart(this);
+        member.addCart(this);
     }
 }

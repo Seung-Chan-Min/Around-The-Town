@@ -1,8 +1,8 @@
-package com.prgm.aroundthetown.product.accommodation;
+package com.prgm.aroundthetown.product.accommodation.entity;
 
-import com.prgm.aroundthetown.member.Review;
 import com.prgm.aroundthetown.product.Product;
-import com.prgm.aroundthetown.product.accommodation.room.Room;
+import com.prgm.aroundthetown.product.room.entity.Room;
+import com.prgm.aroundthetown.review.entity.Review;
 import lombok.*;
 import lombok.experimental.Accessors;
 

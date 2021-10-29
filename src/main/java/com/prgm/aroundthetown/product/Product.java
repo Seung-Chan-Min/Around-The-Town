@@ -1,10 +1,10 @@
 package com.prgm.aroundthetown.product;
 
+import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.common.BaseEntity;
-import com.prgm.aroundthetown.host.Host;
-import com.prgm.aroundthetown.member.Cart;
-import com.prgm.aroundthetown.member.WishList;
-import com.prgm.aroundthetown.order.OrderProduct;
+import com.prgm.aroundthetown.host.entity.Host;
+import com.prgm.aroundthetown.order.entity.OrderProduct;
+import com.prgm.aroundthetown.wishlist.entity.WishList;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

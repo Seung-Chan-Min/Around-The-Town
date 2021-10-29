@@ -1,6 +1,7 @@
-package com.prgm.aroundthetown.product.leisure;
+package com.prgm.aroundthetown.product.leisure.entity;
 
 import com.prgm.aroundthetown.product.Product;
+import com.prgm.aroundthetown.product.ticket.entity.Ticket;
 import lombok.*;
 import lombok.experimental.Accessors;
 
