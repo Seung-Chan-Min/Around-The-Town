@@ -1,22 +1,33 @@
 package com.prgm.aroundthetown.product.leisure;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.prgm.aroundthetown.common.BaseEntity;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ticket_image")
-public class TicketImage {
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class TicketImage extends BaseEntity {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ticket_image_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "ticket_id")
-    private Long ticketId;
-
-    @Column(name = "IMAGE_PATH")
+    @Column(name = "IMAGE_PATH", nullable = false)
     private String IMAGE_PATH;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id", nullable = false)
+    private Ticket ticket;
+
+    @Builder
+    public TicketImage(final String IMAGE_PATH, final Ticket ticket) {
+        this.IMAGE_PATH = IMAGE_PATH;
+        this.ticket = ticket;
+        ticket.addImage(this);
+    }
 }

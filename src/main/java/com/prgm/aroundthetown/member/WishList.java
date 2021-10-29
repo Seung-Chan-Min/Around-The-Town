@@ -7,16 +7,16 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "wishlist")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Cart extends BaseTimeAndDeletedEntity {
+public class WishList extends BaseTimeAndDeletedEntity {
 
     @Id
-    @Column(name = "cart_id")
+    @Column(name = "wishlist_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long cartId;
+    private Long wishlistId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
@@ -27,10 +27,10 @@ public class Cart extends BaseTimeAndDeletedEntity {
     private Member member;
 
     @Builder
-    public Cart(final Product product, final Member member) {
+    public WishList(final Product product, final Member member) {
         this.product = product;
         this.member = member;
-        product.addCart(this);
-        member.addCart(this);
+        product.addWishList(this);
+        member.addWishList(this);
     }
 }

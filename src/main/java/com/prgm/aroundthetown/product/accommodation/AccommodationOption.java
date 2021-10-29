@@ -6,28 +6,29 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "accommodation_image")
+@Table(name = "accommodation_option")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class AccommodationImage extends BaseEntity {
+public class AccommodationOption extends BaseEntity {
 
     @Id
-    @Column(name = "accommodation_image_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(name = "accommodation_option_id")
+    private Long Id;
 
-    @Column(name = "IMAGE_PATH", nullable = false)
-    private String IMAGE_PATH;
+    @Column(name = "option")
+    @Convert(converter = AccommodationOptionCategoryConverter.class)
+    private AccommodationOptionCategory option;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     private Accommodation accommodation;
 
     @Builder
-    public AccommodationImage(final String IMAGE_PATH, final Accommodation accommodation) {
-        this.IMAGE_PATH = IMAGE_PATH;
+    public AccommodationOption(final AccommodationOptionCategory option, final Accommodation accommodation) {
+        this.option = option;
         this.accommodation = accommodation;
-        accommodation.addImage(this);
+        accommodation.addOption(this);
     }
+
 }

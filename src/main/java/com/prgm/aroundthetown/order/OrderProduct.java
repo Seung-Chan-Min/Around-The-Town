@@ -1,22 +1,37 @@
 package com.prgm.aroundthetown.order;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.prgm.aroundthetown.common.BaseTimeAndDeletedEntity;
+import com.prgm.aroundthetown.product.Product;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "order_product")
-public class OrderProduct {
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class OrderProduct extends BaseTimeAndDeletedEntity {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "order_product_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "product_id")
-    private Long productId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
+    private Order order;
 
-    @Column(name = "order_id")
-    private Long orderId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    private Product product;
+
+    @Builder
+    public OrderProduct(final Order order, final Product product) {
+        this.order = order;
+        this.product = product;
+        order.addOrderProduct(this);
+        product.addOrderProduct(this);
+    }
 
 }

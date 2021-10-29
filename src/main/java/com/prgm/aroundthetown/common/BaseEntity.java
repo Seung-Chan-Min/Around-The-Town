@@ -12,14 +12,14 @@ import javax.persistence.MappedSuperclass;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity<T> extends BaseTimeAndDeletedEntity {
+public abstract class BaseEntity extends BaseTimeAndDeletedEntity {
 
     @CreatedBy
     @Column(name = "created_by", updatable = false)
-    private T createdBy;
+    private Long createdBy;
 
     @LastModifiedBy
     @Column(name = "modified_by")
-    private T modifiedBy;
+    private Long modifiedBy;
 
 }

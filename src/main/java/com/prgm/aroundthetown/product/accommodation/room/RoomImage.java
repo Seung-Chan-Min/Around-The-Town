@@ -1,22 +1,33 @@
 package com.prgm.aroundthetown.product.accommodation.room;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.prgm.aroundthetown.common.BaseEntity;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "room_image")
-public class RoomImage {
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class RoomImage extends BaseEntity {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "room_image_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "room_id")
-    private Long roomId;
 
     @Column(name = "IMAGE_PATH")
     private String IMAGE_PATH;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "room_id", referencedColumnName = "room_id", nullable = false)
+    private Room room;
+
+    @Builder
+    public RoomImage(final String IMAGE_PATH, final Room room) {
+        this.IMAGE_PATH = IMAGE_PATH;
+        this.room = room;
+        room.addImage(this);
+    }
 }

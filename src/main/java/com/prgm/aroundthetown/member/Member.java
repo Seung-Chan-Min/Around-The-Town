@@ -1,23 +1,28 @@
 package com.prgm.aroundthetown.member;
 
-import lombok.Builder;
+import com.prgm.aroundthetown.common.BaseTimeAndDeletedEntity;
+import com.prgm.aroundthetown.order.Order;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "member")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Builder
-public class Member {
+public class Member extends BaseTimeAndDeletedEntity {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "member_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "phone_number")
@@ -26,16 +31,43 @@ public class Member {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "cart_id")
-    private Cart cart;
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cart> carts = new ArrayList<>();
 
-    @Column(name = "wishlist_id")
-    private Wishlist wishlist;
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WishList> wishLists = new ArrayList<>();
 
-    @Column(name = "review_list")
-    private List<Review> review;
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
-    protected Member() {
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
+    public void addCart(final Cart cart) {
+        if (Objects.isNull(carts)) {
+            carts = new ArrayList<>();
+        }
+        carts.add(cart);
+    }
+
+    public void addWishList(final WishList wishList) {
+        if (Objects.isNull(wishLists)) {
+            wishLists = new ArrayList<>();
+        }
+        wishLists.add(wishList);
+    }
+
+    public void addReview(final Review review) {
+        if (Objects.isNull(reviews)) {
+            reviews = new ArrayList<>();
+        }
+        reviews.add(review);
+    }
+
+    public void addOrder(final Order order) {
+        if (Objects.isNull(orders)) {
+            orders = new ArrayList<>();
+        }
+        orders.add(order);
     }
 }
