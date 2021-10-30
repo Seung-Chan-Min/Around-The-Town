@@ -3,6 +3,7 @@ package com.prgm.aroundthetown.product;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Converter
 public class RegionConverter implements AttributeConverter<Region, String> {
@@ -14,7 +15,10 @@ public class RegionConverter implements AttributeConverter<Region, String> {
 
     @Override
     public Region convertToEntityAttribute(final String dbData) {
-        return Region.valueOf(dbData);
+        return Stream.of(Region.values())
+                .filter(c -> c.equals(dbData))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public List<String> convertToSubRegionList(final Region region) {

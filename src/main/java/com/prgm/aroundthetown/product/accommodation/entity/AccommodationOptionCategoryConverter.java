@@ -2,6 +2,7 @@ package com.prgm.aroundthetown.product.accommodation.entity;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.util.stream.Stream;
 
 @Converter
 public class AccommodationOptionCategoryConverter implements AttributeConverter<AccommodationOptionCategory, String> {
@@ -13,7 +14,10 @@ public class AccommodationOptionCategoryConverter implements AttributeConverter<
 
     @Override
     public AccommodationOptionCategory convertToEntityAttribute(final String dbData) {
-        return AccommodationOptionCategory.valueOf(dbData);
+        return Stream.of(AccommodationOptionCategory.values())
+                .filter(c -> c.equals(dbData))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 
 }
