@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.room.repository;
+package com.prgm.aroundthetown.room.repository;
 
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
@@ -7,7 +7,7 @@ import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.product.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.product.accommodation.repository.AccommodationRepository;
-import com.prgm.aroundthetown.product.room.entity.Room;
+import com.prgm.aroundthetown.room.entity.Room;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

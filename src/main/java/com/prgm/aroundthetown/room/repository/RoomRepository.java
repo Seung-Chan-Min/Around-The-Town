@@ -1,6 +1,6 @@
-package com.prgm.aroundthetown.product.room.repository;
+package com.prgm.aroundthetown.room.repository;
 
-import com.prgm.aroundthetown.product.room.entity.Room;
+import com.prgm.aroundthetown.room.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {

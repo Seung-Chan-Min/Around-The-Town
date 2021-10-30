@@ -4,8 +4,8 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Product;
 import com.prgm.aroundthetown.product.Region;
-import com.prgm.aroundthetown.product.room.entity.Room;
 import com.prgm.aroundthetown.review.entity.Review;
+import com.prgm.aroundthetown.room.entity.Room;
 import lombok.*;
 
 import javax.persistence.*;

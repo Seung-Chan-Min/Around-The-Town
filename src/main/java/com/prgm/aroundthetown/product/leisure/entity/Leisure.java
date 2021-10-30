@@ -4,7 +4,7 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Product;
 import com.prgm.aroundthetown.product.Region;
-import com.prgm.aroundthetown.product.ticket.entity.Ticket;
+import com.prgm.aroundthetown.ticket.entity.Ticket;
 import lombok.*;
 
 import javax.persistence.*;
