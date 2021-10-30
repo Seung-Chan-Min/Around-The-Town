@@ -28,7 +28,7 @@ public class Order extends BaseTimeAndDeletedEntity {
     @JoinColumn(name = "member_id", referencedColumnName = "member_id", nullable = false)
     private Member member;
 
-    @OneToMany(mappedBy = "orders", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
     @Builder

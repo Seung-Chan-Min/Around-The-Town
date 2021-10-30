@@ -34,4 +34,5 @@ public class RoomReservation extends BaseEntity {
     // 스프링 스케줄러로 구현 예정
     // 연관관계 편의 메소드 예정
     // Date 타입 변경 예정
+    // TestCode 작성 예정
 }

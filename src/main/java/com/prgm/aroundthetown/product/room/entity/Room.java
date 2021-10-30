@@ -41,6 +41,9 @@ public class Room extends BaseEntity {
     @Column(name = "price")
     private int price;
 
+    @Column(name = "stock")
+    private int stock;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     private Accommodation accommodation;
@@ -55,6 +58,7 @@ public class Room extends BaseEntity {
                 final int standardPeople,
                 final int maximumPeople,
                 final int price,
+                final int stock,
                 final Accommodation accommodation) {
         this.roomName = roomName;
         this.reservationNotice = reservationNotice;
@@ -63,6 +67,7 @@ public class Room extends BaseEntity {
         this.maximumPeople = maximumPeople;
         this.accommodation = accommodation;
         this.price = price;
+        this.stock = stock;
         accommodation.addRoom(this);
     }
 
@@ -71,13 +76,15 @@ public class Room extends BaseEntity {
                                   final String roomInformation,
                                   final int standardPeople,
                                   final int maximumPeople,
-                                  final int price) {
+                                  final int price,
+                                  final int stock) {
         this.roomName = roomName;
         this.reservationNotice = reservationNotice;
         this.roomInformation = roomInformation;
         this.standardPeople = standardPeople;
         this.maximumPeople = maximumPeople;
         this.price = price;
+        this.stock = stock;
         return this.roomId;
     }
 

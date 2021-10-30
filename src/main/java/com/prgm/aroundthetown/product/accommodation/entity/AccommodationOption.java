@@ -14,6 +14,7 @@ public class AccommodationOption extends BaseEntity {
 
     @Id
     @Column(name = "accommodation_option_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
     @Column(name = "option")

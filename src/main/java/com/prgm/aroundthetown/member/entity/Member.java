@@ -17,7 +17,6 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 public class Member extends BaseTimeAndDeletedEntity {
 
     @Id
@@ -45,6 +44,13 @@ public class Member extends BaseTimeAndDeletedEntity {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
+
+    @Builder
+    public Member(final String password, final String phoneNumber, final String email) {
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
 
     public void addCart(final Cart cart) {
         if (Objects.isNull(carts)) {

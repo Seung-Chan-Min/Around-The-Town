@@ -46,7 +46,6 @@ public class Host extends BaseTimeAndDeletedEntity {
         if (Objects.isNull(products)) {
             products = new ArrayList<>();
         }
-
         products.add(product);
     }
 

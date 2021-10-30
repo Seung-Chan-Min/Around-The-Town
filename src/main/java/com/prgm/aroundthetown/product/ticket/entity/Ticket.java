@@ -40,7 +40,6 @@ public class Ticket extends BaseEntity {
         this.price = price;
         this.leisure = leisure;
         leisure.addTicket(this);
-
     }
 
     public void addImage(final TicketImage image) {

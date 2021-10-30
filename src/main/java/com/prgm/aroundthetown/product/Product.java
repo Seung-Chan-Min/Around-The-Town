@@ -6,6 +6,7 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.order.entity.OrderProduct;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -17,32 +18,42 @@ import java.util.Objects;
 @Table(name = "product")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "product_type")
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "host_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "host_id", referencedColumnName = "host_id", nullable = false)
     protected Host host;
+
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
+
     @Column(name = "refund_rule")
     @Lob
     private String refundRule;
+
     @Embedded
     private Location location;
+
     @Column(name = "phone_number")
     private String phoneNumber;
+
     @Column(name = "business_registration_number")
     private String businessRegistrationNumber;
+
     @Column(name = "business_address")
     private String businessAddress;
+
     @Column(name = "business_name")
     private String businessName;
+
     @Column(name = "region")
     @Convert(converter = RegionConverter.class)
     private Region region;
+
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cart> carts = new ArrayList<>();
 
@@ -51,6 +62,26 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    public Product(final Host host,
+                   final Long productId,
+                   final String refundRule,
+                   final Location location,
+                   final String phoneNumber,
+                   final String businessRegistrationNumber,
+                   final String businessAddress,
+                   final String businessName,
+                   final Region region) {
+        this.host = host;
+        this.productId = productId;
+        this.refundRule = refundRule;
+        this.location = location;
+        this.phoneNumber = phoneNumber;
+        this.businessRegistrationNumber = businessRegistrationNumber;
+        this.businessAddress = businessAddress;
+        this.businessName = businessName;
+        this.region = region;
+    }
 
     public void addCart(final Cart cart) {
         if (Objects.isNull(carts)) {
