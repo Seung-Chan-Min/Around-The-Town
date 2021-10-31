@@ -45,4 +45,9 @@ public class HostServiceImpl implements HostService{
     public HostDeleteResponse deleteHost(HostDeleteRequest dto) {
         return null;
     }
+
+    @Override
+    public void deleteAll() {
+        hostRepository.deleteAll();
+    }
 }

@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -28,13 +27,13 @@ public class Accommodation extends Product{
     private String themeNotice;
 
 //    @Enumerated(EnumType.STRING)
-//    private List<ThemeType> themes = new ArrayList<>(); // Todo : option enum 배열
+//    private List<ThemeType> themes; // Todo : option enum 배열
 
     @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY)
-    private List<Room> rooms = new ArrayList<>();
+    private List<Room> rooms;
 
     @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY)
-    private List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews;
 
     public void addRoom(Room room) {
         room.setAccommodation(this);

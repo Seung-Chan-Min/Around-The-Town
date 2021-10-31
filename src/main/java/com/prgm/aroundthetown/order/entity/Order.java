@@ -36,7 +36,7 @@ public class Order extends NecessaryBaseEntity {
     private Member member;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    private List<OrderProduct> orderProducts;
 
     public void setMember(Member member) { // 연관관계 편의 메서드
         if (Objects.nonNull(this.member)) {

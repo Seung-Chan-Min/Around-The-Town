@@ -17,4 +17,6 @@ public interface HostService {
     HostUpdateResponse updateHost(HostUpdateRequest hostUpdateRequest);
 
     HostDeleteResponse deleteHost(HostDeleteRequest hostDeleteRequest);
+
+    void deleteAll();
 }

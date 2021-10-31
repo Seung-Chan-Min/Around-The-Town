@@ -35,7 +35,7 @@ import lombok.experimental.SuperBuilder;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
 @Entity
-public abstract class Product extends BaseEntity {
+public abstract class Product{
     @Id @GeneratedValue
     private Long id;
 
@@ -54,13 +54,13 @@ public abstract class Product extends BaseEntity {
     private Host host;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<Cart> carts = new ArrayList<>();
+    private List<Cart> carts;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<WishList> wishLists = new ArrayList<>();
+    private List<WishList> wishLists;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    private List<OrderProduct> orderProducts;
 
     public void setHost(Host host) { // 연관관계 편의 메서드
         if (Objects.nonNull(this.host)) {
@@ -73,11 +73,9 @@ public abstract class Product extends BaseEntity {
     public void addCart(Cart cart) {
         cart.setProduct(this);
     }
-
     public void addWishList(WishList wishList) {
         wishList.setProduct(this);
     }
-
     public void addOrderProduct(OrderProduct orderProduct) {
         orderProduct.setProduct(this);
     }

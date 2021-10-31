@@ -30,7 +30,7 @@ public class Leisure extends Product {
     // Todo : Leisure 종류
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY)
-    private List<Ticket> tickets = new ArrayList<>();
+    private List<Ticket> tickets;
 
     public void addTicket(Ticket ticket) {
         ticket.setLeisure(this);
