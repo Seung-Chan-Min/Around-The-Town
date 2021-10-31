@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.member.entity;
 
 import com.prgm.aroundthetown.cart.entity.Cart;
-import com.prgm.aroundthetown.common.BaseTimeAndDeletedEntity;
+import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.order.entity.Order;
 import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
@@ -46,7 +46,8 @@ public class Member extends BaseTimeAndDeletedEntity {
     private List<Order> orders = new ArrayList<>();
 
     @Builder
-    public Member(final String password, final String phoneNumber, final String email) {
+    public Member(final Long id, final String password, final String phoneNumber, final String email) {
+        this.id = id;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -78,5 +79,11 @@ public class Member extends BaseTimeAndDeletedEntity {
             orders = new ArrayList<>();
         }
         orders.add(order);
+    }
+
+    public void update(final String password, final String phoneNumber, final String email) {
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 }

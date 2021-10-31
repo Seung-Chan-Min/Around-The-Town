@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.common;
+package com.prgm.aroundthetown.common.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;

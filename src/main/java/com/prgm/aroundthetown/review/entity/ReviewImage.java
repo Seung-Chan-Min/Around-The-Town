@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.review.entity;
 
-import com.prgm.aroundthetown.common.BaseEntity;
+import com.prgm.aroundthetown.common.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;

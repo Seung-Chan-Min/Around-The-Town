@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.product;
 
 import com.prgm.aroundthetown.cart.entity.Cart;
-import com.prgm.aroundthetown.common.BaseEntity;
+import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.order.entity.OrderProduct;
 import com.prgm.aroundthetown.wishlist.entity.WishList;

@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.host.entity;
 
-import com.prgm.aroundthetown.common.BaseTimeAndDeletedEntity;
+import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.product.Product;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,7 +36,8 @@ public class Host extends BaseTimeAndDeletedEntity {
     private List<Product> products = new ArrayList<>();
 
     @Builder
-    public Host(final String hostName, final String hostEmail, final String hostPhoneNumber) {
+    public Host(final Long id, final String hostName, final String hostEmail, final String hostPhoneNumber) {
+        this.id = id;
         this.hostName = hostName;
         this.hostEmail = hostEmail;
         this.hostPhoneNumber = hostPhoneNumber;
@@ -49,19 +50,10 @@ public class Host extends BaseTimeAndDeletedEntity {
         products.add(product);
     }
 
-    public Host changeName(final String name) {
+    public void update(final String name, final String email, final String phoneNumber) {
         this.hostName = name;
-        return this;
-    }
-
-    public Host changeEmail(final String email) {
         this.hostEmail = email;
-        return this;
-    }
-
-    public Host changePhoneNumber(final String phoneNumber) {
         this.hostPhoneNumber = phoneNumber;
-        return this;
     }
 
 }

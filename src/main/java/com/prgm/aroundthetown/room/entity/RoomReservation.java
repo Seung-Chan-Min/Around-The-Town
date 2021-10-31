@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.room.entity;
 
-import com.prgm.aroundthetown.common.BaseEntity;
+import com.prgm.aroundthetown.common.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

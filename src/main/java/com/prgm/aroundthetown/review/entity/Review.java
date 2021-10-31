@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.review.entity;
 
-import com.prgm.aroundthetown.common.BaseEntity;
+import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
 import lombok.*;
@@ -41,11 +41,12 @@ public class Review extends BaseEntity {
     private List<ReviewImage> reviewImages;
 
     @Builder
-    public Review(final String content, final int score, final Member member, final Accommodation accommodation) {
+    public Review(final String content, final int score, final Member member, final Accommodation accommodation, final List<ReviewImage> reviewImages) {
         this.content = content;
         this.score = score;
         this.member = member;
         this.accommodation = accommodation;
+        this.reviewImages = reviewImages;
         member.addReview(this);
         accommodation.addReview(this);
     }
@@ -55,5 +56,11 @@ public class Review extends BaseEntity {
             reviewImages = new ArrayList<>();
         }
         reviewImages.add(image);
+    }
+
+    public void update(final String content, final int score, final List<ReviewImage> reviewImages) {
+        this.content = content;
+        this.score = score;
+        this.reviewImages = reviewImages;
     }
 }
