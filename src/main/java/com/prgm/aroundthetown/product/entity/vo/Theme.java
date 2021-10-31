@@ -1,0 +1,6 @@
+package com.prgm.aroundthetown.product.entity.vo;
+
+
+public enum Theme {
+    PARKINGLOT, WIFI, NOSMOKING, RESTAURANT, BAR, AROUNDTHECLOCK, PAIDLAUNDRY, BAGGAGE, KIDS, BARBECUE, POOL, CAFE, STORE, MULTIPLELAYER
+}
