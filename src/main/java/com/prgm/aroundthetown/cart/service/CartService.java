@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CartService {
     private final CartRepository repository;
     private final CartConverter converter;
@@ -21,7 +22,6 @@ public class CartService {
         return repository.save(converter.toEntity(dto)).getCartId();
     }
 
-    @Transactional(readOnly = true)
     public CartDto findById(final Long cartId) {
         return repository.findById(cartId)
                 .map(converter::toDto)

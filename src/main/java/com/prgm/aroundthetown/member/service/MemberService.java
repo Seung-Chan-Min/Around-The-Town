@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository repository;
     private final MemberConverter converter;
@@ -23,7 +24,6 @@ public class MemberService {
         return repository.save(converter.toEntity(dto)).getId();
     }
 
-    @Transactional(readOnly = true)
     public MemberDto findById(final Long memberId) {
         return repository.findById(memberId)
                 .map(converter::toDto)

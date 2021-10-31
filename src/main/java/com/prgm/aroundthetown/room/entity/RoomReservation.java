@@ -1,19 +1,17 @@
 package com.prgm.aroundthetown.room.entity;
 
 import com.prgm.aroundthetown.common.entity.BaseEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "room_reservation")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 public class RoomReservation extends BaseEntity {
 
     @Id
@@ -25,7 +23,7 @@ public class RoomReservation extends BaseEntity {
     private int remains;
 
     @Column(name = "dates", nullable = false)
-    private Date dates;
+    private LocalDateTime dates;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "room_id", referencedColumnName = "room_id", nullable = false)
