@@ -1,6 +1,7 @@
 package com.prgm.aroundthetown.product.entity;
 
 import com.prgm.aroundthetown.common.BaseEntity;
+import com.prgm.aroundthetown.common.NecessaryBaseEntity;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.member.entity.Cart;
 import com.prgm.aroundthetown.member.entity.WishList;
@@ -9,7 +10,6 @@ import com.prgm.aroundthetown.product.entity.vo.Location;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -30,12 +30,11 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @SuperBuilder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
 @Entity
-public abstract class Product{
+public abstract class Product extends BaseEntity {
     @Id @GeneratedValue
     private Long id;
 
@@ -54,13 +53,16 @@ public abstract class Product{
     private Host host;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<Cart> carts;
+    @Builder.Default
+    private List<Cart> carts = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<WishList> wishLists;
+    @Builder.Default
+    private List<WishList> wishLists = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<OrderProduct> orderProducts;
+    @Builder.Default
+    private List<OrderProduct> orderProducts = new ArrayList<>();
 
     public void setHost(Host host) { // 연관관계 편의 메서드
         if (Objects.nonNull(this.host)) {

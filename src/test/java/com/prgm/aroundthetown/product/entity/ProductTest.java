@@ -2,14 +2,11 @@ package com.prgm.aroundthetown.product.entity;
 
 import static org.assertj.core.api.Assertions.*;
 
-import com.prgm.aroundthetown.host.dto.HostCreateRequest;
+import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.host.service.HostServiceImpl;
 import com.prgm.aroundthetown.product.entity.vo.Location;
 import com.prgm.aroundthetown.product.repository.AccommodationRepository;
 import com.prgm.aroundthetown.product.repository.RoomRepository;
-import com.prgm.aroundthetown.product.service.AccommodationService;
-import com.prgm.aroundthetown.product.service.AccomodationServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 class ProductTest {
 
-    @Autowired private HostServiceImpl hostService;
     @Autowired private HostRepository hostRepository;
-//    @Autowired private AccomodationServiceImpl accommodationRepository;
     @Autowired private AccommodationRepository accommodationRepository;
     @Autowired private RoomRepository roomRepository;
 
@@ -36,13 +31,14 @@ class ProductTest {
     @BeforeEach
     @Transactional
     public void setUp() {
-        HostCreateRequest hostDto = HostCreateRequest.builder()
+        Host host = Host.builder()
             .name("전찬의")
             .password("secret")
             .email("jcu011@naver.com")
             .phoneNumber("01011112797")
             .build();
-        hostId = hostService.createHost(hostDto).getId();
+        host = hostRepository.save(host);
+        hostId = host.getId();
 
         Accommodation accommodation = Accommodation.builder()
             .name("대명이튼캐슬")
@@ -59,6 +55,7 @@ class ProductTest {
             .build();
 
         accommodation = accommodationRepository.save(accommodation);
+        accommodation.setHost(host);
         accommodationId = accommodation.getId();
 
         Room room = Room.builder()
@@ -73,13 +70,14 @@ class ProductTest {
             .build();
 
         room = roomRepository.save(room);
+        room.setAccommodation(accommodation);
         roomId = room.getId();
 
     }
 
     @AfterEach
     void tearDown() throws InterruptedException {
-        hostService.deleteAll();
+        hostRepository.deleteAll();
         accommodationRepository.deleteAll();
         roomRepository.deleteAll();
     }
@@ -87,8 +85,14 @@ class ProductTest {
     @Test
     public void createRoomTest() {
         Room foundRoom = roomRepository.getById(roomId);
+        Accommodation foundAccommo = accommodationRepository.getById(accommodationId);
 
-//        assertThat(foundRoom.getAccommodation().getRooms().size()).isEqualTo(1);
+        assertThat(foundAccommo.getId()).isEqualTo(foundRoom.getAccommodation().getId());
+
+        assertThat(foundAccommo.getRooms().size()).isEqualTo(1);
+        assertThat(foundRoom.getAccommodation().getRooms().size()).isEqualTo(1);
+        log.info("BaseEntity Test : createdAt{}, createdBy{}, updatedAt{}, updatedBy[}",
+            foundRoom.getCreatedAt(), foundRoom.getCreatedBy(), foundRoom.getUpdatedAt(), foundRoom.getUpdatedBy());
 
         assertThat(foundRoom.getId()).isEqualTo(roomId);
         assertThat(foundRoom.getName()).isEqualTo("404호");

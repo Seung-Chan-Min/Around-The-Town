@@ -33,16 +33,20 @@ public class Member extends BaseEntity {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Cart> carts;
+    @Builder.Default
+    private List<Cart> carts = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<WishList> wishLists;
+    @Builder.Default
+    private List<WishList> wishLists = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Review> reviews;
+    @Builder.Default
+    private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Order> orders;
+    @Builder.Default
+    private List<Order> orders = new ArrayList<>();
 
     public void addCart(Cart cart) {
         cart.setMember(this);

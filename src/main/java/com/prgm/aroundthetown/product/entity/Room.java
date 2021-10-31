@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.product.entity;
 
+import com.prgm.aroundthetown.common.BaseEntity;
 import com.prgm.aroundthetown.common.NecessaryBaseEntity;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Room extends NecessaryBaseEntity {
+public class Room extends BaseEntity {
     @Id @GeneratedValue
     private Long id;
 

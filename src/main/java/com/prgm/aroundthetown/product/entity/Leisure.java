@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -30,7 +31,8 @@ public class Leisure extends Product {
     // Todo : Leisure 종류
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY)
-    private List<Ticket> tickets;
+    @Builder.Default
+    private List<Ticket> tickets = new ArrayList<>();
 
     public void addTicket(Ticket ticket) {
         ticket.setLeisure(this);

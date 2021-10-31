@@ -32,7 +32,8 @@ public class Host extends BaseEntity{
     private String phoneNumber;
 
     @OneToMany(mappedBy = "host", fetch = FetchType.LAZY)
-    private List<Product> products;
+    @Builder.Default
+    private List<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
         product.setHost(this);
