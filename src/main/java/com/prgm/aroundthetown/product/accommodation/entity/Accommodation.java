@@ -1,12 +1,13 @@
 package com.prgm.aroundthetown.product.accommodation.entity;
 
-import com.prgm.aroundthetown.host.entity.Host;
-import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Product;
-import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.room.entity.Room;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.*;
@@ -17,7 +18,9 @@ import java.util.*;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@SuperBuilder
 public class Accommodation extends Product {
+    // TODO :: service에서 연관관계 편의 메소드 추가
 
     @Column(name = "accommodation_name")
     private String accommodationName;
@@ -49,30 +52,6 @@ public class Accommodation extends Product {
 
     @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AccommodationOption> options = new HashSet<>();
-
-    @Builder
-    public Accommodation(final Host host,
-                         final Long productId,
-                         final String refundRule,
-                         final Location location,
-                         final String phoneNumber,
-                         final String businessRegistrationNumber,
-                         final String businessAddress,
-                         final String businessName,
-                         final Region region,
-                         final String accommodationName,
-                         final String accommodationNotice,
-                         final String optionNotice,
-                         final String guide,
-                         final AccommodationCategory accommodationCategory) {
-        super(host, productId, refundRule, location, phoneNumber, businessRegistrationNumber, businessAddress, businessName, region);
-        this.accommodationName = accommodationName;
-        this.accommodationNotice = accommodationNotice;
-        this.optionNotice = optionNotice;
-        this.guide = guide;
-        this.accommodationCategory = accommodationCategory;
-        host.addProduct(this);
-    }
 
     public void addRoom(final Room room) {
         if (Objects.isNull(rooms)) {

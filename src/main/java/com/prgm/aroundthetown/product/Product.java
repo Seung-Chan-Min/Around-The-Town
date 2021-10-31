@@ -8,6 +8,7 @@ import com.prgm.aroundthetown.wishlist.entity.WishList;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @DiscriminatorColumn(name = "product_type")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SuperBuilder
 public class Product extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -62,26 +64,6 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
-
-    public Product(final Host host,
-                   final Long productId,
-                   final String refundRule,
-                   final Location location,
-                   final String phoneNumber,
-                   final String businessRegistrationNumber,
-                   final String businessAddress,
-                   final String businessName,
-                   final Region region) {
-        this.host = host;
-        this.productId = productId;
-        this.refundRule = refundRule;
-        this.location = location;
-        this.phoneNumber = phoneNumber;
-        this.businessRegistrationNumber = businessRegistrationNumber;
-        this.businessAddress = businessAddress;
-        this.businessName = businessName;
-        this.region = region;
-    }
 
     public void addCart(final Cart cart) {
         if (Objects.isNull(carts)) {

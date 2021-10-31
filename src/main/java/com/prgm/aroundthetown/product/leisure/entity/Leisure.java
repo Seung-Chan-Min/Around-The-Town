@@ -1,11 +1,12 @@
 package com.prgm.aroundthetown.product.leisure.entity;
 
-import com.prgm.aroundthetown.host.entity.Host;
-import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Product;
-import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +20,9 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@SuperBuilder
 public class Leisure extends Product {
+    // TODO :: service에서 연관관계 편의 메소드 추가
 
     @Column(name = "leisure_infomation")
     @Lob
@@ -42,30 +45,6 @@ public class Leisure extends Product {
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
-
-    @Builder
-    public Leisure(final Host host,
-                   final Long productId,
-                   final String refundRule,
-                   final Location location,
-                   final String phoneNumber,
-                   final String businessRegistrationNumber,
-                   final String businessAddress,
-                   final String businessName,
-                   final Region region,
-                   final String leisureInfomation,
-                   final String usecase,
-                   final String leisureNotice,
-                   final LocalDateTime expirationDate,
-                   final LeisureCategory category) {
-        super(host, productId, refundRule, location, phoneNumber, businessRegistrationNumber, businessAddress, businessName, region);
-        this.leisureInfomation = leisureInfomation;
-        this.usecase = usecase;
-        this.leisureNotice = leisureNotice;
-        this.expirationDate = expirationDate;
-        this.category = category;
-        host.addProduct(this);
-    }
 
     public void addTicket(final Ticket ticket) {
         if (Objects.isNull(tickets)) {
