@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ReviewService {
     private final ReviewRepository repository;
     private final ReviewImageRepository imageRepository;
@@ -30,7 +31,6 @@ public class ReviewService {
         return imageRepository.save(converter.toEntity(dto)).getId();
     }
 
-    @Transactional(readOnly = true)
     public ReviewDto findById(final Long reviewId) {
         return repository.findById(reviewId)
                 .map(converter::toDto)

@@ -14,7 +14,6 @@ import java.util.*;
 @Entity
 @Table(name = "accommodation")
 @DiscriminatorValue("accommodation")
-@Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

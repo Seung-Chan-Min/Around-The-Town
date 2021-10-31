@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class WishListService {
     private final WishListRepository repository;
     private final WishListConverter converter;
@@ -21,7 +22,6 @@ public class WishListService {
         return repository.save(converter.toEntity(dto)).getWishlistId();
     }
 
-    @Transactional(readOnly = true)
     public WishListDto findById(final Long wishListId) {
         return repository.findById(wishListId)
                 .map(converter::toDto)

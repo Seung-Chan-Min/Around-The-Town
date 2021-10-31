@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class HostService {
     private final HostRepository repository;
     private final HostConverter converter;
@@ -22,7 +23,6 @@ public class HostService {
         return repository.save(converter.toEntity(dto)).getId();
     }
 
-    @Transactional(readOnly = true)
     public HostDto findById(final Long hostId) {
         return repository.findById(hostId)
                 .map(converter::toDto)
