@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.room.converter;
 
-import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.room.dto.RequestCreateRoomDto;
 import com.prgm.aroundthetown.room.dto.ResponseCreateRoomDto;
 import com.prgm.aroundthetown.room.entity.Room;
@@ -26,7 +26,7 @@ public class RoomConverter {
                 .standardPeople(requestCreateRoomDto.getStandardPeople())
                 .maximumPeople(requestCreateRoomDto.getMaximumPeople())
                 .stock(requestCreateRoomDto.getMaxStock())
-                .reservationNotice(initRoomRemains(requestCreateRoomDto.getMaxStock()))
+                .roomReservations(initRoomRemains(requestCreateRoomDto.getMaxStock()))
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class RoomConverter {
         final List<RoomReservation> roomReservations = new ArrayList<>();
         for (int i = 0; i < 90; i++) {
             final RoomReservation build = RoomReservation.builder()
-                    .date(LocalDateTime.now().plusDays(i))
+                    .dates(LocalDateTime.now().plusDays(i))
                     .remains(maxStock)
                     .build();
             roomReservations.add(build);

@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.ticket.entity;
 
 import com.prgm.aroundthetown.common.entity.BaseEntity;
-import com.prgm.aroundthetown.product.leisure.entity.Leisure;
+import com.prgm.aroundthetown.leisure.entity.Leisure;
 import lombok.*;
 
 import javax.persistence.*;

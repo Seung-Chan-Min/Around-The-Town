@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.host.service;
 
-import com.prgm.aroundthetown.host.dto.HostCreateDto;
-import com.prgm.aroundthetown.host.dto.HostUpdateDto;
+import com.prgm.aroundthetown.host.dto.HostCreateRequestDto;
+import com.prgm.aroundthetown.host.dto.HostUpdateRequestDto;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.is;
 class HostServiceTest {
 
     @Autowired
-    private HostService hostService;
+    private HostServiceImpl hostService;
     @Autowired
     private HostRepository hostRepository;
 
@@ -40,7 +40,7 @@ class HostServiceTest {
     @Transactional
     void testCreate() {
         // Given
-        final HostCreateDto dto = HostCreateDto.builder()
+        final HostCreateRequestDto dto = HostCreateRequestDto.builder()
                 .hostName("최승은")
                 .hostEmail("g787@naver.com")
                 .hostPhoneNumber("01012345678")
@@ -66,7 +66,7 @@ class HostServiceTest {
     @Transactional
     void testUpdate() {
         // Given
-        final HostUpdateDto dto = HostUpdateDto.builder()
+        final HostUpdateRequestDto dto = HostUpdateRequestDto.builder()
                 .id(setupHostId)
                 .hostName("바뀐이름")
                 .hostEmail("g787@naver.com")

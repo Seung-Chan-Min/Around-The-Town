@@ -1,5 +1,7 @@
 package com.prgm.aroundthetown.product;
 
+import com.prgm.aroundthetown.product.vo.Region;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.util.List;
