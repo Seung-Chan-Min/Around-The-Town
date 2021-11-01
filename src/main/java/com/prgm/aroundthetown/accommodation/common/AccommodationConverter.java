@@ -5,7 +5,9 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.product.dto.LocationDTO;
 import com.prgm.aroundthetown.product.entity.Product;
+import com.prgm.aroundthetown.product.vo.Location;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,12 +25,23 @@ public class AccommodationConverter {
                 .accommodationCategory(createDto.getAccommodationCategory())
                 .businessName(createDto.getBusinessName())
                 .refundRule(createDto.getRefundRule())
-                .location(createDto.getLocation())
+                .location(
+                        locationDtoToEntity(
+                        createDto.getLocation()))
                 .phoneNumber(createDto.getPhoneNumber())
                 .businessRegistrationNumber(createDto.getBusinessRegistrationNumber())
                 .businessAddress(createDto.getBusinessAddress())
                 .region(createDto.getRegion())
                 .host(host)
+                .build();
+    }
+
+    public Location locationDtoToEntity(LocationDTO location) {
+        return Location.builder()
+                .content(location.getContent())
+                .howToVisit(location.getHowToVisit())
+                .latitude(location.getLatitude())
+                .longitude(location.getLongitude())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.accommodation.dto;
 
+import com.prgm.aroundthetown.product.dto.LocationDTO;
 import com.prgm.aroundthetown.product.vo.Region;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.product.vo.Location;
@@ -13,7 +14,7 @@ public class AccommodationCreateRequestDto {
     private Long hostId;
 
     private String refundRule;
-    private Location location;
+    private LocationDTO location;
     private String phoneNumber;
     private String businessRegistrationNumber;
     private String businessAddress;

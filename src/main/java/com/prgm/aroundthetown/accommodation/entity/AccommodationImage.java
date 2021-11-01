@@ -26,10 +26,10 @@ public class AccommodationImage extends BaseEntity {
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     private Accommodation accommodation;
 
-    /*@Builder
+    @Builder
     public AccommodationImage(final String IMAGE_PATH, final Accommodation accommodation) {
         this.IMAGE_PATH = IMAGE_PATH;
         this.accommodation = accommodation;
         accommodation.addImage(this);
-    }*/
+    }
 }
