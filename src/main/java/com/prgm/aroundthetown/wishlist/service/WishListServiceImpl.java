@@ -1,9 +1,8 @@
 package com.prgm.aroundthetown.wishlist.service;
 
-import com.prgm.aroundthetown.common.exception.NotFoundException;
 import com.prgm.aroundthetown.wishlist.converter.WishListConverter;
-import com.prgm.aroundthetown.wishlist.dto.WishListCreateDto;
-import com.prgm.aroundthetown.wishlist.dto.WishListDto;
+import com.prgm.aroundthetown.wishlist.dto.WishListCreateRequestDto;
+import com.prgm.aroundthetown.wishlist.dto.WishListFindByIdResponseDto;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
 import com.prgm.aroundthetown.wishlist.repository.WishListRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +17,12 @@ public class WishListServiceImpl implements WishListService {
     private final WishListConverter converter;
 
     @Transactional
-    public Long createWishList(final WishListCreateDto dto) {
+    public Long createWishList(final WishListCreateRequestDto dto) {
         return repository.save(converter.toEntity(dto)).getWishlistId();
     }
 
-    public WishListDto findById(final Long wishListId) {
-        return repository.findById(wishListId)
-                .map(converter::toDto)
-                .orElseThrow(() -> new NotFoundException("WishList is not found"));
+    public WishListFindByIdResponseDto findById(final Long wishListId) throws Exception {
+        return converter.toFindByIdDto(repository.getById(wishListId));
     }
 
     @Transactional

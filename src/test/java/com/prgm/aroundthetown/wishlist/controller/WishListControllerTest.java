@@ -1,5 +1,6 @@
-package com.prgm.aroundthetown.wishlist.service;
+package com.prgm.aroundthetown.wishlist.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
@@ -16,45 +17,54 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@AutoConfigureMockMvc
 @SpringBootTest
-class WishListServiceImplTest {
+class WishListControllerTest {
 
     @Autowired
-    private WishListServiceImpl wishListServiceImpl;
-
+    private MockMvc mockMvc;
     @Autowired
-    private WishListRepository wishListRepository;
+    private ObjectMapper objectMapper;
+
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private WishListRepository wishListRepository;
     @Autowired
     private HostRepository hostRepository;
     @Autowired
     private AccommodationRepository accommodationRepository;
 
-    private Member savedMember1;
+    private Long savedMemberId2;
+    private Accommodation savedAccommodation;
     private Long savedAccommodationId;
-    private Long savedWishListId;
 
     @BeforeEach
     void setUp() {
         final Member member1 = Member.builder()
+                .password("1234221")
+                .phoneNumber("2341")
+                .email("aaa@skfm")
+                .build();
+        final Member savedMember1 = memberRepository.save(member1);
+        final Member member2 = Member.builder()
                 .password("1234")
                 .phoneNumber("01012345678")
                 .email("@skfm")
                 .build();
-        savedMember1 = memberRepository.save(member1);
-        final Member member2 = Member.builder()
-                .password("123456")
-                .phoneNumber("01011112222")
-                .email("asdf@skfm")
-                .build();
-        final Member savedMember2 = memberRepository.save(member2);
+        savedMemberId2 = memberRepository.save(member2).getId();
 
         final Host host = Host.builder()
                 .hostName("name")
@@ -78,46 +88,57 @@ class WishListServiceImplTest {
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .build();
-        final Accommodation savedAccommodation = accommodationRepository.save(accommodation);
+        savedAccommodation = accommodationRepository.save(accommodation);
         savedAccommodationId = savedAccommodation.getProductId();
 
-        final WishList wishList = WishList.builder()
+        final WishList wishList1 = WishList.builder()
                 .product(savedAccommodation)
-                .member(savedMember2)
+                .member(savedMember1)
                 .build();
-        savedWishListId = wishListRepository.save(wishList).getWishlistId();
+        wishListRepository.save(wishList1);
     }
 
     @Test
-    @DisplayName("Create를 할 수 있다.")
+    @DisplayName("POST /api/v1/wishList 테스트")
     @Transactional
-    void testCreateWishList() {
-        // Given
-        final WishListCreateRequestDto dto = WishListCreateRequestDto.builder()
+    void createWishList() throws Exception {
+        final WishListCreateRequestDto createReq = WishListCreateRequestDto.builder()
                 .productId(savedAccommodationId)
-                .memberId(savedMember1.getId())
+                .memberId(savedMemberId2)
                 .build();
 
-        // When
-        wishListServiceImpl.createWishList(dto);
+        mockMvc.perform(post("/api/v1/wishList")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(createReq)))
+                .andExpect(status().isCreated())
+                .andDo(print());
 
-        // Then
         assertThat(wishListRepository.findAll().size(), is(2));
     }
 
     @Test
-    @DisplayName("FindById를 할 수 있다.")
+    @DisplayName("GET /api/v1/wishList/{wishListId} 테스트")
     @Transactional
     void testFindById() throws Exception {
-        assertThat(wishListServiceImpl.findById(savedWishListId).getWishListId(), is(savedWishListId));
+        final Long req = wishListRepository.findAll().get(0).getWishlistId();
+
+        mockMvc.perform(get("/api/v1/wishList/{wishListId}", req)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
-    @DisplayName("Delete를 할 수 있다.")
+    @DisplayName("DELETE /api/v1/wishList/{wishListId} 테스트")
     @Transactional
-    void testDeleteWishList() {
-        assertThat(wishListRepository.getById(savedWishListId).getIsDeleted(), is(false));
-        wishListServiceImpl.deleteWishList(savedWishListId);
-        assertThat(wishListRepository.getById(savedWishListId).getIsDeleted(), is(true));
+    void deleteWishList() throws Exception {
+        final Long req = wishListRepository.findAll().get(0).getWishlistId();
+
+        mockMvc.perform(delete("/api/v1/wishList/{wishListId}", req)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        assertThat(wishListRepository.findAll().get(0).getIsDeleted(), is(true));
     }
 }
