@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.host.entity.Host;
@@ -57,12 +58,15 @@ public class Product extends BaseEntity {
 //    @Convert(converter = RegionConverter.class)
     private Region region;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cart> carts = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WishList> wishLists = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 

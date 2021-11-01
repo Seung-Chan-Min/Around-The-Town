@@ -72,6 +72,9 @@ class AccommodationRepositoryTest {
         accommodationRepository.save(findedAccommodation);
 
         assertThat(accommodationRepository.findAll().get(0).getAccommodationName(), is("바뀐이름"));
+
+        // 연관관계 mapping
+        assertThat(hostRepository.findAll().get(0).getProducts().size(), is(1));
     }
 
 }

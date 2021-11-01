@@ -60,5 +60,8 @@ class LeisureRepositoryTest {
         leisureRepository.save(leisure);
 
         assertThat(leisureRepository.findAll().size(), is(1));
+
+        // 연관관계 mapping
+        assertThat(hostRepository.findAll().get(0).getProducts().size(), is(1));
     }
 }
