@@ -1,9 +1,10 @@
-package com.prgm.aroundthetown.leisure.repository;
+package com.prgm.aroundthetown.product.leisure.repository;
 
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.leisure.entity.LeisureCategory;
+import com.prgm.aroundthetown.leisure.repository.LeisureRepository;
 import com.prgm.aroundthetown.product.entity.Location;
 import com.prgm.aroundthetown.product.entity.Region;
 import org.junit.jupiter.api.BeforeEach;
