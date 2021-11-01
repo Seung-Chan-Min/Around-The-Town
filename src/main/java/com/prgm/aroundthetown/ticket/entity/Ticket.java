@@ -14,6 +14,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 public class Ticket extends BaseEntity {
 
     @Id
@@ -32,16 +33,8 @@ public class Ticket extends BaseEntity {
     private Leisure leisure;
 
     @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    // @Builder.Default // Todo
+    @Builder.Default
     private List<TicketImage> ticketImages = new ArrayList<>();
-
-    @Builder
-    public Ticket(final String ticketName, final int price, final Leisure leisure) {
-        this.ticketName = ticketName;
-        this.price = price;
-        this.leisure = leisure;
-        leisure.addTicket(this);
-    }
 
     public void addImage(final TicketImage image) {
         if (Objects.isNull(ticketImages)) {

@@ -2,7 +2,6 @@ package com.prgm.aroundthetown.ticket.service;
 
 import com.prgm.aroundthetown.ticket.converter.TicketConverter;
 import com.prgm.aroundthetown.ticket.dto.TicketCreateRequest;
-import com.prgm.aroundthetown.ticket.dto.TicketCreateResponse;
 import com.prgm.aroundthetown.ticket.dto.TicketDeleteByIdResponse;
 import com.prgm.aroundthetown.ticket.dto.TicketFindByIdResponse;
 import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequest;
@@ -21,7 +20,8 @@ public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
 
     @Override
-    public TicketCreateResponse create(TicketCreateRequest dto) {
+    @Transactional
+    public Long create(TicketCreateRequest dto) {
         return null;
     }
 
@@ -31,11 +31,13 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @Transactional
     public TicketUpdateResponse update(TicketUpdateRequest dto) {
         return null;
     }
 
     @Override
+    @Transactional
     public TicketDeleteByIdResponse deleteById(Long id) {
         return null;
     }

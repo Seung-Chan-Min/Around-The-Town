@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.ticket.dto;
+package com.prgm.aroundthetown.product.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class TicketCreateResponse {
-    private Long id;
-    private String ticketName;
-    private int price;
-    private Long leisureId;
+public class LocationResponse {
+    private String howToVisit;
+    private Double latitude;
+    private Double longitude;
+    private String content;
 }

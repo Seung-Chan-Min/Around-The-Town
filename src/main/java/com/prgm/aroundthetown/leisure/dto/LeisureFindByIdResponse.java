@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.leisure.dto;
 
+import com.prgm.aroundthetown.product.dto.LocationResponse;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,4 +19,11 @@ public class LeisureFindByIdResponse {
     private String leisureNotice;
     private LocalDateTime expirationDate;
     private String category;
+    private String refundRule;
+    private String phoneNumber;
+    private String businessRegistrationNumber;
+    private String businessAddress;
+    private String businessName;
+    private String region;
+    private LocationResponse location;
 }

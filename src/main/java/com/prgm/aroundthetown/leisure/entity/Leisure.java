@@ -4,6 +4,7 @@ import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -14,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 @Entity
 @Table(name = "leisure")
 @DiscriminatorValue("leisure")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
@@ -44,6 +45,7 @@ public class Leisure extends Product {
     private LeisureCategory category;
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Ticket> tickets = new ArrayList<>();
 
     public void addTicket(final Ticket ticket) {
