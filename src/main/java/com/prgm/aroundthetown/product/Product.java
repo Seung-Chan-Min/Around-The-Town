@@ -53,7 +53,8 @@ public class Product extends BaseEntity {
     private String businessName;
 
     @Column(name = "region")
-    @Convert(converter = RegionConverter.class)
+    @Enumerated(value = EnumType.STRING)
+//    @Convert(converter = RegionConverter.class)
     private Region region;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

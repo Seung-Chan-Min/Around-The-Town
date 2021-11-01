@@ -5,7 +5,7 @@ import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.room.entity.Room;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -15,7 +15,7 @@ import java.util.*;
 @Entity
 @Table(name = "accommodation")
 @DiscriminatorValue("accommodation")
-@EqualsAndHashCode(callSuper = true)
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
@@ -38,7 +38,8 @@ public class Accommodation extends Product {
     private String guide;
 
     @Column(name = "category")
-    @Convert(converter = AccommodationCategoryConverter.class)
+    @Enumerated(value = EnumType.STRING)
+//    @Convert(converter = AccommodationCategoryConverter.class)
     private AccommodationCategory accommodationCategory;
 
     @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

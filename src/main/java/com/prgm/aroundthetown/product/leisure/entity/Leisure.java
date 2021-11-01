@@ -40,7 +40,8 @@ public class Leisure extends Product {
     private LocalDateTime expirationDate;
 
     @Column(name = "category")
-    @Convert(converter = LeisureCategoryConverter.class)
+    @Enumerated(EnumType.STRING)
+//    @Convert(converter = LeisureCategoryConverter.class)
     private LeisureCategory category;
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
