@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.room.service;
 
-import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.product.accommodation.repository.AccommodationRepository;
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.room.converter.RoomConverter;
 import com.prgm.aroundthetown.room.dto.RequestCreateRoomDto;
 import com.prgm.aroundthetown.room.dto.ResponseCreateRoomDto;
