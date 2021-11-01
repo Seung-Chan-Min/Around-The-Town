@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class TicketCreateRequest {
-
-    private String ticketName;
-    private int price;
     private Long leisureId;
-
+    private String ticketName;
+    private Integer price;
 }

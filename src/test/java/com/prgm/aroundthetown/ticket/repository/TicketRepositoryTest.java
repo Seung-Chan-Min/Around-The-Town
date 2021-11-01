@@ -50,7 +50,7 @@ class TicketRepositoryTest {
                 .businessAddress("address")
                 .businessName("namebu")
                 .region(Region.SEOUL)
-                .leisureInfomation("info")
+                .leisureInformation("info")
                 .usecase("usecase")
                 .leisureNotice("notice")
                 .expirationDate(LocalDateTime.now())

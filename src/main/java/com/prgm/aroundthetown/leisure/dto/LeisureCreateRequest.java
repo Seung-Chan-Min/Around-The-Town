@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.leisure.dto;
 
+import com.prgm.aroundthetown.product.dto.LocationRequest;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,9 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class LeisureCreateRequest {
-
     private Long hostId;
-    private String leisureInfomation;
+    private String leisureInformation;
     private String usecase;
     private String leisureNotice;
     private LocalDateTime expirationDate;
@@ -24,6 +24,6 @@ public class LeisureCreateRequest {
     private String businessRegistrationNumber;
     private String businessAddress;
     private String businessName;
-
     private String region;
+    private LocationRequest location;
 }

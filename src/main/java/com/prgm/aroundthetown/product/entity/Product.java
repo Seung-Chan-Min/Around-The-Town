@@ -4,6 +4,7 @@ import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.order.entity.OrderProduct;
+import com.prgm.aroundthetown.product.dto.LocationRequest;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 @Entity
 @Table(name = "product")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "product_type")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
 public class Product extends BaseEntity {
@@ -88,6 +89,23 @@ public class Product extends BaseEntity {
             orderProducts = new ArrayList<>();
         }
         orderProducts.add(orderProduct);
+    }
+
+    public void update(final String refundRule,
+        final String phoneNumber,
+        final String businessRegistrationNumber,
+        final String businessAddress,
+        final String businessName,
+        final Region region,
+        final Location location) {
+
+        this.refundRule = refundRule;
+        this.phoneNumber = phoneNumber;
+        this.businessRegistrationNumber = businessRegistrationNumber;
+        this.businessAddress = businessAddress;
+        this.businessName = businessName;
+        this.region = region;
+        this.location = location;
     }
 
 }

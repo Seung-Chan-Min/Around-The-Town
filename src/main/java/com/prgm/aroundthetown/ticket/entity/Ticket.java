@@ -8,12 +8,17 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "ticket")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
+//@SQLDelete(sql = "UPDATE table_ticket SET is_deleted = true WHERE id=?")
+//@Where(clause = "is_deleted = false")
 public class Ticket extends BaseEntity {
 
     @Id
@@ -25,28 +30,26 @@ public class Ticket extends BaseEntity {
     private String ticketName;
 
     @Column(name = "price")
-    private int price;
+    private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     private Leisure leisure;
 
     @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    // @Builder.Default // Todo
+    @Builder.Default
     private List<TicketImage> ticketImages = new ArrayList<>();
-
-    @Builder
-    public Ticket(final String ticketName, final int price, final Leisure leisure) {
-        this.ticketName = ticketName;
-        this.price = price;
-        this.leisure = leisure;
-        leisure.addTicket(this);
-    }
 
     public void addImage(final TicketImage image) {
         if (Objects.isNull(ticketImages)) {
             ticketImages = new ArrayList<>();
         }
         ticketImages.add(image);
+    }
+
+    public Ticket update(String ticketName, Integer price) {
+        this.ticketName = ticketName;
+        this.price = price;
+        return this;
     }
 }
