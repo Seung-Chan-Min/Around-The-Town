@@ -1,9 +1,6 @@
 package com.prgm.aroundthetown.cart.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.cart.repository.CartRepository;
@@ -11,8 +8,11 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
-import com.prgm.aroundthetown.product.entity.Location;
-import com.prgm.aroundthetown.product.entity.Region;
+import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.product.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.product.accommodation.repository.AccommodationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
