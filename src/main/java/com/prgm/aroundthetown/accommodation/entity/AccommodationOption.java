@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.accommodation.entity;
+package com.prgm.aroundthetown.accommodation.entity;
 
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import lombok.*;

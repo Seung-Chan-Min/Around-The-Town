@@ -1,6 +1,6 @@
-package com.prgm.aroundthetown.product.leisure.repository;
+package com.prgm.aroundthetown.leisure.repository;
 
-import com.prgm.aroundthetown.product.leisure.entity.Leisure;
+import com.prgm.aroundthetown.leisure.entity.Leisure;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LeisureRepository extends JpaRepository<Leisure, Long> {

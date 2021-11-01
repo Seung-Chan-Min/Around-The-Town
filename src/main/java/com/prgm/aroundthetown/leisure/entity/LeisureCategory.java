@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.leisure.entity;
+package com.prgm.aroundthetown.leisure.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;

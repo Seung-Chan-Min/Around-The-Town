@@ -1,13 +1,12 @@
-package com.prgm.aroundthetown.product.accommodation.repository;
+package com.prgm.aroundthetown.accommodation.repository;
 
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
-import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.product.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.product.accommodation.entity.AccommodationOption;
-import com.prgm.aroundthetown.product.accommodation.entity.AccommodationOptionCategory;
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,14 +19,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class AccommodationOptionRepositoryTest {
+class AccommodationImageRepositoryTest {
 
-    @Autowired
-    private AccommodationOptionRepository optionRepository;
     @Autowired
     private AccommodationRepository accommodationRepository;
     @Autowired
+    private AccommodationImageRepository imageRepository;
+    @Autowired
     private HostRepository hostRepository;
+
+    private Host savedHost;
 
     @BeforeEach
     void setUp() {
@@ -36,7 +37,7 @@ class AccommodationOptionRepositoryTest {
                 .hostEmail("email")
                 .hostPhoneNumber("0106666")
                 .build();
-        final Host savedHost = hostRepository.save(host);
+        savedHost = hostRepository.save(host);
 
         final Accommodation accommodation = Accommodation.builder()
                 .host(savedHost)
@@ -57,24 +58,20 @@ class AccommodationOptionRepositoryTest {
     }
 
     @Test
-    @DisplayName("accommodation option를 save 할 수 있다.")
+    @DisplayName("accommodation image를 save 할 수 있다.")
     @Transactional
-    void saveOptionTest() {
+    void saveImageTest() {
         final Accommodation findedAccommodation = accommodationRepository.findAll().get(0);
-        final AccommodationOption option1 = AccommodationOption.builder()
-                .option(AccommodationOptionCategory.PARKING)
+        final AccommodationImage image = AccommodationImage.builder()
+                .IMAGE_PATH("path")
                 .accommodation(findedAccommodation)
                 .build();
-        final AccommodationOption option2 = AccommodationOption.builder()
-                .option(AccommodationOptionCategory.NETFLIX)
-                .accommodation(findedAccommodation)
-                .build();
-        optionRepository.save(option2);
+        imageRepository.save(image);
 
-        assertThat(optionRepository.findAll().size(), is(2));
+        assertThat(imageRepository.findAll().size(), is(1));
 
         // 연관관계 mapping
-        assertThat(accommodationRepository.findAll().get(0).getOptions().size(), is(2));
+        assertThat(accommodationRepository.findAll().get(0).getImages().size(), is(1));
     }
 
 }

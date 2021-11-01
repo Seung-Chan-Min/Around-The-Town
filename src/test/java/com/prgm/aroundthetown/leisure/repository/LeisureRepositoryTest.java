@@ -1,33 +1,32 @@
-package com.prgm.aroundthetown.product.accommodation.repository;
+package com.prgm.aroundthetown.leisure.repository;
 
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
-import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.product.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.leisure.entity.Leisure;
+import com.prgm.aroundthetown.leisure.entity.LeisureCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class AccommodationRepositoryTest {
+class LeisureRepositoryTest {
 
     @Autowired
-    private AccommodationRepository accommodationRepository;
+    private LeisureRepository leisureRepository;
     @Autowired
     private HostRepository hostRepository;
 
     private Host savedHost;
-    private Accommodation findedAccommodation;
 
     @BeforeEach
     void setUp() {
@@ -40,11 +39,10 @@ class AccommodationRepositoryTest {
     }
 
     @Test
-    @Order(1)
-    @DisplayName("accommodation을 수정할 수 있다.")
+    @DisplayName("leisure를 save 할 수 있다.")
     @Transactional
-    void accommodationUpdateTest() {
-        final Accommodation accommodation = Accommodation.builder()
+    void saveLeisureTest() {
+        final Leisure leisure = Leisure.builder()
                 .host(savedHost)
                 .refundRule("rule")
                 .location(Location.builder().build())
@@ -53,28 +51,17 @@ class AccommodationRepositoryTest {
                 .businessAddress("address")
                 .businessName("namebu")
                 .region(Region.SEOUL)
-                .accommodationName("name")
-                .accommodationNotice("notice")
-                .optionNotice("option")
-                .guide("guide")
-                .accommodationCategory(AccommodationCategory.MOTEL)
+                .leisureInfomation("info")
+                .usecase("usecase")
+                .leisureNotice("notice")
+                .expirationDate(LocalDateTime.now())
+                .category(LeisureCategory.AMUSEMENTPARK)
                 .build();
-        accommodationRepository.save(accommodation);
-        assertThat(accommodationRepository.findAll().size(), is(1));
+        leisureRepository.save(leisure);
 
-        findedAccommodation = accommodationRepository.findAll().get(0);
-        findedAccommodation.update(
-                "바뀐이름",
-                findedAccommodation.getAccommodationNotice(),
-                findedAccommodation.getOptionNotice(),
-                findedAccommodation.getAccommodationName(),
-                findedAccommodation.getAccommodationCategory());
-        accommodationRepository.save(findedAccommodation);
-
-        assertThat(accommodationRepository.findAll().get(0).getAccommodationName(), is("바뀐이름"));
+        assertThat(leisureRepository.findAll().size(), is(1));
 
         // 연관관계 mapping
         assertThat(hostRepository.findAll().get(0).getProducts().size(), is(1));
     }
-
 }

@@ -1,15 +1,13 @@
-package com.prgm.aroundthetown.review.repository;
+package com.prgm.aroundthetown.accommodation.repository;
 
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.member.entity.Member;
-import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
-import com.prgm.aroundthetown.review.entity.Review;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationOption;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationOptionCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,19 +20,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class ReviewRepositoryTest {
+class AccommodationOptionRepositoryTest {
 
     @Autowired
-    private ReviewRepository reviewRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private HostRepository hostRepository;
+    private AccommodationOptionRepository optionRepository;
     @Autowired
     private AccommodationRepository accommodationRepository;
-
-    private Member savedMember;
-    private Accommodation savedAccommodation;
+    @Autowired
+    private HostRepository hostRepository;
 
     @BeforeEach
     void setUp() {
@@ -44,13 +37,6 @@ class ReviewRepositoryTest {
                 .hostPhoneNumber("0106666")
                 .build();
         final Host savedHost = hostRepository.save(host);
-
-        final Member member = Member.builder()
-                .password("1234")
-                .phoneNumber("01012345678")
-                .email("@skfm")
-                .build();
-        savedMember = memberRepository.save(member);
 
         final Accommodation accommodation = Accommodation.builder()
                 .host(savedHost)
@@ -67,25 +53,28 @@ class ReviewRepositoryTest {
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .build();
-        savedAccommodation = accommodationRepository.save(accommodation);
+        accommodationRepository.save(accommodation);
     }
 
     @Test
-    @DisplayName("review를 save 할 수 있다.")
+    @DisplayName("accommodation option를 save 할 수 있다.")
     @Transactional
-    void saveReviewTest() {
-        final Review review = Review.builder()
-                .content("content")
-                .score(4)
-                .member(savedMember)
-                .accommodation(savedAccommodation)
+    void saveOptionTest() {
+        final Accommodation findedAccommodation = accommodationRepository.findAll().get(0);
+        final AccommodationOption option1 = AccommodationOption.builder()
+                .option(AccommodationOptionCategory.PARKING)
+                .accommodation(findedAccommodation)
                 .build();
-        reviewRepository.save(review);
+        final AccommodationOption option2 = AccommodationOption.builder()
+                .option(AccommodationOptionCategory.NETFLIX)
+                .accommodation(findedAccommodation)
+                .build();
+        optionRepository.save(option2);
 
-        assertThat(reviewRepository.findAll().size(), is(1));
+        assertThat(optionRepository.findAll().size(), is(2));
 
         // 연관관계 mapping
-        assertThat(memberRepository.findAll().get(0).getReviews().size(), is(1));
-        assertThat(accommodationRepository.findAll().get(0).getReviews().size(), is(1));
+        assertThat(accommodationRepository.findAll().get(0).getOptions().size(), is(2));
     }
+
 }

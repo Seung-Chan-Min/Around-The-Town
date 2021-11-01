@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.accommodation.entity;
+package com.prgm.aroundthetown.accommodation.entity;
 
 import com.prgm.aroundthetown.product.Product;
 import com.prgm.aroundthetown.review.entity.Review;

@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.accommodation.entity;
+package com.prgm.aroundthetown.accommodation.entity;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

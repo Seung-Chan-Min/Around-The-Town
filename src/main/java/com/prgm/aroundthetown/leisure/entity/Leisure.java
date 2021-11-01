@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.leisure.entity;
+package com.prgm.aroundthetown.leisure.entity;
 
 import com.prgm.aroundthetown.product.Product;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
