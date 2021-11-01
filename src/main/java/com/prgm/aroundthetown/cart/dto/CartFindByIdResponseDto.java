@@ -1,5 +1,8 @@
 package com.prgm.aroundthetown.cart.dto;
 
+import com.prgm.aroundthetown.host.dto.HostDto;
+import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.product.dto.ProductDto;
 import lombok.*;
 
 @Getter
@@ -8,6 +11,7 @@ import lombok.*;
 @Builder
 public class CartFindByIdResponseDto {
     private Long cartId;
-    private Long productId;
-    private Long memberId;
+    private HostDto hostDto;
+    private ProductDto productDto;
+    private MemberDto memberDto;
 }

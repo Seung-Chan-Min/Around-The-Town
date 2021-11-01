@@ -5,7 +5,6 @@ import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
 import com.prgm.aroundthetown.cart.dto.CartFindByIdResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.cart.repository.CartRepository;
-import com.prgm.aroundthetown.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,15 +21,13 @@ public class CartServiceImpl implements CartService {
         return repository.save(converter.toEntity(dto)).getCartId();
     }
 
-    public CartFindByIdResponseDto findById(final Long cartId) {
-        return repository.findById(cartId)
-                .map(converter::toFindByIdDto)
-                .orElseThrow(() -> new NotFoundException("Cart is not found"));
+    public CartFindByIdResponseDto findById(final Long cartId) throws Exception {
+        return converter.toFindByIdDto(repository.getById(cartId));
     }
 
     @Transactional
     public void deleteCart(final Long cartId) {
-        final Cart entity = repository.findById(cartId).get();
+        final Cart entity = repository.getById(cartId);
         entity.setIsDeleted(true);
         repository.save(entity);
     }

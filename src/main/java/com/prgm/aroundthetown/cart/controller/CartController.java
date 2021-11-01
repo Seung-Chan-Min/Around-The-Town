@@ -25,7 +25,7 @@ public class CartController {
     @GetMapping("/cart/{cartId}")
     public ResponseEntity<CartFindByIdResponseDto> findById(
             @PathVariable final Long cartId
-    ) {
+    ) throws Exception {
         final CartFindByIdResponseDto res = service.findById(cartId);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }

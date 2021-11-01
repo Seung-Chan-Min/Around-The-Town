@@ -37,18 +37,18 @@ class CartServiceImplTest {
     @Autowired
     private AccommodationRepository accommodationRepository;
 
-    private Member savedMember;
+    private Member savedMember1;
     private Long savedAccommodationId;
     private Long savedCartId;
 
     @BeforeEach
     void setUp() {
-        final Member member = Member.builder()
+        final Member member1 = Member.builder()
                 .password("1234")
                 .phoneNumber("01012345678")
                 .email("@skfm")
                 .build();
-        savedMember = memberRepository.save(member);
+        savedMember1 = memberRepository.save(member1);
         final Member member2 = Member.builder()
                 .password("123456")
                 .phoneNumber("01011112222")
@@ -95,7 +95,7 @@ class CartServiceImplTest {
         // Given
         final CartCreateRequestDto dto = CartCreateRequestDto.builder()
                 .productId(savedAccommodationId)
-                .memberId(savedMember.getId())
+                .memberId(savedMember1.getId())
                 .build();
 
         // When
@@ -108,7 +108,7 @@ class CartServiceImplTest {
     @Test
     @DisplayName("FindById를 할 수 있다.")
     @Transactional
-    void testFindById() {
+    void testFindById() throws Exception {
         assertThat(cartServiceImpl.findById(savedCartId).getCartId(), is(savedCartId));
     }
 
@@ -116,8 +116,8 @@ class CartServiceImplTest {
     @DisplayName("Delete를 할 수 있다.")
     @Transactional
     void testDeleteCart() {
-        assertThat(cartRepository.findById(savedCartId).get().getIsDeleted(), is(false));
+        assertThat(cartRepository.getById(savedCartId).getIsDeleted(), is(false));
         cartServiceImpl.deleteCart(savedCartId);
-        assertThat(cartRepository.findById(savedCartId).get().getIsDeleted(), is(true));
+        assertThat(cartRepository.getById(savedCartId).getIsDeleted(), is(true));
     }
 }

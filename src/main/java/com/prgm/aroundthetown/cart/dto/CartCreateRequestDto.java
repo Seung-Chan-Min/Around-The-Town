@@ -2,7 +2,7 @@ package com.prgm.aroundthetown.cart.dto;
 
 import lombok.*;
 
-@Getter
+@Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder

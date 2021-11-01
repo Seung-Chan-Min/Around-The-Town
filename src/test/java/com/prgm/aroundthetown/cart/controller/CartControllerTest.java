@@ -14,6 +14,7 @@ import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.entity.Location;
 import com.prgm.aroundthetown.product.entity.Region;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,9 +47,9 @@ class CartControllerTest {
     @Autowired
     private AccommodationRepository accommodationRepository;
 
-    private Member savedMember2;
-    private Long savedAccommodationId;
+    private Long savedMemberId2;
     private Accommodation savedAccommodation;
+    private Long savedAccommodationId;
 
     @BeforeEach
     void setUp() {
@@ -57,13 +58,13 @@ class CartControllerTest {
                 .phoneNumber("2341")
                 .email("aaa@skfm")
                 .build();
-        final Member savedMember = memberRepository.save(member1);
+        final Member savedMember1 = memberRepository.save(member1);
         final Member member2 = Member.builder()
                 .password("1234")
                 .phoneNumber("01012345678")
                 .email("@skfm")
                 .build();
-        savedMember2 = memberRepository.save(member2);
+        savedMemberId2 = memberRepository.save(member2).getId();
 
         final Host host = Host.builder()
                 .hostName("name")
@@ -90,19 +91,20 @@ class CartControllerTest {
         savedAccommodation = accommodationRepository.save(accommodation);
         savedAccommodationId = savedAccommodation.getProductId();
 
-        final Cart cart = Cart.builder()
+        final Cart cart1 = Cart.builder()
                 .product(savedAccommodation)
-                .member(savedMember)
+                .member(savedMember1)
                 .build();
-        cartRepository.save(cart);
+        cartRepository.save(cart1);
     }
 
     @Test
+    @DisplayName("POST /api/v1/cart 테스트")
     @Transactional
     void testCreateCart() throws Exception {
         final CartCreateRequestDto createReq = CartCreateRequestDto.builder()
                 .productId(savedAccommodationId)
-                .memberId(savedMember2.getId())
+                .memberId(savedMemberId2)
                 .build();
 
         mockMvc.perform(post("/api/v1/cart")
@@ -115,6 +117,7 @@ class CartControllerTest {
     }
 
     @Test
+    @DisplayName("GET /api/v1/cart/{cartId} 테스트")
     @Transactional
     void testFindById() throws Exception {
         final Long req = cartRepository.findAll().get(0).getCartId();
@@ -126,6 +129,7 @@ class CartControllerTest {
     }
 
     @Test
+    @DisplayName("DELETE /api/v1/cart/{cartId} 테스트")
     @Transactional
     void testDeleteCart() throws Exception {
         final Long req = cartRepository.findAll().get(0).getCartId();
