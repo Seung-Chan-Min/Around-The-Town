@@ -62,7 +62,9 @@ public class Room extends BaseEntity {
                 final int maximumPeople,
                 final int price,
                 final int stock,
-                final Accommodation accommodation) {
+                final Accommodation accommodation,
+                final List<RoomImage> roomImages,
+                final List<RoomReservation> roomReservations) {
         this.roomName = roomName;
         this.reservationNotice = reservationNotice;
         this.roomInformation = roomInformation;
@@ -71,6 +73,8 @@ public class Room extends BaseEntity {
         this.accommodation = accommodation;
         this.price = price;
         this.stock = stock;
+        this.roomImages = roomImages;
+        this.roomReservations = roomReservations;
         accommodation.addRoom(this);
     }
 
@@ -96,6 +100,13 @@ public class Room extends BaseEntity {
             roomImages = new ArrayList<>();
         }
         roomImages.add(image);
+    }
+
+    public void addReservation(final RoomReservation roomReservation) {
+        if (Objects.isNull(roomReservations)) {
+            roomReservations = new ArrayList<>();
+        }
+        roomReservations.add(roomReservation);
     }
 
 }

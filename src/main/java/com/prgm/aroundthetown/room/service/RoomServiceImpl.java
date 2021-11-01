@@ -28,9 +28,9 @@ public class RoomServiceImpl implements RoomService {
     public ResponseCreateRoomDto saveRoom(final RequestCreateRoomDto requestCreateRoomDto, final Long productId) {
         final Accommodation accommodation = accommodationRepository.getById(productId);
         final Room room = roomRepository
-                .save(roomConverter.requestCreateRoomDtoToEntity(requestCreateRoomDto, accommodation));
+                .save(roomConverter.toEntity(requestCreateRoomDto, accommodation));
 
-        return roomConverter.entityToResponseCreateDto(room);
+        return roomConverter.toDto(room);
     }
 
     @Transactional
