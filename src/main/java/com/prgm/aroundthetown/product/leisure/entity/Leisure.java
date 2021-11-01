@@ -2,10 +2,7 @@ package com.prgm.aroundthetown.product.leisure.entity;
 
 import com.prgm.aroundthetown.product.Product;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -15,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "leisure")
 @DiscriminatorValue("leisure")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

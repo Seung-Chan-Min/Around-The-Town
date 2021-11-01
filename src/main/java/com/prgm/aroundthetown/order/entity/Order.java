@@ -3,6 +3,7 @@ package com.prgm.aroundthetown.order.entity;
 import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.member.entity.Member;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@SuperBuilder
 public class Order extends BaseTimeAndDeletedEntity {
 
     @Id
@@ -30,13 +32,6 @@ public class Order extends BaseTimeAndDeletedEntity {
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
-
-    @Builder
-    public Order(final int count, final Member member) {
-        this.count = count;
-        this.member = member;
-        member.addOrder(this);
-    }
 
     public void addOrderProduct(final OrderProduct orderProduct) {
         if (Objects.isNull(orderProducts)) {

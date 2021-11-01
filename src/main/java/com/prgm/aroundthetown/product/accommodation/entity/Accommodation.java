@@ -3,22 +3,19 @@ package com.prgm.aroundthetown.product.accommodation.entity;
 import com.prgm.aroundthetown.product.Product;
 import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.room.entity.Room;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "accommodation")
 @DiscriminatorValue("accommodation")
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
+@Getter
 public class Accommodation extends Product {
     // TODO :: service에서 연관관계 편의 메소드 추가
 
