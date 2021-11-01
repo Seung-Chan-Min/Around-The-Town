@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.Optional;
 import java.util.UUID;
+/*
 
 @Configuration
 @EnableJpaAuditing
@@ -17,3 +18,4 @@ public class SpringSecurityAuditorAware implements AuditorAware<String> {
     }
 
 }
+*/
