@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.host.dto;
 
-import com.prgm.aroundthetown.product.Product;
+import com.prgm.aroundthetown.product.entity.Product;
 import lombok.*;
 
 import java.util.List;

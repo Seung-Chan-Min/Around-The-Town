@@ -1,16 +1,13 @@
-package com.prgm.aroundthetown.review.repository;
+package com.prgm.aroundthetown.accommodation.repository;
 
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationOption;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationOptionCategory;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.member.entity.Member;
-import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.entity.Location;
 import com.prgm.aroundthetown.product.entity.Region;
-import com.prgm.aroundthetown.review.entity.Review;
-import com.prgm.aroundthetown.review.entity.ReviewImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,20 +20,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class ReviewImageRepositoryTest {
+class AccommodationOptionRepositoryTest {
 
     @Autowired
-    private ReviewImageRepository imageRepository;
-    @Autowired
-    private ReviewRepository reviewRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private HostRepository hostRepository;
+    private AccommodationOptionRepository optionRepository;
     @Autowired
     private AccommodationRepository accommodationRepository;
-
-    private Review savedReview;
+    @Autowired
+    private HostRepository hostRepository;
 
     @BeforeEach
     void setUp() {
@@ -46,13 +37,6 @@ class ReviewImageRepositoryTest {
                 .hostPhoneNumber("0106666")
                 .build();
         final Host savedHost = hostRepository.save(host);
-
-        final Member member = Member.builder()
-                .password("1234")
-                .phoneNumber("01012345678")
-                .email("@skfm")
-                .build();
-        final Member savedMember = memberRepository.save(member);
 
         final Accommodation accommodation = Accommodation.builder()
                 .host(savedHost)
@@ -69,31 +53,28 @@ class ReviewImageRepositoryTest {
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .build();
-        final Accommodation savedAccommodation = accommodationRepository.save(accommodation);
-
-        final Review review = Review.builder()
-                .content("content")
-                .score(4)
-                .member(savedMember)
-                .accommodation(savedAccommodation)
-                .build();
-        savedReview = reviewRepository.save(review);
+        accommodationRepository.save(accommodation);
     }
 
     @Test
-    @DisplayName("review image를 save 할 수 있다.")
+    @DisplayName("accommodation option를 save 할 수 있다.")
     @Transactional
-    void saveReviewTest() {
-        final ReviewImage reviewImage = ReviewImage.builder()
-                .IMAGE_PATH("path")
-                .review(savedReview)
+    void saveOptionTest() {
+        final Accommodation findedAccommodation = accommodationRepository.findAll().get(0);
+        final AccommodationOption option1 = AccommodationOption.builder()
+                .option(AccommodationOptionCategory.PARKING)
+                .accommodation(findedAccommodation)
                 .build();
-        imageRepository.save(reviewImage);
+        final AccommodationOption option2 = AccommodationOption.builder()
+                .option(AccommodationOptionCategory.NETFLIX)
+                .accommodation(findedAccommodation)
+                .build();
+        optionRepository.save(option2);
 
-        assertThat(imageRepository.findAll().size(), is(1));
+        assertThat(optionRepository.findAll().size(), is(2));
 
         // 연관관계 mapping
-        assertThat(reviewRepository.findAll().get(0).getReviewImages().size(), is(1));
+        assertThat(accommodationRepository.findAll().get(0).getOptions().size(), is(2));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.host.entity;
 
 import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
-import com.prgm.aroundthetown.product.Product;
+import com.prgm.aroundthetown.product.entity.Product;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

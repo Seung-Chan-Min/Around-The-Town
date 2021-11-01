@@ -1,17 +1,14 @@
-package com.prgm.aroundthetown.cart.repository;
+package com.prgm.aroundthetown.accommodation.repository;
 
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
-import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.member.entity.Member;
-import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.entity.Location;
 import com.prgm.aroundthetown.product.entity.Region;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,36 +19,31 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class CartRepositoryTest {
+class AccommodationRepositoryTest {
 
-    @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private HostRepository hostRepository;
     @Autowired
     private AccommodationRepository accommodationRepository;
+    @Autowired
+    private HostRepository hostRepository;
 
-    private Accommodation savedAccommodation;
-    private Member savedMember;
+    private Host savedHost;
+    private Accommodation findedAccommodation;
 
     @BeforeEach
     void setUp() {
-        final Member member = Member.builder()
-                .password("1234")
-                .phoneNumber("01012345678")
-                .email("@skfm")
-                .build();
-        savedMember = memberRepository.save(member);
-
         final Host host = Host.builder()
                 .hostName("name")
                 .hostEmail("email")
                 .hostPhoneNumber("0106666")
                 .build();
-        final Host savedHost = hostRepository.save(host);
+        savedHost = hostRepository.save(host);
+    }
 
+    @Test
+    @Order(1)
+    @DisplayName("accommodation을 수정할 수 있다.")
+    @Transactional
+    void accommodationUpdateTest() {
         final Accommodation accommodation = Accommodation.builder()
                 .host(savedHost)
                 .refundRule("rule")
@@ -67,24 +59,22 @@ class CartRepositoryTest {
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .build();
-        savedAccommodation = accommodationRepository.save(accommodation);
+        accommodationRepository.save(accommodation);
+        assertThat(accommodationRepository.findAll().size(), is(1));
 
-    }
+        findedAccommodation = accommodationRepository.findAll().get(0);
+        findedAccommodation.update(
+                "바뀐이름",
+                findedAccommodation.getAccommodationNotice(),
+                findedAccommodation.getOptionNotice(),
+                findedAccommodation.getAccommodationName(),
+                findedAccommodation.getAccommodationCategory());
+        accommodationRepository.save(findedAccommodation);
 
-    @Test
-    @DisplayName("장바구니(cart)가 save 될 수 있다.")
-    @Transactional
-    void cartSaveTest() {
-        final Cart cart = Cart.builder()
-                .product(savedAccommodation)
-                .member(savedMember)
-                .build();
-        cartRepository.save(cart);
-        assertThat(cartRepository.findAll().size(), is(1));
+        assertThat(accommodationRepository.findAll().get(0).getAccommodationName(), is("바뀐이름"));
 
         // 연관관계 mapping
-        assertThat(accommodationRepository.findAll().get(0).getCarts().size(), is(1));
-        assertThat(memberRepository.findAll().get(0).getCarts().size(), is(1));
+        assertThat(hostRepository.findAll().get(0).getProducts().size(), is(1));
     }
 
 }

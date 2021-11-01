@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.review.dto;
 
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.member.entity.Member;
-import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.review.entity.ReviewImage;
 import lombok.*;
 

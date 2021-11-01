@@ -4,7 +4,7 @@ import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
 import com.prgm.aroundthetown.cart.dto.CartFindByIdResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
-import com.prgm.aroundthetown.product.ProductRepository;
+import com.prgm.aroundthetown.product.entity.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
