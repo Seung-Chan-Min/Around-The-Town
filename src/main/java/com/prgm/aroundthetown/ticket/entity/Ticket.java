@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.ticket.entity;
 
 import com.prgm.aroundthetown.common.entity.BaseEntity;
-import com.prgm.aroundthetown.product.leisure.entity.Leisure;
+import com.prgm.aroundthetown.leisure.entity.Leisure;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,7 +32,8 @@ public class Ticket extends BaseEntity {
     private Leisure leisure;
 
     @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TicketImage> ticketImages;
+    // @Builder.Default // Todo
+    private List<TicketImage> ticketImages = new ArrayList<>();
 
     @Builder
     public Ticket(final String ticketName, final int price, final Leisure leisure) {

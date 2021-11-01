@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.wishlist.dto;
 
 import com.prgm.aroundthetown.member.entity.Member;
-import com.prgm.aroundthetown.product.Product;
+import com.prgm.aroundthetown.product.entity.Product;
 import lombok.*;
 
 @Getter
