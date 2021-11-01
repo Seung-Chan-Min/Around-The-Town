@@ -68,7 +68,6 @@ class WishListRepositoryTest {
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .build();
         savedAccommodation = accommodationRepository.save(accommodation);
-
     }
 
     @Test

@@ -18,12 +18,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RoomServiceImpl implements RoomService {
     private final AccommodationRepository accommodationRepository;
     private final RoomRepository roomRepository;
     private final RoomConverter roomConverter;
 
-    @Override
     @Transactional
     public ResponseCreateRoomDto saveRoom(final RequestCreateRoomDto requestCreateRoomDto, final Long productId) {
         final Accommodation accommodation = accommodationRepository.getById(productId);

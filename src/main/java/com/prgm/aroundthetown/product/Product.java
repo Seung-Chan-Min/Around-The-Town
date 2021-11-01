@@ -78,7 +78,7 @@ public class Product extends BaseEntity {
     }
 
     public void addWishList(final WishList wishList) {
-        if (Objects.isNull(wishList)) {
+        if (Objects.isNull(wishLists)) {
             wishLists = new ArrayList<>();
         }
         wishLists.add(wishList);

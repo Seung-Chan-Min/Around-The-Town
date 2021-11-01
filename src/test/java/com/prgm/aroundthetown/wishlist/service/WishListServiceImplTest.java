@@ -23,10 +23,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class WishListServiceTest {
+class WishListServiceImplTest {
 
     @Autowired
-    private WishListService wishListService;
+    private WishListServiceImpl wishListServiceImpl;
 
     @Autowired
     private WishListRepository wishListRepository;
@@ -98,7 +98,7 @@ class WishListServiceTest {
                 .build();
 
         // When
-        wishListService.createWishList(dto);
+        wishListServiceImpl.createWishList(dto);
 
         // Then
         assertThat(wishListRepository.findAll().size(), is(2));
@@ -108,7 +108,7 @@ class WishListServiceTest {
     @DisplayName("FindById를 할 수 있다.")
     @Transactional
     void testFindById() {
-        assertThat(wishListService.findById(savedWishListId).getMember().getPhoneNumber(), is("01011112222"));
+        assertThat(wishListServiceImpl.findById(savedWishListId).getMember().getPhoneNumber(), is("01011112222"));
     }
 
     @Test
@@ -116,7 +116,7 @@ class WishListServiceTest {
     @Transactional
     void testDeleteWishList() {
         assertThat(wishListRepository.findById(savedWishListId).get().getIsDeleted(), is(false));
-        wishListService.deleteWishList(savedWishListId);
+        wishListServiceImpl.deleteWishList(savedWishListId);
         assertThat(wishListRepository.findById(savedWishListId).get().getIsDeleted(), is(true));
     }
 }

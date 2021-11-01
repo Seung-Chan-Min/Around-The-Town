@@ -2,7 +2,7 @@ package com.prgm.aroundthetown.cart.controller;
 
 import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
 import com.prgm.aroundthetown.cart.dto.CartFindByIdResponseDto;
-import com.prgm.aroundthetown.cart.service.CartService;
+import com.prgm.aroundthetown.cart.service.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class CartController {
-    private final CartService service;
+    private final CartServiceImpl service;
 
     @PostMapping("/cart")
     public ResponseEntity<Long> createCart(

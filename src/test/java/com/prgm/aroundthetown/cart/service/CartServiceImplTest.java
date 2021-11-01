@@ -23,10 +23,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class CartServiceTest {
+class CartServiceImplTest {
 
     @Autowired
-    private CartService cartService;
+    private CartServiceImpl cartServiceImpl;
 
     @Autowired
     private CartRepository cartRepository;
@@ -99,7 +99,7 @@ class CartServiceTest {
                 .build();
 
         // When
-        cartService.createCart(dto);
+        cartServiceImpl.createCart(dto);
 
         // Then
         assertThat(cartRepository.findAll().size(), is(2));
@@ -109,7 +109,7 @@ class CartServiceTest {
     @DisplayName("FindById를 할 수 있다.")
     @Transactional
     void testFindById() {
-        assertThat(cartService.findById(savedCartId).getCartId(), is(savedCartId));
+        assertThat(cartServiceImpl.findById(savedCartId).getCartId(), is(savedCartId));
     }
 
     @Test
@@ -117,7 +117,7 @@ class CartServiceTest {
     @Transactional
     void testDeleteCart() {
         assertThat(cartRepository.findById(savedCartId).get().getIsDeleted(), is(false));
-        cartService.deleteCart(savedCartId);
+        cartServiceImpl.deleteCart(savedCartId);
         assertThat(cartRepository.findById(savedCartId).get().getIsDeleted(), is(true));
     }
 }
