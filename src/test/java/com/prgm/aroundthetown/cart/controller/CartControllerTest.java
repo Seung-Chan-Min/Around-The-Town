@@ -1,5 +1,6 @@
-package com.prgm.aroundthetown.cart.service;
+package com.prgm.aroundthetown.cart.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.cart.repository.CartRepository;
@@ -13,48 +14,56 @@ import com.prgm.aroundthetown.product.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.product.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.product.accommodation.repository.AccommodationRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@AutoConfigureMockMvc
 @SpringBootTest
-class CartServiceTest {
+class CartControllerTest {
 
     @Autowired
-    private CartService cartService;
-
+    private MockMvc mockMvc;
     @Autowired
-    private CartRepository cartRepository;
+    private ObjectMapper objectMapper;
+
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private CartRepository cartRepository;
     @Autowired
     private HostRepository hostRepository;
     @Autowired
     private AccommodationRepository accommodationRepository;
 
-    private Member savedMember;
+    private Member savedMember2;
     private Long savedAccommodationId;
-    private Long savedCartId;
+    private Accommodation savedAccommodation;
 
     @BeforeEach
     void setUp() {
-        final Member member = Member.builder()
+        final Member member1 = Member.builder()
+                .password("1234221")
+                .phoneNumber("2341")
+                .email("aaa@skfm")
+                .build();
+        final Member savedMember = memberRepository.save(member1);
+        final Member member2 = Member.builder()
                 .password("1234")
                 .phoneNumber("01012345678")
                 .email("@skfm")
                 .build();
-        savedMember = memberRepository.save(member);
-        final Member member2 = Member.builder()
-                .password("123456")
-                .phoneNumber("01011112222")
-                .email("asdf@skfm")
-                .build();
-        final Member savedMember2 = memberRepository.save(member2);
+        savedMember2 = memberRepository.save(member2);
 
         final Host host = Host.builder()
                 .hostName("name")
@@ -78,46 +87,54 @@ class CartServiceTest {
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .build();
-        final Accommodation savedAccommodation = accommodationRepository.save(accommodation);
+        savedAccommodation = accommodationRepository.save(accommodation);
         savedAccommodationId = savedAccommodation.getProductId();
 
         final Cart cart = Cart.builder()
                 .product(savedAccommodation)
-                .member(savedMember2)
+                .member(savedMember)
                 .build();
-        savedCartId = cartRepository.save(cart).getCartId();
+        cartRepository.save(cart);
     }
 
     @Test
-    @DisplayName("Create를 할 수 있다.")
     @Transactional
-    void testCreateCart() {
-        // Given
-        final CartCreateRequestDto dto = CartCreateRequestDto.builder()
+    void testCreateCart() throws Exception {
+        final CartCreateRequestDto createReq = CartCreateRequestDto.builder()
                 .productId(savedAccommodationId)
-                .memberId(savedMember.getId())
+                .memberId(savedMember2.getId())
                 .build();
 
-        // When
-        cartService.createCart(dto);
+        mockMvc.perform(post("/api/v1/cart")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(createReq)))
+                .andExpect(status().isCreated())
+                .andDo(print());
 
-        // Then
         assertThat(cartRepository.findAll().size(), is(2));
     }
 
     @Test
-    @DisplayName("FindById를 할 수 있다.")
     @Transactional
-    void testFindById() {
-        assertThat(cartService.findById(savedCartId).getCartId(), is(savedCartId));
+    void testFindById() throws Exception {
+        final Long req = cartRepository.findAll().get(0).getCartId();
+
+        mockMvc.perform(get("/api/v1/cart/{cartId}", req)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
-    @DisplayName("Delete를 할 수 있다.")
     @Transactional
-    void testDeleteCart() {
-        assertThat(cartRepository.findById(savedCartId).get().getIsDeleted(), is(false));
-        cartService.deleteCart(savedCartId);
-        assertThat(cartRepository.findById(savedCartId).get().getIsDeleted(), is(true));
+    void testDeleteCart() throws Exception {
+        final Long req = cartRepository.findAll().get(0).getCartId();
+
+        mockMvc.perform(delete("/api/v1/cart/{cartId}", req)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        assertThat(cartRepository.findAll().get(0).getIsDeleted(), is(true));
     }
 }

@@ -1,8 +1,8 @@
 package com.prgm.aroundthetown.cart.service;
 
 import com.prgm.aroundthetown.cart.converter.CartConverter;
-import com.prgm.aroundthetown.cart.dto.CartCreateDto;
-import com.prgm.aroundthetown.cart.dto.CartDto;
+import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
+import com.prgm.aroundthetown.cart.dto.CartFindByIdResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.cart.repository.CartRepository;
 import com.prgm.aroundthetown.common.exception.NotFoundException;
@@ -18,13 +18,13 @@ public class CartService {
     private final CartConverter converter;
 
     @Transactional
-    public Long createCart(final CartCreateDto dto) {
+    public Long createCart(final CartCreateRequestDto dto) {
         return repository.save(converter.toEntity(dto)).getCartId();
     }
 
-    public CartDto findById(final Long cartId) {
+    public CartFindByIdResponseDto findById(final Long cartId) {
         return repository.findById(cartId)
-                .map(converter::toDto)
+                .map(converter::toFindByIdDto)
                 .orElseThrow(() -> new NotFoundException("Cart is not found"));
     }
 

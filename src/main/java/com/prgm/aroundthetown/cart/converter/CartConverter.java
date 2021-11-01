@@ -1,24 +1,32 @@
 package com.prgm.aroundthetown.cart.converter;
 
-import com.prgm.aroundthetown.cart.dto.CartCreateDto;
-import com.prgm.aroundthetown.cart.dto.CartDto;
+import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
+import com.prgm.aroundthetown.cart.dto.CartFindByIdResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
+import com.prgm.aroundthetown.member.repository.MemberRepository;
+import com.prgm.aroundthetown.product.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CartConverter {
-    public CartDto toDto(final Cart entity) {
-        return CartDto.builder()
-                .cartId(entity.getCartId())
-                .product(entity.getProduct())
-                .member(entity.getMember())
+    private final ProductRepository productRepository;
+    private final MemberRepository memberRepository;
+
+    public Cart toEntity(final CartCreateRequestDto dto) {
+        return Cart.builder()
+                .product(productRepository.getById(dto.getProductId()))
+                .member(memberRepository.getById(dto.getMemberId()))
                 .build();
     }
 
-    public Cart toEntity(final CartCreateDto dto) {
-        return Cart.builder()
-                .product(dto.getProduct())
-                .member(dto.getMember())
+    public CartFindByIdResponseDto toFindByIdDto(final Cart entity) {
+        return CartFindByIdResponseDto.builder()
+                .cartId(entity.getCartId())
+                .productId(entity.getProduct().getProductId())
+                .memberId(entity.getMember().getId())
                 .build();
     }
+
 }
