@@ -9,11 +9,10 @@ import org.springframework.stereotype.Component;
 public class HostConverter {
     public HostDto toDto(final Host entity) {
         return HostDto.builder()
-                .id(entity.getId())
+                .hostId(entity.getId())
                 .hostName(entity.getHostName())
                 .hostEmail(entity.getHostEmail())
                 .hostPhoneNumber(entity.getHostPhoneNumber())
-                .products(entity.getProducts())
                 .build();
     }
 
