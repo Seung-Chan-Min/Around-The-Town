@@ -16,7 +16,6 @@ public class ProductConverter {
 
     public ProductDto accommodationToDto(final Accommodation accommodation) {
         final ProductDto productDto = toProductDtoIncludeLocation(accommodation);
-
         final AccommodationDto accommodationDto = AccommodationDto.builder()
                 .accommodationName(accommodation.getAccommodationName())
                 .accommodationCategory(accommodation.getAccommodationCategory())
