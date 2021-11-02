@@ -18,4 +18,9 @@ public class HostController {
     public Long saveHost(@RequestBody HostCreateRequestDto hostCreateRequestDto){
         return hostService.createHost(hostCreateRequestDto);
     }
+
+    @GetMapping("/hosts/{hostId}")
+    public void getAccommodations(@PathVariable Long hostId){
+
+    }
 }

@@ -55,18 +55,18 @@ public class RoomServiceImpl implements RoomService {
         }
     }
 
-//    @Transactional
-//    @Scheduled(cron = "0 0 0 * * *")
-//    public void updateRemainsRoom() {//매일 12시 마다 보유한 방들을 현재시간을 기준으로 90일동안만 관리한다.
-//        roomRepository.findAll().forEach(room -> {
-//            final List<RoomReservation> roomReservations = room.getRoomReservations();
-//            roomReservations.remove(0);
-//            roomReservations.add(RoomReservation.builder()
-//                    .room(room)
-//                    .remains(room.getStock())
-//                    .dates(LocalDateTime.now())
-//                    .build());
-//            roomRepository.save(room);
-//        });
-//    }
+    @Transactional
+    @Scheduled(cron = "0 0 0 * * *")
+    public void updateRemainsRoom() {//매일 12시 마다 보유한 방들을 현재시간을 기준으로 90일동안만 관리한다.
+        roomRepository.findAll().forEach(room -> {
+            final List<RoomReservation> roomReservations = room.getRoomReservations();
+            roomReservations.remove(0);
+            roomReservations.add(RoomReservation.builder()
+                    .room(room)
+                    .remains(room.getStock())
+                    .dates(LocalDateTime.now())
+                    .build());
+            roomRepository.save(room);
+        });
+    }
 }

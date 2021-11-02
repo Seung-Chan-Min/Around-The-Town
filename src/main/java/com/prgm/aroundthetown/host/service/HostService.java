@@ -9,4 +9,5 @@ public interface HostService {
     Long updateHost(final HostUpdateRequestDto dto);
 
     void deleteHost(final Long hostId);
+
 }

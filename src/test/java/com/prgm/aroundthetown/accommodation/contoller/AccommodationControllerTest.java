@@ -9,22 +9,24 @@ import com.prgm.aroundthetown.product.vo.Region;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.product.vo.Location;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
+@TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
 class AccommodationControllerTest {
 
     @Autowired
@@ -36,12 +38,9 @@ class AccommodationControllerTest {
     @Autowired
     private HostRepository hostRepository;
 
-    @Autowired
-    private AccommodationConverter accommodationConverter;
-
     Host host;
 
-    @BeforeEach
+    @BeforeAll
     void setUp() throws Exception {
         host = Host.builder()
                 .hostName("강민희")
@@ -54,11 +53,14 @@ class AccommodationControllerTest {
     @Test
     @DisplayName("사장님이 숙소(Accommodation)를 등록할 수 있다.")
     @Transactional
+    @Rollback(value = false)
+    @Order(1)
     void saveAccommodation() throws Exception {
         //given
         AccommodationCreateRequestDto accommodationCreateRequestDto = AccommodationCreateRequestDto.builder()
                 .accommodationName("숙박업체 이름")
                 .accommodationNotice("숙박업체 공지")
+                .optionNotice("옵션 공지")
                 .optionNotice("optionNotice")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.HOTEL)
@@ -87,6 +89,20 @@ class AccommodationControllerTest {
 
     }
 
+    @Test
+    @DisplayName("사장님이 보유한 숙박업체를 조회할 수 있다.")
+    @Rollback(value = false)
+    @Transactional
+    @Order(2)
+    void getAccommodationByHostId() throws Exception {
+        //given
+        //when
+        //then
+        mockMvc.perform(get("/api/v1/hosts/{hostId}/accommodations", host.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
 
     //등록된 숙소들중 지역과 카테고리에 맞는 정보만 가져올 수 있다.
 

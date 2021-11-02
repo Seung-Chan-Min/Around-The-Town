@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.accommodation.service;
 
+import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.accommodation.common.AccommodationConverter;
@@ -12,6 +13,8 @@ import com.prgm.aroundthetown.product.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -34,6 +37,12 @@ public class AccommodationServiceImpl implements AccommodationService{
         Accommodation accommodation = accommodationRepository.getById(retrievedProduct.getProductId());
 
         return accommodationConverter.entityToResponseAccommodationCreateDto(accommodation);
+    }
+
+    @Override
+    public List<AccommodationResponseDto> geAccommodationByHostId(Long hostId) {
+        return accommodationConverter.AccommodationEntityToResponseDto
+                (accommodationRepository.getAccommodationsByHostId(hostId));
     }
 
 }

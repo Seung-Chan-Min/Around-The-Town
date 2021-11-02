@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.accommodation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.room.entity.Room;
@@ -37,7 +38,7 @@ public class Accommodation extends Product {
     private String guide;
 
     @Column(name = "category")
-    @Convert(converter = AccommodationCategoryConverter.class)
+//    @Convert(converter = AccommodationCategoryConverter.class)
     private AccommodationCategory accommodationCategory;
 
     @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

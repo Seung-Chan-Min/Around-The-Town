@@ -1,6 +1,7 @@
 package com.prgm.aroundthetown.accommodation.common;
 
 
+import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
@@ -9,6 +10,10 @@ import com.prgm.aroundthetown.product.dto.LocationDTO;
 import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.product.vo.Location;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class AccommodationConverter {
@@ -27,7 +32,7 @@ public class AccommodationConverter {
                 .refundRule(createDto.getRefundRule())
                 .location(
                         locationDtoToEntity(
-                        createDto.getLocation()))
+                                createDto.getLocation()))
                 .phoneNumber(createDto.getPhoneNumber())
                 .businessRegistrationNumber(createDto.getBusinessRegistrationNumber())
                 .businessAddress(createDto.getBusinessAddress())
@@ -54,4 +59,17 @@ public class AccommodationConverter {
                 .build();
     }
 
+    public List<AccommodationResponseDto> AccommodationEntityToResponseDto(
+            List<Accommodation> accommodations
+    ) {
+        return accommodations
+                .stream()
+                .map(accommodation -> AccommodationResponseDto.builder()
+                        .accommodationName(accommodation.getAccommodationName())
+                        .accommodationCategory(accommodation.getAccommodationCategory())
+                        .accommodationNotice(accommodation.getAccommodationNotice())
+                        .guide(accommodation.getGuide())
+                        .build())
+                .collect(Collectors.toList());
+    }
 }

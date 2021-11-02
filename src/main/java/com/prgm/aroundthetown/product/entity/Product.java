@@ -6,9 +6,11 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.order.entity.OrderProduct;
 import com.prgm.aroundthetown.product.vo.Location;
 import com.prgm.aroundthetown.product.vo.Region;
-import com.prgm.aroundthetown.product.RegionConverter;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -55,7 +57,7 @@ public class Product extends BaseEntity {
     private String businessName;
 
     @Column(name = "region")
-    @Convert(converter = RegionConverter.class)
+//    @Convert(converter = RegionConverter.class)
     private Region region;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
