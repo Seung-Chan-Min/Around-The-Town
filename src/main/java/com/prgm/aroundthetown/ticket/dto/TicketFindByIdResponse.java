@@ -13,6 +13,5 @@ import lombok.NoArgsConstructor;
 public class TicketFindByIdResponse {
     private Long id;
     private String ticketName;
-    private int price;
-    private Long leisureId;
+    private Integer price;
 }

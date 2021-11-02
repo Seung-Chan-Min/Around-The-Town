@@ -13,6 +13,5 @@ import lombok.NoArgsConstructor;
 public class TicketUpdateRequest {
     private Long id;
     private String ticketName;
-    private int price;
-    private Long leisureId;
+    private Integer price;
 }
