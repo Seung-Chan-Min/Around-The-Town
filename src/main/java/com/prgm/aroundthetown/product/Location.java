@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.vo;
+package com.prgm.aroundthetown.product;
 
 import lombok.*;
 
@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
 @Embeddable
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @EqualsAndHashCode

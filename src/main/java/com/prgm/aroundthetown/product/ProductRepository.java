@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.repository;
+package com.prgm.aroundthetown.product;
 
 import com.prgm.aroundthetown.product.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

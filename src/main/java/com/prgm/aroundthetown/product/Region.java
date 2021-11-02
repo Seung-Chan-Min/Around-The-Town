@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.vo;
+package com.prgm.aroundthetown.product;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
