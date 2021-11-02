@@ -1,11 +1,9 @@
 package com.prgm.aroundthetown.leisure.dto;
 
+import com.prgm.aroundthetown.leisure.entity.LeisureCategory;
+import lombok.*;
+
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -17,5 +15,5 @@ public class LeisureCreateResponse {
     private String usecase;
     private String leisureNotice;
     private LocalDateTime expirationDate;
-    private String category;
+    private LeisureCategory category;
 }

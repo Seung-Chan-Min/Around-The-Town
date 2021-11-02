@@ -5,11 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RequestCreateRoomDto {
+@Getter
+public class RoomCreateRequestDto {
     private String roomName;
     private String reservationNotice;
     private String roomInformation;

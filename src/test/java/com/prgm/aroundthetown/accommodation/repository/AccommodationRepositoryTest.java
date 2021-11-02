@@ -1,18 +1,18 @@
-package com.prgm.aroundthetown.product.accommodation.repository;
+package com.prgm.aroundthetown.accommodation.repository;
 
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.product.entity.Location;
-import com.prgm.aroundthetown.product.entity.Region;
+import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.Region;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
@@ -24,10 +24,12 @@ class AccommodationRepositoryTest {
 
     @Autowired
     private AccommodationRepository accommodationRepository;
+
     @Autowired
     private HostRepository hostRepository;
 
     private Host savedHost;
+
     private Accommodation findedAccommodation;
 
     @BeforeEach
@@ -44,6 +46,7 @@ class AccommodationRepositoryTest {
     @Order(1)
     @DisplayName("accommodation을 수정할 수 있다.")
     @Transactional
+    @Rollback(value = false)
     void accommodationUpdateTest() {
         final Accommodation accommodation = Accommodation.builder()
                 .host(savedHost)
@@ -73,9 +76,6 @@ class AccommodationRepositoryTest {
         accommodationRepository.save(findedAccommodation);
 
         assertThat(accommodationRepository.findAll().get(0).getAccommodationName(), is("바뀐이름"));
-
-        // 연관관계 mapping
-        assertThat(hostRepository.findAll().get(0).getProducts().size(), is(1));
     }
 
 }

@@ -2,6 +2,7 @@ package com.prgm.aroundthetown.accommodation.entity;
 
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@SuperBuilder
 public class AccommodationOption extends BaseEntity {
 
     @Id
@@ -32,5 +34,4 @@ public class AccommodationOption extends BaseEntity {
         this.accommodation = accommodation;
         accommodation.addOption(this);
     }
-
 }

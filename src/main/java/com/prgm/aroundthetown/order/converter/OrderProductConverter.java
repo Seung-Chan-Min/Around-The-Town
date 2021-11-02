@@ -3,7 +3,7 @@ package com.prgm.aroundthetown.order.converter;
 import com.prgm.aroundthetown.order.dto.OrderProductCreateRequestDto;
 import com.prgm.aroundthetown.order.entity.OrderProduct;
 import com.prgm.aroundthetown.order.repository.OrderRepository;
-import com.prgm.aroundthetown.product.entity.ProductRepository;
+import com.prgm.aroundthetown.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

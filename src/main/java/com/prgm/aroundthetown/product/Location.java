@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.entity;
+package com.prgm.aroundthetown.product;
 
 import lombok.*;
 
@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
-@Getter
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

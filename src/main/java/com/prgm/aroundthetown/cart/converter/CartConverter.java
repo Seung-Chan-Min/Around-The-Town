@@ -7,8 +7,8 @@ import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.member.converter.MemberConverter;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
+import com.prgm.aroundthetown.product.ProductRepository;
 import com.prgm.aroundthetown.product.converter.ProductConverter;
-import com.prgm.aroundthetown.product.entity.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

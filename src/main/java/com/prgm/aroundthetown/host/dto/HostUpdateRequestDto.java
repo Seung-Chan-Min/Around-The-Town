@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class HostUpdateDto {
+public class HostUpdateRequestDto {
     private Long id;
     private String hostName;
     private String hostEmail;

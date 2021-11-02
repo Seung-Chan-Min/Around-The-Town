@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ProductConverter {
-//    private final ProductRepository productRepository;
 
     public ProductDto accommodationToDto(final Accommodation accommodation) {
         final ProductDto productDto = toProductDtoIncludeLocation(accommodation);
@@ -38,7 +37,7 @@ public class ProductConverter {
 
         final LeisureDto leisureDto = LeisureDto.builder()
                 .category(leisure.getCategory())
-                .leisureInfomation(leisure.getLeisureInfomation())
+                .leisureInfomation(leisure.getLeisureInformation())
                 .usecase(leisure.getUsecase())
                 .leisureNotice(leisure.getLeisureNotice())
                 .expirationDate(leisure.getExpirationDate())

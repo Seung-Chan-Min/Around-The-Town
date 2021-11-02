@@ -27,7 +27,6 @@ public class Order extends BaseTimeAndDeletedEntity {
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
-//    private Map<OrderProduct, Integer> orderProducts = new HashMap<>();
 
     @Builder
     public Order(final Member member) {

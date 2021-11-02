@@ -1,14 +1,8 @@
-package com.prgm.aroundthetown.product.leisure.entity;
+package com.prgm.aroundthetown.leisure.entity;
 
-import com.prgm.aroundthetown.leisure.dto.LeisureUpdateRequest;
-import com.prgm.aroundthetown.product.dto.LocationRequest;
 import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -16,8 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 @Getter
 @Entity
@@ -48,7 +40,6 @@ public class Leisure extends Product {
 
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
-//    @Convert(converter = LeisureCategoryConverter.class)
     private LeisureCategory category;
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -62,20 +53,20 @@ public class Leisure extends Product {
         tickets.add(ticket);
     }
 
-    public Leisure update(Leisure leisure) {
+    public Leisure update(final Leisure leisure) {
         this.leisureInformation = leisure.getLeisureInformation();
         this.usecase = leisure.getUsecase();
         this.leisureNotice = leisure.getLeisureNotice();
         this.expirationDate = leisure.getExpirationDate();
         this.category = leisure.getCategory();
         super.update(
-            leisure.getRefundRule(),
-            leisure.getPhoneNumber(),
-            leisure.getBusinessRegistrationNumber(),
-            leisure.getBusinessAddress(),
-            leisure.getBusinessName(),
-            leisure.getRegion(),
-            leisure.getLocation());
+                leisure.getRefundRule(),
+                leisure.getPhoneNumber(),
+                leisure.getBusinessRegistrationNumber(),
+                leisure.getBusinessAddress(),
+                leisure.getBusinessName(),
+                leisure.getRegion(),
+                leisure.getLocation());
         return this;
     }
 }

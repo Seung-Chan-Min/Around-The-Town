@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.product.entity;
+package com.prgm.aroundthetown.product;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -20,6 +20,7 @@ public enum Region {
 
     @JsonValue
     private final String regionName;
+
     private final List<String> subRegion;
 
     Region(final String regionName, final List<String> subRegion) {

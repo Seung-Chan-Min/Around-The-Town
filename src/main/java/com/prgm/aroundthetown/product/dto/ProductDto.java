@@ -2,7 +2,7 @@ package com.prgm.aroundthetown.product.dto;
 
 import com.prgm.aroundthetown.accommodation.dto.AccommodationDto;
 import com.prgm.aroundthetown.leisure.dto.LeisureDto;
-import com.prgm.aroundthetown.product.entity.Region;
+import com.prgm.aroundthetown.product.Region;
 import lombok.*;
 
 @Data

@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.host.service;
 
-import com.prgm.aroundthetown.host.dto.HostCreateDto;
-import com.prgm.aroundthetown.host.dto.HostUpdateDto;
+import com.prgm.aroundthetown.host.dto.HostCreateRequestDto;
+import com.prgm.aroundthetown.host.dto.HostUpdateRequestDto;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,10 +16,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class HostServiceImplTest {
+class HostServiceTest {
 
     @Autowired
-    private HostServiceImpl hostServiceImpl;
+    private HostServiceImpl hostService;
     @Autowired
     private HostRepository hostRepository;
 
@@ -40,14 +40,14 @@ class HostServiceImplTest {
     @Transactional
     void testCreate() {
         // Given
-        final HostCreateDto dto = HostCreateDto.builder()
+        final HostCreateRequestDto dto = HostCreateRequestDto.builder()
                 .hostName("최승은")
                 .hostEmail("g787@naver.com")
                 .hostPhoneNumber("01012345678")
                 .build();
 
         // When
-        hostServiceImpl.createHost(dto);
+        hostService.createHost(dto);
 
         // Then
         assertThat(hostRepository.findAll().size(), is(2));
@@ -58,7 +58,7 @@ class HostServiceImplTest {
     @DisplayName("FindById를 할 수 있다.")
     @Transactional
     void testFindById() {
-        assertThat(hostServiceImpl.findById(setupHostId).getHostName(), is("관리자"));
+        assertThat(hostService.findById(setupHostId).getHostName(), is("관리자"));
     }
 
     @Test
@@ -66,7 +66,7 @@ class HostServiceImplTest {
     @Transactional
     void testUpdate() {
         // Given
-        final HostUpdateDto dto = HostUpdateDto.builder()
+        final HostUpdateRequestDto dto = HostUpdateRequestDto.builder()
                 .id(setupHostId)
                 .hostName("바뀐이름")
                 .hostEmail("g787@naver.com")
@@ -74,7 +74,7 @@ class HostServiceImplTest {
                 .build();
 
         // When
-        hostServiceImpl.updateHost(dto);
+        hostService.updateHost(dto);
 
         // Then
         final Host updatedEntity = hostRepository.findAll().get(0);
@@ -87,7 +87,7 @@ class HostServiceImplTest {
     @Transactional
     void testDelete() {
         assertThat(hostRepository.findById(setupHostId).get().getIsDeleted(), is(false));
-        hostServiceImpl.deleteHost(setupHostId);
+        hostService.deleteHost(setupHostId);
         assertThat(hostRepository.findById(setupHostId).get().getIsDeleted(), is(true));
     }
 }

@@ -17,7 +17,6 @@ public class ReviewConverter {
                 .score(entity.getScore())
                 .member(entity.getMember())
                 .accommodation(entity.getAccommodation())
-                .reviewImages(entity.getReviewImages())
                 .build();
     }
 
