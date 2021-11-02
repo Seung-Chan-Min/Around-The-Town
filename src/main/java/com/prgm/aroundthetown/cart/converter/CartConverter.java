@@ -10,12 +10,10 @@ import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.converter.ProductConverter;
 import com.prgm.aroundthetown.product.entity.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class CartConverter {
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;

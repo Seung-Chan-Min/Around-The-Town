@@ -26,10 +26,14 @@ public class OrderProduct extends BaseTimeAndDeletedEntity {
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     private Product product;
 
+    @Column(name = "count")
+    private int count;
+
     @Builder
-    public OrderProduct(final Order order, final Product product) {
+    public OrderProduct(final Order order, final Product product, final int count) {
         this.order = order;
         this.product = product;
+        this.count = count;
         order.addOrderProduct(this);
         product.addOrderProduct(this);
     }

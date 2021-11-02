@@ -80,12 +80,12 @@ class ReviewRepositoryTest {
                 .member(savedMember)
                 .accommodation(savedAccommodation)
                 .build();
-        reviewRepository.save(review);
+        final Long reviewId = reviewRepository.save(review).getReviewId();
 
         assertThat(reviewRepository.findAll().size(), is(1));
 
         // 연관관계 mapping
-        assertThat(memberRepository.findAll().get(0).getReviews().size(), is(1));
-        assertThat(accommodationRepository.findAll().get(0).getReviews().size(), is(1));
+        assertThat(memberRepository.findAll().get(0).getReviews().get(0).getReviewId(), is(reviewId));
+        assertThat(accommodationRepository.findAll().get(0).getReviews().get(0).getReviewId(), is(reviewId));
     }
 }

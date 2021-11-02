@@ -49,7 +49,6 @@ class OrderProductRepositoryTest {
                 .build();
         final Member savedMember = memberRepository.save(member);
         final Order order = Order.builder()
-                .count(10)
                 .member(savedMember)
                 .build();
         savedOrder = orderRepository.save(order);
