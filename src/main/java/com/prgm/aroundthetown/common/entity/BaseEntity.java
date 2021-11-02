@@ -13,6 +13,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
 @Getter
+@SuperBuilder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @SuperBuilder

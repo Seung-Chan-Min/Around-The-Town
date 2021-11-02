@@ -1,12 +1,11 @@
-package com.prgm.aroundthetown.product.leisure.repository;
+package com.prgm.aroundthetown.leisure.repository;
 
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.leisure.entity.Leisure;
-import com.prgm.aroundthetown.leisure.entity.LeisureCategory;
-import com.prgm.aroundthetown.leisure.repository.LeisureRepository;
 import com.prgm.aroundthetown.product.entity.Location;
 import com.prgm.aroundthetown.product.entity.Region;
+import com.prgm.aroundthetown.leisure.entity.Leisure;
+import com.prgm.aroundthetown.leisure.entity.LeisureCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,7 +51,7 @@ class LeisureRepositoryTest {
                 .businessAddress("address")
                 .businessName("namebu")
                 .region(Region.SEOUL)
-                .leisureInfomation("info")
+                .leisureInformation("info")
                 .usecase("usecase")
                 .leisureNotice("notice")
                 .expirationDate(LocalDateTime.now())
@@ -61,8 +60,5 @@ class LeisureRepositoryTest {
         leisureRepository.save(leisure);
 
         assertThat(leisureRepository.findAll().size(), is(1));
-
-        // 연관관계 mapping
-        assertThat(hostRepository.findAll().get(0).getProducts().size(), is(1));
     }
 }

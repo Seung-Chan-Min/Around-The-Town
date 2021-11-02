@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
+@Getter
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

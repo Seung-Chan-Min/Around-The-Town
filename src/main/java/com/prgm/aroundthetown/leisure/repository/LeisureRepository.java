@@ -4,4 +4,5 @@ import com.prgm.aroundthetown.leisure.entity.Leisure;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LeisureRepository extends JpaRepository<Leisure, Long> {
+
 }
