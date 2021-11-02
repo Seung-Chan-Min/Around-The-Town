@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Getter
-public class RequestCreateRoomDto {
+public class RoomCreateRequestDto {
     private String roomName;
     private String reservationNotice;
     private String roomInformation;

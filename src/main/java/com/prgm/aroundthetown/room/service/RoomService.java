@@ -1,8 +1,8 @@
 package com.prgm.aroundthetown.room.service;
 
-import com.prgm.aroundthetown.room.dto.RequestCreateRoomDto;
-import com.prgm.aroundthetown.room.dto.ResponseCreateRoomDto;
+import com.prgm.aroundthetown.room.dto.RoomCreateRequestDto;
+import com.prgm.aroundthetown.room.dto.RoomCreateResponseDto;
 
 public interface RoomService {
-    ResponseCreateRoomDto saveRoom(RequestCreateRoomDto requestCreateRoomDto, Long productId);
+    RoomCreateResponseDto saveRoom(RoomCreateRequestDto requestCreateRoomDto, Long productId);
 }

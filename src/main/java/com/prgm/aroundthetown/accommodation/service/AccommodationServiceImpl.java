@@ -11,9 +11,11 @@ import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.product.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
+@Transactional(readOnly = true)
 public class AccommodationServiceImpl implements AccommodationService{
     private final ProductRepository productRepository;
 
@@ -24,6 +26,7 @@ public class AccommodationServiceImpl implements AccommodationService{
     private final AccommodationConverter accommodationConverter;
 
     @Override
+    @Transactional
     public AccommodationCreateResponseDto save(AccommodationCreateRequestDto accommodationCreateDto) {
         Host host = hostRepository.getById(accommodationCreateDto.getHostId()); //login 대체제
         Product retrievedProduct = productRepository

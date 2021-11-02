@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResponseCreateRoomDto {
+public class RoomCreateResponseDto {
     String roomName;
 }
