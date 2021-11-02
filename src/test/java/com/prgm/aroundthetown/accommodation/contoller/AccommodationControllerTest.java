@@ -1,14 +1,12 @@
 package com.prgm.aroundthetown.accommodation.contoller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prgm.aroundthetown.accommodation.common.AccommodationConverter;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.dto.LocationDTO;
 import com.prgm.aroundthetown.product.vo.Region;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
-import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.product.vo.Location;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,8 +16,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -75,7 +73,7 @@ class AccommodationControllerTest {
                 .phoneNumber("01022223333")
                 .businessRegistrationNumber("192293293847")
                 .businessAddress("경기도 용인시 죽전동")
-                .region(Region.SEOUL)
+                .region(Region.GYEONGGI)
                 .hostId(host.getId())
                 .build();
 
@@ -104,8 +102,22 @@ class AccommodationControllerTest {
                 .andDo(print());
     }
 
-    //등록된 숙소들중 지역과 카테고리에 맞는 정보만 가져올 수 있다.
-
+    @Test
+    @DisplayName("등록된 숙소들중 지역과 카테고리에 맞는 정보만 가져올 수 있다.")
+    @Rollback(value = false)
+    @Transactional
+    @Order(3)
+    void getAccommodationByCategoryAndRegion() throws Exception {
+        //given
+        //when
+        //then
+        mockMvc.perform(get("/api/v1/accommodations")
+                        .param("category", String.valueOf(AccommodationCategory.HOTEL))
+                        .param("region", String.valueOf(Region.GYEONGGI))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
     //등록된 전체 숙박업체 정보를 조회할 수 있다.
 
 

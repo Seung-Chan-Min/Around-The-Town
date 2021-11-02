@@ -3,7 +3,10 @@ package com.prgm.aroundthetown.accommodation.contoller;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.service.AccommodationService;
+import com.prgm.aroundthetown.product.vo.Region;
+import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,11 +32,20 @@ public class AccommodationController {
     }
 
     @GetMapping("/hosts/{hostId}/accommodations")
-    public ResponseEntity<List<AccommodationResponseDto>> getAccommodations(
+    public ResponseEntity<List<AccommodationResponseDto>> getAccommodationsByHostId(
             @PathVariable Long hostId
     ){
         List<AccommodationResponseDto> accommodationResponses = accommodationService.geAccommodationByHostId(hostId);
         return ResponseEntity.ok(accommodationResponses);
+    }
+
+    @GetMapping("/accommodations")
+    public ResponseEntity<List<AccommodationResponseDto>> getAccommodationsByCategoryAndRegion(
+            @RequestParam AccommodationCategory category,
+            @RequestParam Region region
+    ){
+        List<AccommodationResponseDto> response = accommodationService.getAccommodationsByCategoryAndRegion(category, region);
+        return ResponseEntity.ok(response);
     }
 
 }
