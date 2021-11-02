@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
@@ -26,4 +28,14 @@ public class RoomController {
         RoomCreateResponseDto response = roomService.saveRoom(roomCreateDto, productId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @GetMapping("/hosts/{hostId}/accommodations/{accommodationId}")
+    public void getRoomsByCheckinAndCheckOut(
+            @PathVariable Long hostId,
+            @PathVariable Long accommodationId
+
+    ){
+
+    }
+
 }

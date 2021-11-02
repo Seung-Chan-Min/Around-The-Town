@@ -42,6 +42,12 @@ public class AccommodationServiceImpl implements AccommodationService{
     }
 
     @Override
+    public List<AccommodationResponseDto> getAccommodations() {
+        return accommodationConverter.AccommodationEntityToResponseDto
+                (accommodationRepository.findAll());
+    }
+
+    @Override
     public List<AccommodationResponseDto> geAccommodationByHostId(Long hostId) {
         return accommodationConverter.AccommodationEntityToResponseDto
                 (accommodationRepository.getAccommodationsByHostId(hostId));

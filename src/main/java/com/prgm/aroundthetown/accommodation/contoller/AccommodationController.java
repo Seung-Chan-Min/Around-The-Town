@@ -6,9 +6,7 @@ import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.service.AccommodationService;
 import com.prgm.aroundthetown.product.vo.Region;
-import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
-@Slf4j
 public class AccommodationController {
 
     private final AccommodationService accommodationService;
@@ -29,6 +26,12 @@ public class AccommodationController {
     ) {
         AccommodationCreateResponseDto response = accommodationService.save(accommodationCreateDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/accommodation-all")
+    public ResponseEntity<List<AccommodationResponseDto>> getAccommodations(){
+        List<AccommodationResponseDto> accommodationResponses = accommodationService.getAccommodations();
+        return ResponseEntity.ok(accommodationResponses);
     }
 
     @GetMapping("/hosts/{hostId}/accommodations")

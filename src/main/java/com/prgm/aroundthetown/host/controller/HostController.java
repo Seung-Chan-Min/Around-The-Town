@@ -19,8 +19,4 @@ public class HostController {
         return hostService.createHost(hostCreateRequestDto);
     }
 
-    @GetMapping("/hosts/{hostId}")
-    public void getAccommodations(@PathVariable Long hostId){
-
-    }
 }

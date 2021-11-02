@@ -118,7 +118,23 @@ class AccommodationControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
-    //등록된 전체 숙박업체 정보를 조회할 수 있다.
+
+    @Test
+    @DisplayName("등록된 숙소들중 지역과 카테고리에 맞는 정보만 가져올 수 있다.")
+    @Rollback(value = false)
+    @Transactional
+    @Order(4)
+    void getAccommodations() throws Exception {
+        //given
+        //when
+        //then
+        mockMvc.perform(get("/api/v1/accommodation-all")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+
 
 
 }
