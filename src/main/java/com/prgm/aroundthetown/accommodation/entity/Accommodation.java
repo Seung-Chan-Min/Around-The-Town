@@ -1,15 +1,10 @@
 package com.prgm.aroundthetown.accommodation.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.room.entity.Room;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.*;
@@ -38,7 +33,7 @@ public class Accommodation extends Product {
     private String guide;
 
     @Column(name = "category")
-//    @Convert(converter = AccommodationCategoryConverter.class)
+    @Enumerated(value = EnumType.STRING)
     private AccommodationCategory accommodationCategory;
 
     @OneToMany(mappedBy = "accommodation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -92,18 +87,5 @@ public class Accommodation extends Product {
         this.guide = guide;
         this.accommodationCategory = accommodationCategory;
         return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Accommodation that = (Accommodation) o;
-        return getProductId() != null && Objects.equals(getProductId(), that.getProductId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }

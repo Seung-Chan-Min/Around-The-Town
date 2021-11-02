@@ -1,17 +1,15 @@
-package com.prgm.aroundthetown.accommodation.common;
+package com.prgm.aroundthetown.accommodation.converter;
 
-
-import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
-import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.product.dto.LocationDTO;
+import com.prgm.aroundthetown.host.entity.Host;
+import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.dto.LocationDto;
 import com.prgm.aroundthetown.product.entity.Product;
-import com.prgm.aroundthetown.product.vo.Location;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,8 +17,8 @@ import java.util.stream.Collectors;
 public class AccommodationConverter {
 
     public Product createDtoToEntity(
-            AccommodationCreateRequestDto createDto
-            , Host host
+            final AccommodationCreateRequestDto createDto
+            , final Host host
     ) {
         return Accommodation.builder()
                 .accommodationName(createDto.getAccommodationName())
@@ -41,7 +39,7 @@ public class AccommodationConverter {
                 .build();
     }
 
-    public Location locationDtoToEntity(LocationDTO location) {
+    public Location locationDtoToEntity(final LocationDto location) {
         return Location.builder()
                 .content(location.getContent())
                 .howToVisit(location.getHowToVisit())
@@ -51,7 +49,7 @@ public class AccommodationConverter {
     }
 
     public AccommodationCreateResponseDto entityToResponseAccommodationCreateDto(
-            Accommodation accommodation
+            final Accommodation accommodation
     ) {
         return AccommodationCreateResponseDto.builder()
                 .businessName(accommodation.getBusinessName())
@@ -60,7 +58,7 @@ public class AccommodationConverter {
     }
 
     public List<AccommodationResponseDto> AccommodationEntityToResponseDto(
-            List<Accommodation> accommodations
+            final List<Accommodation> accommodations
     ) {
         return accommodations
                 .stream()

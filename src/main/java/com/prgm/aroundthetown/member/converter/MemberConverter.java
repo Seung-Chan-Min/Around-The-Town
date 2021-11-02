@@ -9,14 +9,10 @@ import org.springframework.stereotype.Component;
 public class MemberConverter {
     public MemberDto toDto(final Member entity) {
         return MemberDto.builder()
-                .id(entity.getId())
+                .memberId(entity.getId())
                 .password(entity.getPassword())
                 .phoneNumber(entity.getPhoneNumber())
                 .email(entity.getEmail())
-                .carts(entity.getCarts())
-                .wishLists(entity.getWishLists())
-                .reviews(entity.getReviews())
-                .orders(entity.getOrders())
                 .build();
     }
 

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,7 +43,12 @@ public class RoomServiceImpl implements RoomService {
         return roomConverter.entityToResponseCreateDto(room);
     }
 
-    public void initRoomRemains(final int maxStock, Room room) {
+    @Override
+    public void getRoomsByCheckinAndCheckOut() {
+
+    }
+
+    public void initRoomRemains(final int maxStock, final Room room) {
         for (int i = 0; i < 90; i++) {
             final RoomReservation roomReservation = RoomReservation.builder()
                     .dates(LocalDateTime.now().plusDays(i))

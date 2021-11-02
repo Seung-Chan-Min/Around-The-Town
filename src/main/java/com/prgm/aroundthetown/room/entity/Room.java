@@ -1,8 +1,11 @@
 package com.prgm.aroundthetown.room.entity;
 
-import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import lombok.*;
+import com.prgm.aroundthetown.common.entity.BaseEntity;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -61,6 +64,13 @@ public class Room extends BaseEntity {
             roomImages = new ArrayList<>();
         }
         roomImages.add(image);
+    }
+
+    public void addReservation(final RoomReservation roomReservation) {
+        if (Objects.isNull(roomReservations)) {
+            roomReservations = new ArrayList<>();
+        }
+        roomReservations.add(roomReservation);
     }
 
 }

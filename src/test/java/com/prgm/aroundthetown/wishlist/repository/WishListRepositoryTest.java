@@ -1,14 +1,14 @@
 package com.prgm.aroundthetown.wishlist.repository;
 
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
-import com.prgm.aroundthetown.product.vo.Location;
-import com.prgm.aroundthetown.product.vo.Region;
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
+import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -68,7 +68,6 @@ class WishListRepositoryTest {
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .build();
         savedAccommodation = accommodationRepository.save(accommodation);
-
     }
 
     @Test

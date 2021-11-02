@@ -1,17 +1,17 @@
-package com.prgm.aroundthetown.cart.service;
+package com.prgm.aroundthetown.wishlist.service;
 
-import com.prgm.aroundthetown.cart.dto.CartCreateDto;
-import com.prgm.aroundthetown.cart.entity.Cart;
-import com.prgm.aroundthetown.cart.repository.CartRepository;
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
-import com.prgm.aroundthetown.product.vo.Location;
-import com.prgm.aroundthetown.product.vo.Region;
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
+import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.wishlist.dto.WishListCreateRequestDto;
+import com.prgm.aroundthetown.wishlist.entity.WishList;
+import com.prgm.aroundthetown.wishlist.repository.WishListRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,13 +23,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class CartServiceTest {
+class WishListServiceImplTest {
 
     @Autowired
-    private CartService cartService;
+    private WishListServiceImpl wishListServiceImpl;
 
     @Autowired
-    private CartRepository cartRepository;
+    private WishListRepository wishListRepository;
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
@@ -37,18 +37,18 @@ class CartServiceTest {
     @Autowired
     private AccommodationRepository accommodationRepository;
 
-    private Member savedMember;
-    private Accommodation savedAccommodation;
-    private Long savedCartId;
+    private Member savedMember1;
+    private Long savedAccommodationId;
+    private Long savedWishListId;
 
     @BeforeEach
     void setUp() {
-        final Member member = Member.builder()
+        final Member member1 = Member.builder()
                 .password("1234")
                 .phoneNumber("01012345678")
                 .email("@skfm")
                 .build();
-        savedMember = memberRepository.save(member);
+        savedMember1 = memberRepository.save(member1);
         final Member member2 = Member.builder()
                 .password("123456")
                 .phoneNumber("01011112222")
@@ -78,45 +78,46 @@ class CartServiceTest {
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .build();
-        savedAccommodation = accommodationRepository.save(accommodation);
+        final Accommodation savedAccommodation = accommodationRepository.save(accommodation);
+        savedAccommodationId = savedAccommodation.getProductId();
 
-        final Cart cart = Cart.builder()
+        final WishList wishList = WishList.builder()
                 .product(savedAccommodation)
                 .member(savedMember2)
                 .build();
-        savedCartId = cartRepository.save(cart).getCartId();
+        savedWishListId = wishListRepository.save(wishList).getWishlistId();
     }
 
     @Test
     @DisplayName("Create를 할 수 있다.")
     @Transactional
-    void testCreateCart() {
+    void testCreateWishList() {
         // Given
-        final CartCreateDto dto = CartCreateDto.builder()
-                .product(savedAccommodation)
-                .member(savedMember)
+        final WishListCreateRequestDto dto = WishListCreateRequestDto.builder()
+                .productId(savedAccommodationId)
+                .memberId(savedMember1.getId())
                 .build();
 
         // When
-        cartService.createCart(dto);
+        wishListServiceImpl.createWishList(dto);
 
         // Then
-        assertThat(cartRepository.findAll().size(), is(2));
+        assertThat(wishListRepository.findAll().size(), is(2));
     }
 
     @Test
     @DisplayName("FindById를 할 수 있다.")
     @Transactional
-    void testFindById() {
-        assertThat(cartService.findById(savedCartId).getMember().getPhoneNumber(), is("01011112222"));
+    void testFindById() throws Exception {
+        assertThat(wishListServiceImpl.findById(savedWishListId).getWishListId(), is(savedWishListId));
     }
 
     @Test
     @DisplayName("Delete를 할 수 있다.")
     @Transactional
-    void testDeleteCart() {
-        assertThat(cartRepository.findById(savedCartId).get().getIsDeleted(), is(false));
-        cartService.deleteCart(savedCartId);
-        assertThat(cartRepository.findById(savedCartId).get().getIsDeleted(), is(true));
+    void testDeleteWishList() {
+        assertThat(wishListRepository.getById(savedWishListId).getIsDeleted(), is(false));
+        wishListServiceImpl.deleteWishList(savedWishListId);
+        assertThat(wishListRepository.getById(savedWishListId).getIsDeleted(), is(true));
     }
 }

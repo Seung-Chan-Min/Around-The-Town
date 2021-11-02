@@ -4,11 +4,11 @@ import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.order.entity.OrderProduct;
-import com.prgm.aroundthetown.product.vo.Location;
-import com.prgm.aroundthetown.product.vo.Region;
+import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -23,19 +23,18 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "product_type")
 @Getter
-@SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@SuperBuilder
 public class Product extends BaseEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "host_id", referencedColumnName = "host_id", nullable = false)
+    protected Host host;
 
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "host_id", referencedColumnName = "host_id", nullable = false)
-    protected Host host;
 
     @Column(name = "refund_rule")
     @Lob
@@ -57,16 +56,19 @@ public class Product extends BaseEntity {
     private String businessName;
 
     @Column(name = "region")
-//    @Convert(converter = RegionConverter.class)
+    @Enumerated(value = EnumType.STRING)
     private Region region;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Cart> carts = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<WishList> wishLists = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
     public void addCart(final Cart cart) {
@@ -77,7 +79,7 @@ public class Product extends BaseEntity {
     }
 
     public void addWishList(final WishList wishList) {
-        if (Objects.isNull(wishList)) {
+        if (Objects.isNull(wishLists)) {
             wishLists = new ArrayList<>();
         }
         wishLists.add(wishList);
@@ -90,4 +92,20 @@ public class Product extends BaseEntity {
         orderProducts.add(orderProduct);
     }
 
+    public void update(final String refundRule,
+                       final String phoneNumber,
+                       final String businessRegistrationNumber,
+                       final String businessAddress,
+                       final String businessName,
+                       final Region region,
+                       final Location location) {
+
+        this.refundRule = refundRule;
+        this.phoneNumber = phoneNumber;
+        this.businessRegistrationNumber = businessRegistrationNumber;
+        this.businessAddress = businessAddress;
+        this.businessName = businessName;
+        this.region = region;
+        this.location = location;
+    }
 }

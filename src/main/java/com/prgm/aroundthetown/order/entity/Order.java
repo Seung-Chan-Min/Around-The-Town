@@ -3,7 +3,6 @@ package com.prgm.aroundthetown.order.entity;
 import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.member.entity.Member;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,16 +14,12 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@SuperBuilder
 public class Order extends BaseTimeAndDeletedEntity {
 
     @Id
     @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "count")
-    private int count;
+    private Long orderId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id", nullable = false)
@@ -32,6 +27,12 @@ public class Order extends BaseTimeAndDeletedEntity {
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    @Builder
+    public Order(final Member member) {
+        this.member = member;
+        member.addOrder(this);
+    }
 
     public void addOrderProduct(final OrderProduct orderProduct) {
         if (Objects.isNull(orderProducts)) {

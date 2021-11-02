@@ -11,18 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@DiscriminatorValue("leisure")
 @Getter
+@Entity
+@Table(name = "leisure")
+@DiscriminatorValue("leisure")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
+//@SQLDelete(sql = "UPDATE table_leisure SET is_deleted = true WHERE id=?")
+//@Where(clause = "is_deleted = false")
 public class Leisure extends Product {
     // TODO :: service에서 연관관계 편의 메소드 추가
 
-    @Column(name = "leisure_infomation")
+    @Column(name = "leisure_information")
     @Lob
-    private String leisureInfomation;
+    private String leisureInformation;
 
     @Column(name = "usecase")
     @Lob
@@ -36,10 +39,11 @@ public class Leisure extends Product {
     private LocalDateTime expirationDate;
 
     @Column(name = "category")
-    @Convert(converter = LeisureCategoryConverter.class)
+    @Enumerated(EnumType.STRING)
     private LeisureCategory category;
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Ticket> tickets = new ArrayList<>();
 
     public void addTicket(final Ticket ticket) {
@@ -49,16 +53,20 @@ public class Leisure extends Product {
         tickets.add(ticket);
     }
 
-    public Leisure update(final String leisureInfomation,
-                          final String usecase,
-                          final String leisureNotice,
-                          final LocalDateTime expirationDate,
-                          final LeisureCategory category) {
-        this.leisureInfomation = leisureInfomation;
-        this.usecase = usecase;
-        this.leisureNotice = leisureNotice;
-        this.expirationDate = expirationDate;
-        this.category = category;
+    public Leisure update(final Leisure leisure) {
+        this.leisureInformation = leisure.getLeisureInformation();
+        this.usecase = leisure.getUsecase();
+        this.leisureNotice = leisure.getLeisureNotice();
+        this.expirationDate = leisure.getExpirationDate();
+        this.category = leisure.getCategory();
+        super.update(
+                leisure.getRefundRule(),
+                leisure.getPhoneNumber(),
+                leisure.getBusinessRegistrationNumber(),
+                leisure.getBusinessAddress(),
+                leisure.getBusinessName(),
+                leisure.getRegion(),
+                leisure.getLocation());
         return this;
     }
 }

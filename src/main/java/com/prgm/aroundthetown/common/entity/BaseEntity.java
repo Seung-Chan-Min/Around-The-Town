@@ -1,7 +1,6 @@
 package com.prgm.aroundthetown.common.entity;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -14,11 +13,10 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
 @Getter
+@SuperBuilder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class BaseEntity extends BaseTimeAndDeletedEntity {
 
     @CreatedBy

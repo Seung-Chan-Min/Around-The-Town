@@ -39,7 +39,6 @@ class OrderRepositoryTest {
     @Transactional
     void orderSaveTest() {
         final Order order = Order.builder()
-                .count(10)
                 .member(savedMember)
                 .build();
         orderRepository.save(order);

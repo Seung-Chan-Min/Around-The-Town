@@ -5,8 +5,8 @@ import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.product.dto.LocationDTO;
-import com.prgm.aroundthetown.product.vo.Region;
+import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.dto.LocationDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,14 +29,11 @@ class AccommodationControllerTest {
 
     @Autowired
     public MockMvc mockMvc;
-
+    Host host;
     @Autowired
     private ObjectMapper objectMapper;
-
     @Autowired
     private HostRepository hostRepository;
-
-    Host host;
 
     @BeforeAll
     void setUp() throws Exception {
@@ -55,7 +52,7 @@ class AccommodationControllerTest {
     @Order(1)
     void saveAccommodation() throws Exception {
         //given
-        AccommodationCreateRequestDto accommodationCreateRequestDto = AccommodationCreateRequestDto.builder()
+        final AccommodationCreateRequestDto accommodationCreateRequestDto = AccommodationCreateRequestDto.builder()
                 .accommodationName("숙박업체 이름")
                 .accommodationNotice("숙박업체 공지")
                 .optionNotice("옵션 공지")
@@ -64,7 +61,7 @@ class AccommodationControllerTest {
                 .accommodationCategory(AccommodationCategory.HOTEL)
                 .businessName("미니컴퍼니")
                 .refundRule("환불 규정")
-                .location(LocationDTO.builder()
+                .location(LocationDto.builder()
                         .howToVisit("방문하는 방법")
                         .latitude(31.10000)
                         .longitude(111.11111)
@@ -133,8 +130,6 @@ class AccommodationControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
-
-
 
 
 }

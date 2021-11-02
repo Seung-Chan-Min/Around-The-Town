@@ -17,7 +17,7 @@ public class AccommodationImage extends BaseEntity {
     @Id
     @Column(name = "accommodation_image_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long imageId;
 
     @Column(name = "IMAGE_PATH", nullable = false)
     private String IMAGE_PATH;

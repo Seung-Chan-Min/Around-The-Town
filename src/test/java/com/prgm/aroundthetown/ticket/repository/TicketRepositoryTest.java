@@ -2,11 +2,11 @@ package com.prgm.aroundthetown.ticket.repository;
 
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.product.vo.Location;
-import com.prgm.aroundthetown.product.vo.Region;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.leisure.entity.LeisureCategory;
 import com.prgm.aroundthetown.leisure.repository.LeisureRepository;
+import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,7 +50,7 @@ class TicketRepositoryTest {
                 .businessAddress("address")
                 .businessName("namebu")
                 .region(Region.SEOUL)
-                .leisureInfomation("info")
+                .leisureInformation("info")
                 .usecase("usecase")
                 .leisureNotice("notice")
                 .expirationDate(LocalDateTime.now())

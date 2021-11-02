@@ -5,7 +5,7 @@ import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.service.AccommodationService;
-import com.prgm.aroundthetown.product.vo.Region;
+import com.prgm.aroundthetown.product.Region;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,32 +22,32 @@ public class AccommodationController {
 
     @PostMapping("/hosts/accommodations")
     public ResponseEntity<AccommodationCreateResponseDto> saveAccommodation(
-            @RequestBody AccommodationCreateRequestDto accommodationCreateDto
+            @RequestBody final AccommodationCreateRequestDto accommodationCreateDto
     ) {
-        AccommodationCreateResponseDto response = accommodationService.save(accommodationCreateDto);
+        final AccommodationCreateResponseDto response = accommodationService.save(accommodationCreateDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/accommodation-all")
-    public ResponseEntity<List<AccommodationResponseDto>> getAccommodations(){
-        List<AccommodationResponseDto> accommodationResponses = accommodationService.getAccommodations();
+    public ResponseEntity<List<AccommodationResponseDto>> getAccommodations() {
+        final List<AccommodationResponseDto> accommodationResponses = accommodationService.getAccommodations();
         return ResponseEntity.ok(accommodationResponses);
     }
 
     @GetMapping("/hosts/{hostId}/accommodations")
     public ResponseEntity<List<AccommodationResponseDto>> getAccommodationsByHostId(
-            @PathVariable Long hostId
-    ){
-        List<AccommodationResponseDto> accommodationResponses = accommodationService.geAccommodationByHostId(hostId);
+            @PathVariable final Long hostId
+    ) {
+        final List<AccommodationResponseDto> accommodationResponses = accommodationService.geAccommodationByHostId(hostId);
         return ResponseEntity.ok(accommodationResponses);
     }
 
     @GetMapping("/accommodations")
     public ResponseEntity<List<AccommodationResponseDto>> getAccommodationsByCategoryAndRegion(
-            @RequestParam AccommodationCategory category,
-            @RequestParam Region region
-    ){
-        List<AccommodationResponseDto> response = accommodationService.getAccommodationsByCategoryAndRegion(category, region);
+            @RequestParam final AccommodationCategory category,
+            @RequestParam final Region region
+    ) {
+        final List<AccommodationResponseDto> response = accommodationService.getAccommodationsByCategoryAndRegion(category, region);
         return ResponseEntity.ok(response);
     }
 

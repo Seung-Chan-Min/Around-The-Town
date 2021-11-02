@@ -1,17 +1,17 @@
 package com.prgm.aroundthetown.accommodation.service;
 
-import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
-import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.host.entity.Host;
-import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.accommodation.common.AccommodationConverter;
+import com.prgm.aroundthetown.accommodation.converter.AccommodationConverter;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
+import com.prgm.aroundthetown.host.entity.Host;
+import com.prgm.aroundthetown.host.repository.HostRepository;
+import com.prgm.aroundthetown.product.ProductRepository;
+import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.product.entity.Product;
-import com.prgm.aroundthetown.product.repository.ProductRepository;
-import com.prgm.aroundthetown.product.vo.Region;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
-public class AccommodationServiceImpl implements AccommodationService{
+public class AccommodationServiceImpl implements AccommodationService {
     private final ProductRepository productRepository;
 
     private final AccommodationRepository accommodationRepository;
@@ -32,11 +32,11 @@ public class AccommodationServiceImpl implements AccommodationService{
 
     @Override
     @Transactional
-    public AccommodationCreateResponseDto save(AccommodationCreateRequestDto accommodationCreateDto) {
-        Host host = hostRepository.getById(accommodationCreateDto.getHostId()); //login 대체제
-        Product retrievedProduct = productRepository
+    public AccommodationCreateResponseDto save(final AccommodationCreateRequestDto accommodationCreateDto) {
+        final Host host = hostRepository.getById(accommodationCreateDto.getHostId()); //login 대체제
+        final Product retrievedProduct = productRepository
                 .save(accommodationConverter.createDtoToEntity(accommodationCreateDto, host));
-        Accommodation accommodation = accommodationRepository.getById(retrievedProduct.getProductId());
+        final Accommodation accommodation = accommodationRepository.getById(retrievedProduct.getProductId());
 
         return accommodationConverter.entityToResponseAccommodationCreateDto(accommodation);
     }
@@ -48,13 +48,13 @@ public class AccommodationServiceImpl implements AccommodationService{
     }
 
     @Override
-    public List<AccommodationResponseDto> geAccommodationByHostId(Long hostId) {
+    public List<AccommodationResponseDto> geAccommodationByHostId(final Long hostId) {
         return accommodationConverter.AccommodationEntityToResponseDto
                 (accommodationRepository.getAccommodationsByHostId(hostId));
     }
 
     @Override
-    public List<AccommodationResponseDto> getAccommodationsByCategoryAndRegion(AccommodationCategory category, Region region) {
+    public List<AccommodationResponseDto> getAccommodationsByCategoryAndRegion(final AccommodationCategory category, final Region region) {
         return accommodationConverter.AccommodationEntityToResponseDto
                 (accommodationRepository.getAccommodationByAccommodationCategoryAndRegion(category, region));
     }

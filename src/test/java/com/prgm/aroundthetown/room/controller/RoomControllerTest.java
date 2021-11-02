@@ -6,23 +6,19 @@ import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.product.dto.LocationDTO;
-import com.prgm.aroundthetown.product.vo.Location;
-import com.prgm.aroundthetown.product.vo.Region;
+import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.room.dto.RoomCreateRequestDto;
-import com.prgm.aroundthetown.room.dto.RoomCreateResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,19 +29,14 @@ class RoomControllerTest {
 
     @Autowired
     public MockMvc mockMvc;
-
+    Accommodation accommodation;
+    Host host;
     @Autowired
     private ObjectMapper objectMapper;
-
     @Autowired
     private AccommodationRepository accommodationRepository;
-
     @Autowired
     private HostRepository hostRepository;
-
-    Accommodation accommodation;
-
-    Host host;
 
     @BeforeEach
     void setUp() {
@@ -82,7 +73,7 @@ class RoomControllerTest {
     @Transactional
     @Rollback(value = false)
     void saveRoom() throws Exception {
-        RoomCreateRequestDto roomCreateResponseDto = RoomCreateRequestDto.builder()
+        final RoomCreateRequestDto roomCreateResponseDto = RoomCreateRequestDto.builder()
                 .roomName("랜덤 객실")
                 .reservationNotice("예약공지")
                 .roomInformation("방 정보")

@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 public class RoomReservation extends BaseEntity {
 
     @Id
@@ -29,8 +28,15 @@ public class RoomReservation extends BaseEntity {
     @JoinColumn(name = "room_id", referencedColumnName = "room_id", nullable = false)
     private Room room;
 
-    // 스프링 스케줄러로 구현 예정
-    // 연관관계 편의 메소드 예정
-    // Date 타입 변경 예정
-    // TestCode 작성 예정
+    @Builder
+    public RoomReservation(final int remains, final LocalDateTime dates, final Room room) {
+        this.remains = remains;
+        this.dates = dates;
+        this.room = room;
+        room.addReservation(this);
+    }
+
+    // TODO : 스프링 스케줄러로 구현 예정
+    // TODO : Date 타입 변경 예정
+    // TODO : TestCode 작성 예정
 }

@@ -16,10 +16,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class MemberServiceTest {
+class MemberServiceImplTest {
 
     @Autowired
-    private MemberService memberService;
+    private MemberServiceImpl memberServiceImpl;
     @Autowired
     private MemberRepository memberRepository;
 
@@ -47,7 +47,7 @@ class MemberServiceTest {
                 .build();
 
         // When
-        memberService.createMember(dto);
+        memberServiceImpl.createMember(dto);
 
         // Then
         assertThat(memberRepository.findAll().size(), is(2));
@@ -58,7 +58,7 @@ class MemberServiceTest {
     @DisplayName("FindById를 할 수 있다.")
     @Transactional
     void testFindById() {
-        assertThat(memberService.findById(setupMemberId).getEmail(), is("seung@naver.com"));
+        assertThat(memberServiceImpl.findById(setupMemberId).getEmail(), is("seung@naver.com"));
     }
 
     @Test
@@ -74,7 +74,7 @@ class MemberServiceTest {
                 .build();
 
         // When
-        memberService.updateMember(dto);
+        memberServiceImpl.updateMember(dto);
 
         // Then
         final Member updatedEntity = memberRepository.findAll().get(0);
@@ -87,7 +87,7 @@ class MemberServiceTest {
     @Transactional
     void testDeleteMember() {
         assertThat(memberRepository.findById(setupMemberId).get().getIsDeleted(), is(false));
-        memberService.deleteMember(setupMemberId);
+        memberServiceImpl.deleteMember(setupMemberId);
         assertThat(memberRepository.findById(setupMemberId).get().getIsDeleted(), is(true));
     }
 }

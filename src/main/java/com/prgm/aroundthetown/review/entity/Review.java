@@ -1,10 +1,9 @@
 package com.prgm.aroundthetown.review.entity;
 
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.member.entity.Member;
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@SuperBuilder
 public class Review extends BaseEntity {
 
     @Id
@@ -42,7 +40,7 @@ public class Review extends BaseEntity {
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewImage> reviewImages;
 
-    /*@Builder
+    @Builder
     public Review(final String content, final int score, final Member member, final Accommodation accommodation, final List<ReviewImage> reviewImages) {
         this.content = content;
         this.score = score;
@@ -51,7 +49,7 @@ public class Review extends BaseEntity {
         this.reviewImages = reviewImages;
         member.addReview(this);
         accommodation.addReview(this);
-    }*/
+    }
 
     public void addImage(final ReviewImage image) {
         if (Objects.isNull(reviewImages)) {
