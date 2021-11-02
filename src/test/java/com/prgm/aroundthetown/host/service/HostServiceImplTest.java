@@ -16,10 +16,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
-class HostServiceTest {
+class HostServiceImplTest {
 
     @Autowired
-    private HostService hostService;
+    private HostServiceImpl hostServiceImpl;
     @Autowired
     private HostRepository hostRepository;
 
@@ -47,7 +47,7 @@ class HostServiceTest {
                 .build();
 
         // When
-        hostService.createHost(dto);
+        hostServiceImpl.createHost(dto);
 
         // Then
         assertThat(hostRepository.findAll().size(), is(2));
@@ -58,7 +58,7 @@ class HostServiceTest {
     @DisplayName("FindById를 할 수 있다.")
     @Transactional
     void testFindById() {
-        assertThat(hostService.findById(setupHostId).getHostName(), is("관리자"));
+        assertThat(hostServiceImpl.findById(setupHostId).getHostName(), is("관리자"));
     }
 
     @Test
@@ -74,7 +74,7 @@ class HostServiceTest {
                 .build();
 
         // When
-        hostService.updateHost(dto);
+        hostServiceImpl.updateHost(dto);
 
         // Then
         final Host updatedEntity = hostRepository.findAll().get(0);
@@ -87,7 +87,7 @@ class HostServiceTest {
     @Transactional
     void testDelete() {
         assertThat(hostRepository.findById(setupHostId).get().getIsDeleted(), is(false));
-        hostService.deleteHost(setupHostId);
+        hostServiceImpl.deleteHost(setupHostId);
         assertThat(hostRepository.findById(setupHostId).get().getIsDeleted(), is(true));
     }
 }

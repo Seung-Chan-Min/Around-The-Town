@@ -1,5 +1,8 @@
 package com.prgm.aroundthetown.order.repository;
 
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.member.entity.Member;
@@ -9,9 +12,6 @@ import com.prgm.aroundthetown.order.entity.OrderProduct;
 import com.prgm.aroundthetown.product.entity.Location;
 import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.product.entity.Region;
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,7 +49,6 @@ class OrderProductRepositoryTest {
                 .build();
         final Member savedMember = memberRepository.save(member);
         final Order order = Order.builder()
-                .count(10)
                 .member(savedMember)
                 .build();
         savedOrder = orderRepository.save(order);

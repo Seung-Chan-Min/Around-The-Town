@@ -3,7 +3,10 @@ package com.prgm.aroundthetown.cart.entity;
 import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.product.entity.Product;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -11,7 +14,6 @@ import javax.persistence.*;
 @Table(name = "cart")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Cart extends BaseTimeAndDeletedEntity {
 
     @Id
@@ -28,12 +30,11 @@ public class Cart extends BaseTimeAndDeletedEntity {
     private Member member;
 
     @Builder
-    public Cart(final Product product, final Member member) {
+    public Cart(final Long cartId, final Product product, final Member member) {
+        this.cartId = cartId;
         this.product = product;
         this.member = member;
         product.addCart(this);
         member.addCart(this);
     }
-
-
 }

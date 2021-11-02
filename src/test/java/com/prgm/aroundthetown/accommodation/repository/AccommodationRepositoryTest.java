@@ -1,11 +1,12 @@
-package com.prgm.aroundthetown.accommodation.repository;
+package com.prgm.aroundthetown.product.accommodation.repository;
 
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.entity.Location;
 import com.prgm.aroundthetown.product.entity.Region;
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -72,6 +73,9 @@ class AccommodationRepositoryTest {
         accommodationRepository.save(findedAccommodation);
 
         assertThat(accommodationRepository.findAll().get(0).getAccommodationName(), is("바뀐이름"));
+
+        // 연관관계 mapping
+        assertThat(hostRepository.findAll().get(0).getProducts().size(), is(1));
     }
 
 }

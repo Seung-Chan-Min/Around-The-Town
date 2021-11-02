@@ -1,14 +1,14 @@
 package com.prgm.aroundthetown.review.repository;
 
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.entity.Location;
 import com.prgm.aroundthetown.product.entity.Region;
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.review.entity.Review;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -80,12 +80,12 @@ class ReviewRepositoryTest {
                 .member(savedMember)
                 .accommodation(savedAccommodation)
                 .build();
-        reviewRepository.save(review);
+        final Long reviewId = reviewRepository.save(review).getReviewId();
 
         assertThat(reviewRepository.findAll().size(), is(1));
 
         // 연관관계 mapping
-        assertThat(memberRepository.findAll().get(0).getReviews().size(), is(1));
-        assertThat(accommodationRepository.findAll().get(0).getReviews().size(), is(1));
+        assertThat(memberRepository.findAll().get(0).getReviews().get(0).getReviewId(), is(reviewId));
+        assertThat(accommodationRepository.findAll().get(0).getReviews().get(0).getReviewId(), is(reviewId));
     }
 }

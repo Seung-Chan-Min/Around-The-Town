@@ -17,6 +17,8 @@ import javax.persistence.MappedSuperclass;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@SuperBuilder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class BaseEntity extends BaseTimeAndDeletedEntity {
 
     @CreatedBy

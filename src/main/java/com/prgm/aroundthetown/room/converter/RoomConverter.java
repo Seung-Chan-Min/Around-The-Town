@@ -13,7 +13,7 @@ import java.util.List;
 
 @Component
 public class RoomConverter {
-    public Room requestCreateRoomDtoToEntity(
+    public Room toEntity(
             final RequestCreateRoomDto requestCreateRoomDto,
             final Accommodation accommodation
     ) {
@@ -26,7 +26,7 @@ public class RoomConverter {
                 .standardPeople(requestCreateRoomDto.getStandardPeople())
                 .maximumPeople(requestCreateRoomDto.getMaximumPeople())
                 .stock(requestCreateRoomDto.getMaxStock())
-                //.reservationNotice(initRoomRemains(requestCreateRoomDto.getMaxStock()))
+                .roomReservations(initRoomRemains(requestCreateRoomDto.getMaxStock()))
                 .build();
     }
 
@@ -42,7 +42,7 @@ public class RoomConverter {
         return roomReservations;
     }
 
-    public ResponseCreateRoomDto entityToResponseCreateDto(final Room room) {
+    public ResponseCreateRoomDto toDto(final Room room) {
         return ResponseCreateRoomDto.builder()
                 .roomName(room.getRoomName())
                 .build();

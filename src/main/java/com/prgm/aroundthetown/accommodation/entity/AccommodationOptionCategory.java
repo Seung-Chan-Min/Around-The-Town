@@ -1,8 +1,11 @@
 package com.prgm.aroundthetown.accommodation.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 @Getter
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum AccommodationOptionCategory {
     SPA("스파/욕조"),
     PARKING("주차가능"),
@@ -11,6 +14,7 @@ public enum AccommodationOptionCategory {
     BREAKFAST("조식 지원"),
     NOTEBOOK("노트북 대여 가능");
 
+    @JsonValue
     private final String optionDescription;
 
     AccommodationOptionCategory(final String optionDescription) {

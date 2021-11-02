@@ -18,7 +18,8 @@ public class AccommodationOption extends BaseEntity {
     private Long Id;
 
     @Column(name = "option")
-    @Convert(converter = AccommodationOptionCategoryConverter.class)
+    @Enumerated(EnumType.STRING)
+//    @Convert(converter = AccommodationOptionCategoryConverter.class)
     private AccommodationOptionCategory option;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

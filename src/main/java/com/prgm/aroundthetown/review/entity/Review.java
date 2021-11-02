@@ -1,8 +1,8 @@
 package com.prgm.aroundthetown.review.entity;
 
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.member.entity.Member;
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import lombok.*;
 
 import javax.persistence.*;

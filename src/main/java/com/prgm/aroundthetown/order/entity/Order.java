@@ -19,10 +19,7 @@ public class Order extends BaseTimeAndDeletedEntity {
     @Id
     @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "count")
-    private int count;
+    private Long orderId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id", nullable = false)
@@ -30,10 +27,10 @@ public class Order extends BaseTimeAndDeletedEntity {
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProduct> orderProducts = new ArrayList<>();
+//    private Map<OrderProduct, Integer> orderProducts = new HashMap<>();
 
     @Builder
-    public Order(final int count, final Member member) {
-        this.count = count;
+    public Order(final Member member) {
         this.member = member;
         member.addOrder(this);
     }

@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.leisure.entity;
+package com.prgm.aroundthetown.product.leisure.entity;
 
 import com.prgm.aroundthetown.leisure.dto.LeisureUpdateRequest;
 import com.prgm.aroundthetown.product.dto.LocationRequest;
@@ -47,7 +47,8 @@ public class Leisure extends Product {
     private LocalDateTime expirationDate;
 
     @Column(name = "category")
-    @Convert(converter = LeisureCategoryConverter.class)
+    @Enumerated(EnumType.STRING)
+//    @Convert(converter = LeisureCategoryConverter.class)
     private LeisureCategory category;
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

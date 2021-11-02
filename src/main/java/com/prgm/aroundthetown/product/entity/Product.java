@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.host.entity.Host;
@@ -55,17 +56,21 @@ public class Product extends BaseEntity {
     private String businessName;
 
     @Column(name = "region")
-    @Convert(converter = RegionConverter.class)
+    @Enumerated(value = EnumType.STRING)
+//    @Convert(converter = RegionConverter.class)
     private Region region;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Cart> carts = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<WishList> wishLists = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<OrderProduct> orderProducts = new ArrayList<>();
@@ -78,7 +83,7 @@ public class Product extends BaseEntity {
     }
 
     public void addWishList(final WishList wishList) {
-        if (Objects.isNull(wishList)) {
+        if (Objects.isNull(wishLists)) {
             wishLists = new ArrayList<>();
         }
         wishLists.add(wishList);

@@ -8,6 +8,7 @@ import javax.persistence.Lob;
 
 @Getter
 @Embeddable
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @EqualsAndHashCode
