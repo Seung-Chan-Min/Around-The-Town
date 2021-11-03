@@ -44,8 +44,10 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void getRoomsByCheckinAndCheckOut() {
-
+    @Transactional
+    public void getRoomsByCheckinAndCheckOut(final LocalDateTime checkIn, final LocalDateTime checkOut) {
+        final List<Room> room = roomReservationRepository.findAllDatesGreaterThanEqualAndDatesLessThanEqualAndRemainsGreaterThan(checkIn, checkOut, 0);
+        //TODO: room 정보들 중 필요한 정보만 내보내준다.
     }
 
     public void initRoomRemains(final int maxStock, final Room room) {

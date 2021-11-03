@@ -61,4 +61,6 @@ public class AccommodationController {
         //TODO: deleteDTO 내려주기. accommodation 쪽 삭제 제대로 된경우와 안된경우 예외처리하기
         accommodationService.deleteByAccommodationId(hostId, accommodationId);
     }
+
+
 }
