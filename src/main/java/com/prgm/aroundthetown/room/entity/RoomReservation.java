@@ -35,8 +35,4 @@ public class RoomReservation extends BaseEntity {
         this.room = room;
         room.addReservation(this);
     }
-
-    // TODO : 스프링 스케줄러로 구현 예정
-    // TODO : Date 타입 변경 예정
-    // TODO : TestCode 작성 예정
 }

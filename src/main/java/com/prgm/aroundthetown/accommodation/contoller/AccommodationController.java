@@ -34,6 +34,7 @@ public class AccommodationController {
         return ResponseEntity.ok(accommodationResponses);
     }
 
+    // TODO: hostId를 url 에 노출시키면 안될것같은데.. Login 을 하면 hostId를 url로 받지 않고, host 자체를 인증해서 쓸수있을것같음
     @GetMapping("/hosts/{hostId}/accommodations")
     public ResponseEntity<List<AccommodationResponseDto>> getAccommodationsByHostId(
             @PathVariable final Long hostId
@@ -50,5 +51,16 @@ public class AccommodationController {
         final List<AccommodationResponseDto> response = accommodationService.getAccommodationsByCategoryAndRegion(category, region);
         return ResponseEntity.ok(response);
     }
+
+    //TODO: hostId 를 노출시키면 안될것 같습니다. => 로그인, 인증을 배운후에 고치기
+    @DeleteMapping("/hosts/{hostId}/accommodations/{accommodationId}")
+    public void deleteAccommodation(
+            @PathVariable final Long hostId,
+            @PathVariable final Long accommodationId
+    ) {
+        //TODO: deleteDTO 내려주기. accommodation 쪽 삭제 제대로 된경우와 안된경우 예외처리하기
+        accommodationService.deleteByAccommodationId(hostId, accommodationId);
+    }
+
 
 }

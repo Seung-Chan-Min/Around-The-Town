@@ -70,6 +70,8 @@ public class Product extends BaseEntity {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<OrderProduct> orderProducts = new ArrayList<>();
+    @Column(name = "is_deleted", columnDefinition = "boolean default false")
+    private Boolean isDeleted = false;
 
     public void addCart(final Cart cart) {
         if (Objects.isNull(carts)) {

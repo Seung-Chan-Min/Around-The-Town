@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -131,6 +132,7 @@ class WishListControllerTest {
     @Test
     @DisplayName("DELETE /api/v1/wishList/{wishListId} 테스트")
     @Transactional
+    @Rollback(value = false)
     void deleteWishList() throws Exception {
         final Long req = wishListRepository.findAll().get(0).getWishlistId();
 

@@ -116,7 +116,7 @@ class WishListServiceImplTest {
     @DisplayName("Delete를 할 수 있다.")
     @Transactional
     void testDeleteWishList() {
-        assertThat(wishListRepository.getById(savedWishListId).getIsDeleted(), is(false));
+//        assertThat(wishListRepository.getById(savedWishListId).getIsDeleted(), is(false));
         wishListServiceImpl.deleteWishList(savedWishListId);
         assertThat(wishListRepository.getById(savedWishListId).getIsDeleted(), is(true));
     }

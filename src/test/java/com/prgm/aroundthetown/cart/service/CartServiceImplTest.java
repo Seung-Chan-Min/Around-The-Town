@@ -116,7 +116,7 @@ class CartServiceImplTest {
     @DisplayName("Delete를 할 수 있다.")
     @Transactional
     void testDeleteCart() {
-        assertThat(cartRepository.getById(savedCartId).getIsDeleted(), is(false));
+//        assertThat(cartRepository.getById(savedCartId).getIsDeleted(), is(false));
         cartServiceImpl.deleteCart(savedCartId);
         assertThat(cartRepository.getById(savedCartId).getIsDeleted(), is(true));
     }

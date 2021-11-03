@@ -3,8 +3,14 @@ package com.prgm.aroundthetown.accommodation.entity;
 import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.room.entity.Room;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.*;
@@ -15,8 +21,11 @@ import java.util.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
+@SQLDelete(sql = "UPDATE product SET is_deleted = true WHERE product_id=?")
+@Where(clause = "is_deleted = false")
+@DynamicInsert
 public class Accommodation extends Product {
-    // TODO :: service 에서 연관관계 편의 메소드 추가 (?)
+
     @Column(name = "accommodation_name")
     private String accommodationName;
 
@@ -88,4 +97,6 @@ public class Accommodation extends Product {
         this.accommodationCategory = accommodationCategory;
         return this;
     }
+
+
 }
