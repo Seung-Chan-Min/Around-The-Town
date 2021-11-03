@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void deleteMember(final Long memberId) {
         final Member entity = repository.findById(memberId).get();
-        entity.setIsDeleted(true);
+//        entity.setIsDeleted(true);
         repository.save(entity);
     }
 }

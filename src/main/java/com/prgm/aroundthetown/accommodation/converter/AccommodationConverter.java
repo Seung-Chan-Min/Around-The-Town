@@ -66,6 +66,7 @@ public class AccommodationConverter {
                         .accommodationName(accommodation.getAccommodationName())
                         .accommodationCategory(accommodation.getAccommodationCategory())
                         .accommodationNotice(accommodation.getAccommodationNotice())
+                        .optionNotice(accommodation.getOptionNotice())
                         .guide(accommodation.getGuide())
                         .build())
                 .collect(Collectors.toList());

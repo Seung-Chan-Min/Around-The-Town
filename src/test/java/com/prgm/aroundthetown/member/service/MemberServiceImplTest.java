@@ -86,7 +86,7 @@ class MemberServiceImplTest {
     @DisplayName("Delete를 할 수 있다.")
     @Transactional
     void testDeleteMember() {
-        assertThat(memberRepository.findById(setupMemberId).get().getIsDeleted(), is(false));
+//        assertThat(memberRepository.findById(setupMemberId).get().getIsDeleted(), is(false));
         memberServiceImpl.deleteMember(setupMemberId);
         assertThat(memberRepository.findById(setupMemberId).get().getIsDeleted(), is(true));
     }

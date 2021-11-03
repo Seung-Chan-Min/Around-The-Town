@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
     implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
+    implementation 'org.projectlombok:lombok:1.18.20'
     compileOnly 'org.projectlombok:lombok:1.18.22'
     developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.5'
     runtimeOnly 'com.h2database:h2:1.4.200'
