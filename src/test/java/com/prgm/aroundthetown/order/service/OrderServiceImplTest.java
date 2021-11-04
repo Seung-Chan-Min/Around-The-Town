@@ -12,6 +12,7 @@ import com.prgm.aroundthetown.order.dto.OrderProductCreateRequestDto;
 import com.prgm.aroundthetown.order.repository.OrderRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -74,6 +75,7 @@ class OrderServiceImplTest {
                 .optionNotice("option1")
                 .guide("guide1")
                 .accommodationCategory(AccommodationCategory.MOTEL)
+                .productType(ProductType.ACCOMMODATION)
                 .build();
         final Accommodation accommodation2 = Accommodation.builder()
                 .host(savedHost)
@@ -89,6 +91,7 @@ class OrderServiceImplTest {
                 .optionNotice("option2")
                 .guide("guide2")
                 .accommodationCategory(AccommodationCategory.HOTEL)
+                .productType(ProductType.ACCOMMODATION)
                 .build();
         final Accommodation savedAccommodation1 = accommodationRepository.save(accommodation1);
         savedAccommodationId1 = savedAccommodation1.getProductId();

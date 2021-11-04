@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.order.dto;
 
+import com.prgm.aroundthetown.product.dto.ProductDto;
 import lombok.*;
 
 @Data
@@ -7,8 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class OrderProductDto {
-    private Long id;
-    private Long productId;
     private Long orderId;
     private int count;
+    private ProductDto productDto;
 }
