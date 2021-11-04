@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/test
+    url: jdbc:h2:tcp://localhost:9092/~/scm
     username: sa
     password:
   jpa:
@@ -22,4 +22,4 @@ server:
       force: true
 logging:
   level:
-    org.hibernate.SQL: debug
+    org.hibernate.SQL: info

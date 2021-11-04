@@ -3,6 +3,7 @@ package com.prgm.aroundthetown.accommodation.service;
 import com.prgm.aroundthetown.accommodation.converter.AccommodationConverter;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
@@ -57,6 +58,16 @@ public class AccommodationServiceImpl implements AccommodationService {
     public List<AccommodationResponseDto> getAccommodationsByCategoryAndRegion(final AccommodationCategory category, final Region region) {
         return accommodationConverter.AccommodationEntityToResponseDto
                 (accommodationRepository.getAccommodationByAccommodationCategoryAndRegion(category, region));
+    }
+
+    @Override
+    @Transactional
+    public AccommodationDeleteDto deleteByAccommodationId(final Long hostId, final Long accommodationId) {
+        // soft delete
+        final Host host = hostRepository.getById(hostId);
+        final Accommodation accommodation = accommodationRepository.getById(accommodationId);
+        accommodationRepository.deleteAccommodationByHostAndProductId(host, accommodationId);
+        return accommodationConverter.entityToAccommodationDeleteDto(accommodation);
     }
 
 }

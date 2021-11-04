@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.*;
@@ -18,7 +21,11 @@ import java.util.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
+@SQLDelete(sql = "UPDATE product SET is_deleted = true WHERE product_id=?")
+@Where(clause = "is_deleted = false")
+@DynamicInsert
 public class Accommodation extends Product {
+
     @Column(name = "accommodation_name")
     private String accommodationName;
 

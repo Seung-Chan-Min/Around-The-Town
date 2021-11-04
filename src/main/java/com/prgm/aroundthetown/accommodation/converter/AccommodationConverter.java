@@ -2,11 +2,13 @@ package com.prgm.aroundthetown.accommodation.converter;
 
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.dto.LocationDto;
+import com.prgm.aroundthetown.product.dto.ProductCreateRequestDto;
 import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.product.entity.ProductType;
 import org.springframework.stereotype.Component;
@@ -21,21 +23,22 @@ public class AccommodationConverter {
             final AccommodationCreateRequestDto createDto,
             final Host host
     ) {
+        final ProductCreateRequestDto productDto = createDto.getProductDto();
         final Accommodation accommodation = Accommodation.builder()
                 .accommodationName(createDto.getAccommodationName())
                 .accommodationNotice(createDto.getAccommodationNotice())
                 .optionNotice(createDto.getOptionNotice())
                 .guide(createDto.getGuide())
                 .accommodationCategory(createDto.getAccommodationCategory())
-                .businessName(createDto.getBusinessName())
-                .refundRule(createDto.getRefundRule())
+                .businessName(productDto.getBusinessName())
+                .refundRule(productDto.getRefundRule())
                 .location(
                         locationDtoToEntity(
-                                createDto.getLocation()))
-                .phoneNumber(createDto.getPhoneNumber())
-                .businessRegistrationNumber(createDto.getBusinessRegistrationNumber())
-                .businessAddress(createDto.getBusinessAddress())
-                .region(createDto.getRegion())
+                                productDto.getLocation()))
+                .phoneNumber(productDto.getPhoneNumber())
+                .businessRegistrationNumber(productDto.getBusinessRegistrationNumber())
+                .businessAddress(productDto.getBusinessAddress())
+                .region(productDto.getRegion())
                 .productType(ProductType.ACCOMMODATION)
                 .host(host)
                 .build();
@@ -70,8 +73,15 @@ public class AccommodationConverter {
                         .accommodationName(accommodation.getAccommodationName())
                         .accommodationCategory(accommodation.getAccommodationCategory())
                         .accommodationNotice(accommodation.getAccommodationNotice())
+                        .optionNotice(accommodation.getOptionNotice())
                         .guide(accommodation.getGuide())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public AccommodationDeleteDto entityToAccommodationDeleteDto(final Accommodation accommodation) {
+        return AccommodationDeleteDto.builder()
+                .accommodationName(accommodation.getAccommodationName())
+                .build();
     }
 }

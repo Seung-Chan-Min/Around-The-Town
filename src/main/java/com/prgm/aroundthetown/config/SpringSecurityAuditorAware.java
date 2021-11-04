@@ -8,11 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class SpringSecurityAuditorAware {
 
-/*
-    @Override
-    public Optional<String> getCurrentAuditor() {
-        return Optional.of(UUID.randomUUID().toString());
-    }
-*/
+//    @Bean
+//    public AuditorAware<String> auditorProvider() {
+//        return () -> Optional.of(UUID.randomUUID().toString());
+//    }
+
 }
 
