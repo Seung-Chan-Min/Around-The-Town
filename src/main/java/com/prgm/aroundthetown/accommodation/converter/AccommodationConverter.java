@@ -1,10 +1,6 @@
 package com.prgm.aroundthetown.accommodation.converter;
 
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.*;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationOption;
 import com.prgm.aroundthetown.host.entity.Host;
@@ -12,7 +8,6 @@ import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.dto.LocationDto;
 import com.prgm.aroundthetown.product.dto.ProductCreateRequestDto;
 import com.prgm.aroundthetown.product.entity.Product;
-import com.prgm.aroundthetown.product.entity.ProductType;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,6 +25,7 @@ public class AccommodationConverter {
                 .build();
     }
 
+    //TODO: create update 받아오는 dto가 동일하고, 내용도 duplicated 되는데 공통코드를 빼서 쓰고싶을때 해결방법?
     public Product createDtoToEntity(
             final AccommodationCreateRequestDto createDto,
             final Host host
@@ -50,7 +46,6 @@ public class AccommodationConverter {
                 .businessRegistrationNumber(productDto.getBusinessRegistrationNumber())
                 .businessAddress(productDto.getBusinessAddress())
                 .region(productDto.getRegion())
-                .productType(ProductType.ACCOMMODATION)
                 .host(host)
                 .build();
         createDto.getAccommodationOptions()
@@ -59,7 +54,6 @@ public class AccommodationConverter {
                                 .accommodation(accommodation)
                                 .option(accommodationOptionDto.getAccommodationOptionCategory())
                                 .build()));
-        host.addProduct(accommodation);
         return accommodation;
     }
 
@@ -76,6 +70,15 @@ public class AccommodationConverter {
             final Accommodation accommodation
     ) {
         return AccommodationCreateResponseDto.builder()
+                .businessName(accommodation.getBusinessName())
+                .AccommodationName(accommodation.getAccommodationName())
+                .build();
+    }
+
+    public AccommodationUpdateResponseDto entityToResponseAccommodationUpdateDto(
+            final Accommodation accommodation
+    ) {
+        return AccommodationUpdateResponseDto.builder()
                 .businessName(accommodation.getBusinessName())
                 .AccommodationName(accommodation.getAccommodationName())
                 .build();
@@ -99,6 +102,27 @@ public class AccommodationConverter {
     public AccommodationDeleteDto entityToAccommodationDeleteDto(final Accommodation accommodation) {
         return AccommodationDeleteDto.builder()
                 .accommodationName(accommodation.getAccommodationName())
+                .build();
+    }
+
+    public void update(final AccommodationUpdateRequestDto updateRequestDto, final Product accommodation) {
+        accommodation.update(
+                updateRequestDto.getProductDto().getRefundRule(),
+                updateRequestDto.getProductDto().getPhoneNumber(),
+                updateRequestDto.getProductDto().getBusinessRegistrationNumber(),
+                updateRequestDto.getProductDto().getBusinessAddress(),
+                updateRequestDto.getProductDto().getBusinessName(),
+                updateRequestDto.getProductDto().getRegion(),
+                getLocation(updateRequestDto.getProductDto().getLocation())
+        );
+    }
+
+    public Location getLocation(final LocationDto locationDto) {
+        return Location.builder()
+                .content(locationDto.getContent())
+                .howToVisit(locationDto.getHowToVisit())
+                .longitude(locationDto.getLongitude())
+                .latitude(locationDto.getLatitude())
                 .build();
     }
 }
