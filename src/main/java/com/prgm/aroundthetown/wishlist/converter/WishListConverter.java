@@ -1,7 +1,5 @@
 package com.prgm.aroundthetown.wishlist.converter;
 
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.member.converter.MemberConverter;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.ProductRepository;
@@ -28,19 +26,11 @@ public class WishListConverter {
                 .build();
     }
 
-    public WishListFindByIdResponseDto toFindByIdDto(final WishList entity) throws Exception {
-        if (entity.getProduct().getClass().equals(Accommodation.class)) {
-            return WishListFindByIdResponseDto.builder()
-                    .wishListId(entity.getWishlistId())
-                    .productDto(productConverter.accommodationToDto((Accommodation) entity.getProduct()))
-                    .memberDto(memberConverter.toDto(entity.getMember()))
-                    .build();
-        } else if (entity.getProduct().getClass().equals(Leisure.class)) {
-            return WishListFindByIdResponseDto.builder()
-                    .wishListId(entity.getWishlistId())
-                    .productDto(productConverter.leisureToDto((Leisure) entity.getProduct()))
-                    .memberDto(memberConverter.toDto(entity.getMember()))
-                    .build();
-        } else throw new Exception("존재하지 않는 Product Type입니다.");
+    public WishListFindByIdResponseDto toFindByIdDto(final WishList entity) {
+        return WishListFindByIdResponseDto.builder()
+                .wishListId(entity.getWishlistId())
+                .productDto(productConverter.toDto(entity.getProduct()))
+                .memberDto(memberConverter.toDto(entity.getMember()))
+                .build();
     }
 }
