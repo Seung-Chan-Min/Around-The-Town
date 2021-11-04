@@ -1,6 +1,5 @@
 package com.prgm.aroundthetown.review.dto;
 
-import com.prgm.aroundthetown.review.entity.ReviewImage;
 import lombok.*;
 
 import java.util.List;
@@ -9,9 +8,10 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class ReviewUpdateDto {
-    private Long reviewId;
+public class ReviewCreateRequestDto {
     private String content;
     private int score;
-    private List<ReviewImage> reviewImages;
+    private Long memberId;
+    private Long accommodationId;
+    private List<String> reviewImagePaths;
 }
