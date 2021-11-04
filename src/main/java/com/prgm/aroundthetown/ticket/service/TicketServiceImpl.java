@@ -4,11 +4,11 @@ import com.prgm.aroundthetown.common.exception.NotFoundException;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.leisure.repository.LeisureRepository;
 import com.prgm.aroundthetown.ticket.converter.TicketConverter;
-import com.prgm.aroundthetown.ticket.dto.TicketCreateRequest;
-import com.prgm.aroundthetown.ticket.dto.TicketDeleteByIdResponse;
-import com.prgm.aroundthetown.ticket.dto.TicketFindByIdResponse;
-import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequest;
-import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponse;
+import com.prgm.aroundthetown.ticket.dto.TicketCreateRequestDto;
+import com.prgm.aroundthetown.ticket.dto.TicketDeleteResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequestDto;
+import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponseDto;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
 import com.prgm.aroundthetown.ticket.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional
-    public Long create(TicketCreateRequest dto) {
+    public Long create(TicketCreateRequestDto dto) {
         Leisure leisure = leisureRepository.findById(dto.getLeisureId())
             .orElseThrow(() -> new NotFoundException("Leisure is not found."));
         Ticket ticket = ticketConverter.toTicket(dto, leisure);
@@ -34,7 +34,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketFindByIdResponse findById(Long id) {
+    public TicketResponseDto findById(Long id) {
         return ticketRepository.findById(id)
             .map(ticketConverter::toFindByIdResponse)
             .orElseThrow(() -> new NotFoundException("Ticket is not found."));
@@ -42,7 +42,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional
-    public TicketUpdateResponse update(TicketUpdateRequest dto) {
+    public TicketUpdateResponseDto update(TicketUpdateRequestDto dto) {
         Ticket ticket = ticketRepository.findById(dto.getId())
             .orElseThrow(() -> new NotFoundException("Ticket is not found."));
         return ticketConverter.toUpdateResponse(ticket.update(dto.getTicketName(), dto.getPrice()));
@@ -50,11 +50,11 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional
-    public TicketDeleteByIdResponse deleteById(Long id) {
-        TicketDeleteByIdResponse ticketDeleteByIdResponse = ticketRepository.findById(id)
+    public TicketDeleteResponseDto deleteById(Long id) {
+        TicketDeleteResponseDto ticketDeleteResponseDto = ticketRepository.findById(id)
             .map(ticketConverter::toDeleteByIdResponse)
             .orElseThrow(() -> new NotFoundException("Ticket is not found."));
         ticketRepository.deleteById(id);
-        return ticketDeleteByIdResponse;
+        return ticketDeleteResponseDto;
     }
 }

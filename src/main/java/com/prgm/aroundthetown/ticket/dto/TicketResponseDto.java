@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class TicketCreateRequest {
-    private Long leisureId;
+public class TicketResponseDto {
+    private Long id;
     private String ticketName;
     private Integer price;
 }

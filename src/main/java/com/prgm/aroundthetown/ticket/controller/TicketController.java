@@ -1,10 +1,10 @@
 package com.prgm.aroundthetown.ticket.controller;
 
-import com.prgm.aroundthetown.ticket.dto.TicketCreateRequest;
-import com.prgm.aroundthetown.ticket.dto.TicketDeleteByIdResponse;
-import com.prgm.aroundthetown.ticket.dto.TicketFindByIdResponse;
-import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequest;
-import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponse;
+import com.prgm.aroundthetown.ticket.dto.TicketCreateRequestDto;
+import com.prgm.aroundthetown.ticket.dto.TicketDeleteResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequestDto;
+import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponseDto;
 import com.prgm.aroundthetown.ticket.service.TicketService;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -39,27 +39,27 @@ public class TicketController {
     }
 
     @PostMapping("/ticket")
-    public ResponseEntity<Long> createTicket(@RequestBody final TicketCreateRequest request) {
+    public ResponseEntity<Long> createTicket(@RequestBody final TicketCreateRequestDto request) {
         Long ticketCreateResponse = ticketService.create(request);
         return new ResponseEntity<>(ticketCreateResponse, HttpStatus.CREATED); // Todo : OK , CREATED ?
     }
 
     @GetMapping("/ticket/{ticketId}")
-    public ResponseEntity<TicketFindByIdResponse> findTicketById(@PathVariable final Long ticketId) {
-        TicketFindByIdResponse ticketFindByIdResponse = ticketService.findById(ticketId);
-        return new ResponseEntity<>(ticketFindByIdResponse, HttpStatus.OK);
+    public ResponseEntity<TicketResponseDto> findTicketById(@PathVariable final Long ticketId) {
+        TicketResponseDto ticketResponseDto = ticketService.findById(ticketId);
+        return new ResponseEntity<>(ticketResponseDto, HttpStatus.OK);
     }
 
     @PutMapping("/ticket")
-    public ResponseEntity<TicketUpdateResponse> updateTicket(@RequestBody final TicketUpdateRequest request){
-        TicketUpdateResponse updated = ticketService.update(request);
+    public ResponseEntity<TicketUpdateResponseDto> updateTicket(@RequestBody final TicketUpdateRequestDto request){
+        TicketUpdateResponseDto updated = ticketService.update(request);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @DeleteMapping("/ticket/{ticketId}")
-    public ResponseEntity<TicketDeleteByIdResponse> deleteTicketById(@PathVariable final Long ticketId) {
-        TicketDeleteByIdResponse ticketDeleteByIdResponse = ticketService.deleteById(ticketId);
-        return new ResponseEntity<>(ticketDeleteByIdResponse, HttpStatus.OK);
+    public ResponseEntity<TicketDeleteResponseDto> deleteTicketById(@PathVariable final Long ticketId) {
+        TicketDeleteResponseDto ticketDeleteResponseDto = ticketService.deleteById(ticketId);
+        return new ResponseEntity<>(ticketDeleteResponseDto, HttpStatus.OK);
     }
 
 }
