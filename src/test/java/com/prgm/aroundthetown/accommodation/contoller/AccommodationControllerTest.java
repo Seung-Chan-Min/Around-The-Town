@@ -11,6 +11,7 @@ import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.product.dto.LocationDto;
+import com.prgm.aroundthetown.product.dto.ProductDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -77,8 +78,8 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
                 .guide("test")
                 .build();
 
+        host.addProduct(accommodation);
         hostRepository.save(host);
-//        accommodationRepository.save(accommodation);
     }
 
     @Test
@@ -95,18 +96,21 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
                 .optionNotice("optionNotice")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.HOTEL)
-                .businessName("미니컴퍼니")
-                .refundRule("환불 규정")
-                .location(LocationDto.builder()
-                        .howToVisit("방문하는 방법")
-                        .latitude(31.10000)
-                        .longitude(111.11111)
-                        .content("버스타고 50분")
+                .productDto(ProductDto.builder()
+                        .businessName("미니컴퍼니")
+                        .refundRule("환불 규정")
+                        .locationDto(LocationDto.builder()
+                                .howToVisit("방문하는 방법")
+                                .latitude(31.10000)
+                                .longitude(111.11111)
+                                .content("버스타고 50분")
+                                .build())
+                        .phoneNumber("01022223333")
+                        .businessRegistrationNumber("192293293847")
+                        .businessAddress("경기도 용인시 죽전동")
+                        .region(Region.GYEONGGI)
                         .build())
-                .phoneNumber("01022223333")
-                .businessRegistrationNumber("192293293847")
-                .businessAddress("경기도 용인시 죽전동")
-                .region(Region.GYEONGGI)
+
                 .hostId(host.getId())
                 .build();
 
