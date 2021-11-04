@@ -5,6 +5,7 @@ import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationOption;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.dto.LocationDto;
@@ -23,7 +24,7 @@ public class AccommodationConverter {
             , final Host host
     ) {
         final ProductCreateRequestDto productDto = createDto.getProductDto();
-        return Accommodation.builder()
+        final Accommodation accommodation = Accommodation.builder()
                 .accommodationName(createDto.getAccommodationName())
                 .accommodationNotice(createDto.getAccommodationNotice())
                 .optionNotice(createDto.getOptionNotice())
@@ -40,6 +41,13 @@ public class AccommodationConverter {
                 .region(productDto.getRegion())
                 .host(host)
                 .build();
+        createDto.getAccommodationOptions()
+                .forEach(accommodationOptionDto -> accommodation
+                        .addOption(AccommodationOption.builder()
+                                .accommodation(accommodation)
+                                .option(accommodationOptionDto.getAccommodationOptionCategory())
+                                .build()));
+        return accommodation;
     }
 
     public Location locationDtoToEntity(final LocationDto location) {

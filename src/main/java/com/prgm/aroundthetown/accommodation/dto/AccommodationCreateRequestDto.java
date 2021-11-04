@@ -4,6 +4,8 @@ import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.product.dto.ProductCreateRequestDto;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
@@ -16,4 +18,5 @@ public class AccommodationCreateRequestDto {
     private String optionNotice;
     private String guide;
     private AccommodationCategory accommodationCategory;
+    private List<AccommodationOptionDto> accommodationOptions;
 }

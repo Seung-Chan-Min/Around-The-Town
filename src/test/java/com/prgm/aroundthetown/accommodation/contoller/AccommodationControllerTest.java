@@ -2,8 +2,10 @@ package com.prgm.aroundthetown.accommodation.contoller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationOptionDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationOptionCategory;
 import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
 import com.prgm.aroundthetown.common.ClassLevelTestConfig;
 import com.prgm.aroundthetown.host.entity.Host;
@@ -26,6 +28,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -42,6 +46,7 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
     public MockMvc mockMvc;
     Host host;
     Accommodation accommodation;
+
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -89,6 +94,13 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
     @Order(1)
     void saveAccommodation() throws Exception {
         //given
+        final var option1 = AccommodationOptionDto.builder()
+                .accommodationOptionCategory(AccommodationOptionCategory.NETFLIX)
+                .build();
+        final var option2 = AccommodationOptionDto.builder()
+                .accommodationOptionCategory(AccommodationOptionCategory.BREAKFAST)
+                .build();
+        final List<AccommodationOptionDto> accommodationOptions = Arrays.asList(option1, option2);
         final AccommodationCreateRequestDto accommodationCreateRequestDto = AccommodationCreateRequestDto.builder()
                 .accommodationName("숙박업체 이름")
                 .accommodationNotice("숙박업체 공지")
@@ -110,12 +122,11 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
                         .businessAddress("경기도 용인시 죽전동")
                         .region(Region.GYEONGGI)
                         .build())
-
+                .accommodationOptions(accommodationOptions)
                 .hostId(host.getId())
                 .build();
 
         //when
-        //then
         mockMvc.perform(post("/api/v1/hosts/accommodations")
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding(StandardCharsets.UTF_8)
@@ -123,6 +134,10 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
                 .andExpect(status().isCreated())
                 .andDo(print());
 
+        //then (마지막에 set(옵션) 넣은거 잘 들어가지는지 확인)
+        final List<Accommodation> accommodations = accommodationRepository.findAll();
+        final var lastInsertValue = accommodations.get(accommodations.size() - 1).getOptions();
+        assertThat(lastInsertValue.size(), is(2));
     }
 
     @Test
