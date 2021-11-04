@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.ticket.entity;
 
+import com.prgm.aroundthetown.annotation.SoftDeletableEntity;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import lombok.*;
@@ -11,14 +12,14 @@ import java.util.Objects;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-@Entity
 @Table(name = "ticket")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-//@SQLDelete(sql = "UPDATE table_ticket SET is_deleted = true WHERE id=?")
-//@Where(clause = "is_deleted = false")
+@Entity
+@SoftDeletableEntity
+@SQLDelete(sql = "UPDATE ticket SET is_deleted = true WHERE ticket_id=?")
 public class Ticket extends BaseEntity {
 
     @Id

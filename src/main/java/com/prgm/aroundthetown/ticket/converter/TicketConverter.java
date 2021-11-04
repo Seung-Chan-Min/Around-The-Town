@@ -3,6 +3,7 @@ package com.prgm.aroundthetown.ticket.converter;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.ticket.dto.TicketCreateRequestDto;
 import com.prgm.aroundthetown.ticket.dto.TicketDeleteResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketFindAllByLeisureResponseDto;
 import com.prgm.aroundthetown.ticket.dto.TicketResponseDto;
 import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponseDto;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
@@ -19,7 +20,7 @@ public class TicketConverter {
             .build();
     }
 
-    public TicketResponseDto toFindByIdResponse(Ticket ticket) {
+    public TicketResponseDto toResponse(Ticket ticket) {
         return TicketResponseDto.builder()
             .id(ticket.getId())
             .ticketName(ticket.getTicketName())
@@ -27,7 +28,15 @@ public class TicketConverter {
             .build();
     }
 
-    public TicketDeleteResponseDto toDeleteByIdResponse(Ticket ticket) {
+    public TicketFindAllByLeisureResponseDto toFindAllByLeisureResponse(Ticket ticket) {
+        return TicketFindAllByLeisureResponseDto.builder()
+            .id(ticket.getId())
+            .ticketName(ticket.getTicketName())
+            .price(ticket.getPrice())
+            .build();
+    }
+
+    public TicketDeleteResponseDto toDeleteResponse(Ticket ticket) {
         return TicketDeleteResponseDto.builder()
             .id(ticket.getId())
             .ticketName(ticket.getTicketName())
@@ -42,4 +51,6 @@ public class TicketConverter {
             .price(ticket.getPrice())
             .build();
     }
+
+
 }
