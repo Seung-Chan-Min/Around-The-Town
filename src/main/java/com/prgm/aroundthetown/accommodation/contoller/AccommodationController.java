@@ -2,6 +2,7 @@ package com.prgm.aroundthetown.accommodation.contoller;
 
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.service.AccommodationService;
@@ -54,12 +55,12 @@ public class AccommodationController {
 
     //TODO: hostId 를 노출시키면 안될것 같습니다. => 로그인, 인증을 배운후에 고치기
     @DeleteMapping("/hosts/{hostId}/accommodations/{accommodationId}")
-    public void deleteAccommodation(
+    public ResponseEntity<AccommodationDeleteDto> deleteAccommodation(
             @PathVariable final Long hostId,
             @PathVariable final Long accommodationId
     ) {
-        //TODO: deleteDTO 내려주기. accommodation 쪽 삭제 제대로 된경우와 안된경우 예외처리하기
-        accommodationService.deleteByAccommodationId(hostId, accommodationId);
+        final AccommodationDeleteDto deletedAccommodationName = accommodationService.deleteByAccommodationId(hostId, accommodationId);
+        return ResponseEntity.ok(deletedAccommodationName);
     }
 
 

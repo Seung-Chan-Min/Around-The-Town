@@ -2,6 +2,7 @@ package com.prgm.aroundthetown.accommodation.converter;
 
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.host.entity.Host;
@@ -72,5 +73,11 @@ public class AccommodationConverter {
                         .guide(accommodation.getGuide())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public AccommodationDeleteDto entityToAccommodationDeleteDto(final Accommodation accommodation) {
+        return AccommodationDeleteDto.builder()
+                .accommodationName(accommodation.getAccommodationName())
+                .build();
     }
 }
