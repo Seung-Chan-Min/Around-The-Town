@@ -8,6 +8,7 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import com.prgm.aroundthetown.room.dto.RoomCreateRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,7 @@ class RoomControllerTest {
                 .optionNotice("optionNotice")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.HOTEL)
+                .productType(ProductType.ACCOMMODATION)
                 .businessName("미니컴퍼니")
                 .refundRule("환불 규정")
                 .location(Location.builder()

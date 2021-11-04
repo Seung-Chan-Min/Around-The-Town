@@ -8,6 +8,7 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.dto.LocationDto;
 import com.prgm.aroundthetown.product.entity.Product;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,10 +18,10 @@ import java.util.stream.Collectors;
 public class AccommodationConverter {
 
     public Product createDtoToEntity(
-            final AccommodationCreateRequestDto createDto
-            , final Host host
+            final AccommodationCreateRequestDto createDto,
+            final Host host
     ) {
-        return Accommodation.builder()
+        final Accommodation accommodation = Accommodation.builder()
                 .accommodationName(createDto.getAccommodationName())
                 .accommodationNotice(createDto.getAccommodationNotice())
                 .optionNotice(createDto.getOptionNotice())
@@ -35,8 +36,11 @@ public class AccommodationConverter {
                 .businessRegistrationNumber(createDto.getBusinessRegistrationNumber())
                 .businessAddress(createDto.getBusinessAddress())
                 .region(createDto.getRegion())
+                .productType(ProductType.ACCOMMODATION)
                 .host(host)
                 .build();
+        host.addProduct(accommodation);
+        return accommodation;
     }
 
     public Location locationDtoToEntity(final LocationDto location) {

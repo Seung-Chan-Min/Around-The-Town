@@ -7,12 +7,20 @@ import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.product.dto.LocationDto;
 import com.prgm.aroundthetown.product.dto.ProductDto;
 import com.prgm.aroundthetown.product.entity.Product;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class ProductConverter {
+    public ProductDto toDto(final Product product) {
+        if (product.getProductType().equals(ProductType.ACCOMMODATION)) {
+            return accommodationToDto((Accommodation) product);
+        } else {
+            return leisureToDto((Leisure) product);
+        }
+    }
 
     public ProductDto accommodationToDto(final Accommodation accommodation) {
         final ProductDto productDto = toProductDtoIncludeLocation(accommodation);

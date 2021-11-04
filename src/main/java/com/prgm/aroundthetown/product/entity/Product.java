@@ -21,7 +21,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "product")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "product_type")
+@DiscriminatorValue(value = "DTYPE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
@@ -58,6 +58,10 @@ public class Product extends BaseEntity {
     @Column(name = "region")
     @Enumerated(value = EnumType.STRING)
     private Region region;
+
+    @Column(name = "DTYPE", insertable = false, updatable = false)
+    @Enumerated(value = EnumType.STRING)
+    private ProductType productType;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

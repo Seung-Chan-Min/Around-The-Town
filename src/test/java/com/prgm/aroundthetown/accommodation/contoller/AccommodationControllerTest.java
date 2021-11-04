@@ -36,7 +36,7 @@ class AccommodationControllerTest {
     private HostRepository hostRepository;
 
     @BeforeAll
-    void setUp() throws Exception {
+    void setUp() {
         host = Host.builder()
                 .hostName("강민희")
                 .hostPhoneNumber("01066669999")
@@ -81,7 +81,6 @@ class AccommodationControllerTest {
                         .content(objectMapper.writeValueAsString(accommodationCreateRequestDto)))
                 .andExpect(status().isCreated())
                 .andDo(print());
-
     }
 
     @Test
