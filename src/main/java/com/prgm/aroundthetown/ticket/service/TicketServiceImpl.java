@@ -6,11 +6,14 @@ import com.prgm.aroundthetown.leisure.repository.LeisureRepository;
 import com.prgm.aroundthetown.ticket.converter.TicketConverter;
 import com.prgm.aroundthetown.ticket.dto.TicketCreateRequestDto;
 import com.prgm.aroundthetown.ticket.dto.TicketDeleteResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketFindAllByLeisureResponseDto;
 import com.prgm.aroundthetown.ticket.dto.TicketResponseDto;
 import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequestDto;
 import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponseDto;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
 import com.prgm.aroundthetown.ticket.repository.TicketRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +39,17 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketResponseDto findById(Long id) {
         return ticketRepository.findById(id)
-            .map(ticketConverter::toFindByIdResponse)
+            .map(ticketConverter::toResponse)
             .orElseThrow(() -> new NotFoundException("Ticket is not found."));
+    }
+
+    @Override
+    public List<TicketFindAllByLeisureResponseDto> findAllByLeisure(Long leisureId) {
+        Leisure leisure = leisureRepository.findById(leisureId)
+            .orElseThrow(() -> new NotFoundException("Host is not found."));
+        return ticketRepository.findAllByLeisure(leisure).stream()
+            .map(ticketConverter::toFindAllByLeisureResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -52,7 +64,7 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     public TicketDeleteResponseDto deleteById(Long id) {
         TicketDeleteResponseDto ticketDeleteResponseDto = ticketRepository.findById(id)
-            .map(ticketConverter::toDeleteByIdResponse)
+            .map(ticketConverter::toDeleteResponse)
             .orElseThrow(() -> new NotFoundException("Ticket is not found."));
         ticketRepository.deleteById(id);
         return ticketDeleteResponseDto;

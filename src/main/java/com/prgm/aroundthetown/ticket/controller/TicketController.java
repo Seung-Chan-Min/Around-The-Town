@@ -2,10 +2,12 @@ package com.prgm.aroundthetown.ticket.controller;
 
 import com.prgm.aroundthetown.ticket.dto.TicketCreateRequestDto;
 import com.prgm.aroundthetown.ticket.dto.TicketDeleteResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketFindAllByLeisureResponseDto;
 import com.prgm.aroundthetown.ticket.dto.TicketResponseDto;
 import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequestDto;
 import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponseDto;
 import com.prgm.aroundthetown.ticket.service.TicketService;
+import java.util.List;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,28 +40,29 @@ public class TicketController {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/ticket")
+    @PostMapping("/tickets")
     public ResponseEntity<Long> createTicket(@RequestBody final TicketCreateRequestDto request) {
-        Long ticketCreateResponse = ticketService.create(request);
-        return new ResponseEntity<>(ticketCreateResponse, HttpStatus.CREATED); // Todo : OK , CREATED ?
+        return new ResponseEntity<>(ticketService.create(request), HttpStatus.CREATED); // Todo : OK , CREATED ?
     }
 
-    @GetMapping("/ticket/{ticketId}")
+    @GetMapping("/tickets/{ticketId}")
     public ResponseEntity<TicketResponseDto> findTicketById(@PathVariable final Long ticketId) {
-        TicketResponseDto ticketResponseDto = ticketService.findById(ticketId);
-        return new ResponseEntity<>(ticketResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(ticketService.findById(ticketId), HttpStatus.OK);
     }
 
-    @PutMapping("/ticket")
+    @GetMapping("/tickets/leisure/{leisureId}")
+    public ResponseEntity<List<TicketFindAllByLeisureResponseDto>> findAllTicketByLeisure(@PathVariable final Long leisureId) {
+        return new ResponseEntity<>(ticketService.findAllByLeisure(leisureId), HttpStatus.OK);
+    }
+
+    @PutMapping("/tickets")
     public ResponseEntity<TicketUpdateResponseDto> updateTicket(@RequestBody final TicketUpdateRequestDto request){
-        TicketUpdateResponseDto updated = ticketService.update(request);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        return new ResponseEntity<>(ticketService.update(request), HttpStatus.OK);
     }
 
-    @DeleteMapping("/ticket/{ticketId}")
+    @DeleteMapping("/tickets/{ticketId}")
     public ResponseEntity<TicketDeleteResponseDto> deleteTicketById(@PathVariable final Long ticketId) {
-        TicketDeleteResponseDto ticketDeleteResponseDto = ticketService.deleteById(ticketId);
-        return new ResponseEntity<>(ticketDeleteResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(ticketService.deleteById(ticketId), HttpStatus.OK);
     }
 
 }

@@ -55,8 +55,32 @@ public class LeisureConverter {
             .build();
     }
 
-    public LeisureResponseDto toFindResponse(final Leisure leisure) {
+    public LeisureResponseDto toResponse(final Leisure leisure) {
         return LeisureResponseDto.builder()
+            .id(leisure.getProductId())
+            .leisureInformation(leisure.getLeisureInformation())
+            .usecase(leisure.getUsecase())
+            .leisureNotice(leisure.getLeisureNotice())
+            .expirationDate(leisure.getExpirationDate())
+            .category(leisure.getCategory())
+            .productResponseDto(productConverter.toResponse(leisure))
+            .build();
+    }
+
+    public LeisureFindAllByCategoryResponseDto toFindAllByCategoryResponse(Leisure leisure) {
+        return LeisureFindAllByCategoryResponseDto.builder()
+            .id(leisure.getProductId())
+            .leisureInformation(leisure.getLeisureInformation())
+            .usecase(leisure.getUsecase())
+            .leisureNotice(leisure.getLeisureNotice())
+            .expirationDate(leisure.getExpirationDate())
+            .category(leisure.getCategory())
+            .productResponseDto(productConverter.toResponse(leisure))
+            .build();
+    }
+
+    public LeisureFindAllByHostResponseDto toFindAllByHostResponse(Leisure leisure) {
+        return LeisureFindAllByHostResponseDto.builder()
             .id(leisure.getProductId())
             .leisureInformation(leisure.getLeisureInformation())
             .usecase(leisure.getUsecase())

@@ -10,16 +10,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.hibernate.annotations.SQLDelete;
 
 @Getter
-@Entity
 @Table(name = "leisure")
-@DiscriminatorValue("leisure")
+@DiscriminatorValue("LEISURE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
-//@SQLDelete(sql = "UPDATE table_leisure SET is_deleted = true WHERE id=?")
-//@Where(clause = "is_deleted = false")
+@Entity
 public class Leisure extends Product {
     // TODO :: service에서 연관관계 편의 메소드 추가
 
