@@ -3,6 +3,7 @@ package com.prgm.aroundthetown.accommodation.converter;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.host.entity.Host;
@@ -18,6 +19,15 @@ import java.util.stream.Collectors;
 
 @Component
 public class AccommodationConverter {
+    public AccommodationDto toDto(final Accommodation accommodation) {
+        return AccommodationDto.builder()
+                .accommodationName(accommodation.getAccommodationName())
+                .accommodationCategory(accommodation.getAccommodationCategory())
+                .accommodationNotice(accommodation.getAccommodationNotice())
+                .optionNotice(accommodation.getOptionNotice())
+                .guide(accommodation.getGuide())
+                .build();
+    }
 
     public Product createDtoToEntity(
             final AccommodationCreateRequestDto createDto,

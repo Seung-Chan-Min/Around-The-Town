@@ -11,8 +11,17 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class LeisureConverter {
-
     private final LocationConverter locationConverter;
+
+    public LeisureDto toDto(final Leisure leisure) {
+        return LeisureDto.builder()
+                .category(leisure.getCategory())
+                .leisureInfomation(leisure.getLeisureInformation())
+                .usecase(leisure.getUsecase())
+                .leisureNotice(leisure.getLeisureNotice())
+                .expirationDate(leisure.getExpirationDate())
+                .build();
+    }
 
     public Leisure toLeisure(final LeisureCreateRequest dto, final Host host) {
         final Leisure leisure = Leisure.builder()
