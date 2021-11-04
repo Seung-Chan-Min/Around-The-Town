@@ -59,4 +59,13 @@ public class AccommodationServiceImpl implements AccommodationService {
                 (accommodationRepository.getAccommodationByAccommodationCategoryAndRegion(category, region));
     }
 
+    @Override
+    @Transactional
+    public void deleteByAccommodationId(final Long hostId, final Long accommodationId) {
+        // soft delete
+        final Host host = hostRepository.getById(hostId);
+        accommodationRepository.deleteAccommodationByHostAndProductId(host, accommodationId);
+
+    }
+
 }

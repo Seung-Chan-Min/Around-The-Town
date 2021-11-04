@@ -1,6 +1,7 @@
 package com.prgm.aroundthetown.common.entity;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public abstract class BaseTimeAndDeletedEntity {
 
     @CreatedDate
@@ -34,4 +36,5 @@ public abstract class BaseTimeAndDeletedEntity {
     public void setIsDeleted(final Boolean deleted) {
         this.isDeleted = deleted;
     }
+
 }

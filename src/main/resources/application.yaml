@@ -1,13 +1,13 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost:9092/~/scm
+    url: jdbc:h2:~/scm
     username: sa
     password:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate.format_sql: true
@@ -17,9 +17,12 @@ spring:
 server:
   servlet:
     encoding:
+      force-response: true
       charset: UTF-8
       enabled: true
       force: true
 logging:
   level:
-    org.hibernate.SQL: info
+    org:
+      hibernate:
+        SQL: debug

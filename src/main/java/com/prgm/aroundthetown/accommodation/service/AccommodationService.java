@@ -17,4 +17,6 @@ public interface AccommodationService {
     List<AccommodationResponseDto> geAccommodationByHostId(Long hostId);
 
     List<AccommodationResponseDto> getAccommodationsByCategoryAndRegion(AccommodationCategory category, Region region);
+
+    void deleteByAccommodationId(final Long hostId, Long accommodationId);
 }

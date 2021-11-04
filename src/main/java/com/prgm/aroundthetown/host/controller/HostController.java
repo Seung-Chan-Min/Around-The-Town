@@ -14,8 +14,8 @@ public class HostController {
     private final HostService hostService;
 
     @PostMapping("/hosts")
-    @ResponseStatus(code= HttpStatus.CREATED)
-    public Long saveHost(@RequestBody HostCreateRequestDto hostCreateRequestDto){
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Long saveHost(@RequestBody final HostCreateRequestDto hostCreateRequestDto) {
         return hostService.createHost(hostCreateRequestDto);
     }
 
