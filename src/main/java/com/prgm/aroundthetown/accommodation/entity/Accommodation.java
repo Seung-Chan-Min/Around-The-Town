@@ -25,7 +25,6 @@ import java.util.*;
 @Where(clause = "is_deleted = false")
 @DynamicInsert
 public class Accommodation extends Product {
-
     @Column(name = "accommodation_name")
     private String accommodationName;
 
