@@ -1,6 +1,5 @@
 package com.prgm.aroundthetown.member.service;
 
-import com.prgm.aroundthetown.common.exception.NotFoundException;
 import com.prgm.aroundthetown.member.converter.MemberConverter;
 import com.prgm.aroundthetown.member.dto.MemberCreateDto;
 import com.prgm.aroundthetown.member.dto.MemberDto;
@@ -24,22 +23,20 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public MemberDto findById(final Long memberId) {
-        return repository.findById(memberId)
-                .map(converter::toDto)
-                .orElseThrow(() -> new NotFoundException("Member is not found"));
+        return converter.toDto(repository.getById(memberId));
     }
 
     @Transactional
-    public Long updateMember(final MemberUpdateDto dto) {
-        final Member entity = repository.findById(dto.getId()).get();
+    public Long updateMember(final Long memberId, final MemberUpdateDto dto) {
+        final Member entity = repository.getById(memberId);
         entity.update(dto.getPassword(), dto.getPhoneNumber(), dto.getEmail());
-        return repository.save(entity).getId();
+        return memberId;
     }
 
     @Transactional
     public void deleteMember(final Long memberId) {
-        final Member entity = repository.findById(memberId).get();
-//        entity.setIsDeleted(true);
+        final Member entity = repository.getById(memberId);
+        entity.setIsDeleted(true);
         repository.save(entity);
     }
 }
