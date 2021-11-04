@@ -20,4 +20,6 @@ public interface AccommodationService {
     List<AccommodationResponseDto> getAccommodationsByCategoryAndRegion(AccommodationCategory category, Region region);
 
     AccommodationDeleteDto deleteByAccommodationId(final Long hostId, Long accommodationId);
+
+//    AccommodationUpdateResponseDto update(final Long accommodationId, AccommodationUpdateRequestDto updateRequestDto);
 }

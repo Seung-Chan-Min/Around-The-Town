@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.product.entity;
 
+import com.prgm.aroundthetown.annotation.SoftDeletableEntity;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.host.entity.Host;
@@ -25,6 +26,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
+@SoftDeletableEntity
 public class Product extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

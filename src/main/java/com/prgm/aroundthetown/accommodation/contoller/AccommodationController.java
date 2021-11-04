@@ -59,9 +59,18 @@ public class AccommodationController {
             @PathVariable final Long hostId,
             @PathVariable final Long accommodationId
     ) {
-        final AccommodationDeleteDto deletedAccommodationName = accommodationService.deleteByAccommodationId(hostId, accommodationId);
+        final AccommodationDeleteDto deletedAccommodationName = accommodationService
+                .deleteByAccommodationId(hostId, accommodationId);
         return ResponseEntity.ok(deletedAccommodationName);
     }
 
-
+//    @PatchMapping("/hosts/accommodations/{accommodationId}")
+//    public ResponseEntity<AccommodationUpdateResponseDto> updateAccommodation(
+//            @PathVariable final Long accommodationId,
+//            @RequestBody final AccommodationUpdateRequestDto accommodationUpdateDto
+//    ) {
+//        final AccommodationUpdateResponseDto accommodationUpdateResponseDto = accommodationService
+//                .update(accommodationId, accommodationUpdateDto);
+//        return ResponseEntity.ok(accommodationUpdateResponseDto);
+//    }
 }

@@ -38,7 +38,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         final Product retrievedProduct = productRepository
                 .save(accommodationConverter.createDtoToEntity(accommodationCreateDto, host));
         final Accommodation accommodation = accommodationRepository.getById(retrievedProduct.getProductId());
-
+        host.addProduct(retrievedProduct);
         return accommodationConverter.entityToResponseAccommodationCreateDto(accommodation);
     }
 
@@ -69,5 +69,15 @@ public class AccommodationServiceImpl implements AccommodationService {
         accommodationRepository.deleteAccommodationByHostAndProductId(host, accommodationId);
         return accommodationConverter.entityToAccommodationDeleteDto(accommodation);
     }
+
+//    @Override
+//    @Transactional
+//    public AccommodationUpdateResponseDto update(final Long accommodationId, final AccommodationUpdateRequestDto updateRequestDto) {
+//        final Host host = hostRepository.getById(updateRequestDto.getHostId()); //login 대체제
+//        final Product accommodation = productRepository.findByHost(host);
+//        accommodationConverter.update(updateRequestDto, accommodation);
+//
+//        return accommodationConverter.entityToResponseAccommodationUpdateDto(returnAccommodation);
+//    }
 
 }
