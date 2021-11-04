@@ -7,6 +7,7 @@ import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.dto.LocationDto;
+import com.prgm.aroundthetown.product.dto.ProductDto;
 import com.prgm.aroundthetown.product.entity.Product;
 import org.springframework.stereotype.Component;
 
@@ -20,21 +21,22 @@ public class AccommodationConverter {
             final AccommodationCreateRequestDto createDto
             , final Host host
     ) {
+        final ProductDto productDto = createDto.getProductDto();
         return Accommodation.builder()
                 .accommodationName(createDto.getAccommodationName())
                 .accommodationNotice(createDto.getAccommodationNotice())
                 .optionNotice(createDto.getOptionNotice())
                 .guide(createDto.getGuide())
                 .accommodationCategory(createDto.getAccommodationCategory())
-                .businessName(createDto.getBusinessName())
-                .refundRule(createDto.getRefundRule())
+                .businessName(productDto.getBusinessName())
+                .refundRule(productDto.getRefundRule())
                 .location(
                         locationDtoToEntity(
-                                createDto.getLocation()))
-                .phoneNumber(createDto.getPhoneNumber())
-                .businessRegistrationNumber(createDto.getBusinessRegistrationNumber())
-                .businessAddress(createDto.getBusinessAddress())
-                .region(createDto.getRegion())
+                                productDto.getLocationDto()))
+                .phoneNumber(productDto.getPhoneNumber())
+                .businessRegistrationNumber(productDto.getBusinessRegistrationNumber())
+                .businessAddress(productDto.getBusinessAddress())
+                .region(productDto.getRegion())
                 .host(host)
                 .build();
     }
