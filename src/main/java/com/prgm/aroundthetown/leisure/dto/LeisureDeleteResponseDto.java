@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class LeisureDeleteByIdResponse {
+public class LeisureDeleteResponseDto {
     private Long id;
     private String leisureInformation;
     private String usecase;

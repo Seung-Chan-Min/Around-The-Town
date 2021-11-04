@@ -1,10 +1,10 @@
 package com.prgm.aroundthetown.leisure.controller;
 
-import com.prgm.aroundthetown.leisure.dto.LeisureCreateRequest;
-import com.prgm.aroundthetown.leisure.dto.LeisureDeleteByIdResponse;
-import com.prgm.aroundthetown.leisure.dto.LeisureFindByIdResponse;
-import com.prgm.aroundthetown.leisure.dto.LeisureUpdateRequest;
-import com.prgm.aroundthetown.leisure.dto.LeisureUpdateResponse;
+import com.prgm.aroundthetown.leisure.dto.LeisureCreateRequestDto;
+import com.prgm.aroundthetown.leisure.dto.LeisureDeleteResponseDto;
+import com.prgm.aroundthetown.leisure.dto.LeisureResponseDto;
+import com.prgm.aroundthetown.leisure.dto.LeisureUpdateRequestDto;
+import com.prgm.aroundthetown.leisure.dto.LeisureUpdateResponseDto;
 import com.prgm.aroundthetown.leisure.service.LeisureServiceImpl;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -39,26 +39,26 @@ public class LeisureController {
     }
 
     @PostMapping("/leisure")
-    public ResponseEntity<Long> createLeisure(@RequestBody final LeisureCreateRequest request) {
+    public ResponseEntity<Long> createLeisure(@RequestBody final LeisureCreateRequestDto request) {
         Long created = leisureService.create(request);
         return new ResponseEntity<>(created, HttpStatus.CREATED); // Todo : OK , CREATED ?
     }
 
     @GetMapping("/leisure/{leisureId}")
-    public ResponseEntity<LeisureFindByIdResponse> findLeisureById(@PathVariable final Long leisureId) {
-        LeisureFindByIdResponse found = leisureService.findById(leisureId);
+    public ResponseEntity<LeisureResponseDto> findLeisureById(@PathVariable final Long leisureId) {
+        LeisureResponseDto found = leisureService.findById(leisureId);
         return new ResponseEntity<>(found, HttpStatus.OK);
     }
 
     @PutMapping("/leisure")
-    public ResponseEntity<LeisureUpdateResponse> updateLeisure(@RequestBody final LeisureUpdateRequest request){
-        LeisureUpdateResponse updated = leisureService.update(request);
+    public ResponseEntity<LeisureUpdateResponseDto> updateLeisure(@RequestBody final LeisureUpdateRequestDto request){
+        LeisureUpdateResponseDto updated = leisureService.update(request);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @DeleteMapping("/leisure/{leisureId}")
-    public ResponseEntity<LeisureDeleteByIdResponse> deleteLeisureById(@PathVariable final Long leisureId) {
-        LeisureDeleteByIdResponse deleted = leisureService.deleteById(leisureId);
+    public ResponseEntity<LeisureDeleteResponseDto> deleteLeisureById(@PathVariable final Long leisureId) {
+        LeisureDeleteResponseDto deleted = leisureService.deleteById(leisureId);
         return new ResponseEntity<>(deleted, HttpStatus.OK);
     }
 
