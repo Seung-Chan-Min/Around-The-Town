@@ -26,7 +26,7 @@ public class LeisureServiceImpl implements LeisureService{
     @Override
     @Transactional
     public Long create(LeisureCreateRequestDto dto) {
-        Host host = hostRepository.findById(dto.getHostId())
+        Host host = hostRepository.findById(dto.getProductCreateRequestDto().getHostId())
             .orElseThrow(() -> new NotFoundException("Host is not found."));
         Leisure leisure = leisureConverter.toLeisure(dto, host);
         host.addProduct(leisure);
@@ -36,7 +36,7 @@ public class LeisureServiceImpl implements LeisureService{
     @Override
     public LeisureResponseDto findById(Long id) {
         return leisureRepository.findById(id)
-            .map(leisureConverter::toFindByIdResponse)
+            .map(leisureConverter::toFindResponse)
             .orElseThrow(() -> new NotFoundException("Leisure is not found."));
     }
 
@@ -52,7 +52,7 @@ public class LeisureServiceImpl implements LeisureService{
     @Transactional
     public LeisureDeleteResponseDto deleteById(Long id) {
         LeisureDeleteResponseDto leisureDeleteResponseDto = leisureRepository.findById(id)
-            .map(leisureConverter::toDeleteByIdResponse)
+            .map(leisureConverter::toDeleteResponse)
             .orElseThrow(() -> new NotFoundException("Leisure is not found."));
         leisureRepository.deleteById(id);
         return leisureDeleteResponseDto;

@@ -1,16 +1,16 @@
 package com.prgm.aroundthetown.ticket.service;
 
 
-import com.prgm.aroundthetown.ticket.dto.TicketCreateRequest;
-import com.prgm.aroundthetown.ticket.dto.TicketDeleteByIdResponse;
-import com.prgm.aroundthetown.ticket.dto.TicketFindByIdResponse;
-import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequest;
-import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponse;
+import com.prgm.aroundthetown.ticket.dto.TicketCreateRequestDto;
+import com.prgm.aroundthetown.ticket.dto.TicketDeleteResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketResponseDto;
+import com.prgm.aroundthetown.ticket.dto.TicketUpdateRequestDto;
+import com.prgm.aroundthetown.ticket.dto.TicketUpdateResponseDto;
 
 public interface TicketService {
 
-    Long create(TicketCreateRequest dto);
-    TicketFindByIdResponse findById(Long id);
-    TicketUpdateResponse update(TicketUpdateRequest dto);
-    TicketDeleteByIdResponse deleteById(Long id);
+    Long create(TicketCreateRequestDto dto);
+    TicketResponseDto findById(Long id);
+    TicketUpdateResponseDto update(TicketUpdateRequestDto dto);
+    TicketDeleteResponseDto deleteById(Long id);
 }
