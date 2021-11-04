@@ -2,6 +2,7 @@ package com.prgm.aroundthetown.room.controller;
 
 import com.prgm.aroundthetown.room.dto.RoomCreateRequestDto;
 import com.prgm.aroundthetown.room.dto.RoomCreateResponseDto;
+import com.prgm.aroundthetown.room.dto.RoomResponseDto;
 import com.prgm.aroundthetown.room.service.RoomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -30,18 +32,15 @@ public class RoomController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/accommodations/{accommodationId}/{roomId}")
-    public void getRoomsByCheckinAndCheckOut(
+    @GetMapping("/accommodations/{accommodationId}")
+    public ResponseEntity<List<RoomResponseDto>> getRoomsByCheckinAndCheckOut(
             @PathVariable final Long accommodationId,
-            @PathVariable final Long roomId,
             @RequestParam("check-in")
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final
-            LocalDateTime checkIn,
-            @RequestParam("check-out")
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final
-            LocalDateTime checkOut
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final
+            LocalDate checkIn
     ) {
-        roomService.getRoomsByCheckinAndCheckOut(checkIn, checkOut);
+        final List<RoomResponseDto> roomResponseDtos = roomService.getRoomsByCheckinAndCheckOut(accommodationId, checkIn);
+        return ResponseEntity.ok(roomResponseDtos);
     }
 
 }

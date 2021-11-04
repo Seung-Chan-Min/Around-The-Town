@@ -4,7 +4,7 @@ import com.prgm.aroundthetown.common.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "room_reservation")
@@ -22,14 +22,14 @@ public class RoomReservation extends BaseEntity {
     private int remains;
 
     @Column(name = "dates", nullable = false)
-    private LocalDateTime dates;
+    private LocalDate dates;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "room_id", referencedColumnName = "room_id", nullable = false)
     private Room room;
 
     @Builder
-    public RoomReservation(final int remains, final LocalDateTime dates, final Room room) {
+    public RoomReservation(final int remains, final LocalDate dates, final Room room) {
         this.remains = remains;
         this.dates = dates;
         this.room = room;

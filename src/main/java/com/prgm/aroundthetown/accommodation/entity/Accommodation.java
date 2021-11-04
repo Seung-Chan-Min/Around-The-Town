@@ -97,6 +97,4 @@ public class Accommodation extends Product {
         this.accommodationCategory = accommodationCategory;
         return this;
     }
-
-
 }

@@ -5,13 +5,17 @@ import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
+import com.prgm.aroundthetown.common.ClassLevelTestConfig;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.product.dto.LocationDto;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,9 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @AutoConfigureMockMvc
 @SpringBootTest
-@TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
-@TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
-class AccommodationControllerTest {
+class AccommodationControllerTest extends ClassLevelTestConfig {
 
     @Autowired
     public MockMvc mockMvc;
@@ -76,7 +78,7 @@ class AccommodationControllerTest {
                 .build();
 
         hostRepository.save(host);
-        accommodationRepository.save(accommodation);
+//        accommodationRepository.save(accommodation);
     }
 
     @Test
