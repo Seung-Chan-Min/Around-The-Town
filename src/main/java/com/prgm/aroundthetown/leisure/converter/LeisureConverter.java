@@ -4,6 +4,7 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.leisure.dto.*;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.product.converter.LocationConverter;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,7 @@ public class LeisureConverter {
     private final LocationConverter locationConverter;
 
     public Leisure toLeisure(final LeisureCreateRequest dto, final Host host) {
-        return Leisure.builder()
+        final Leisure leisure = Leisure.builder()
                 .host(host)
                 .leisureInformation(dto.getLeisureInformation())
                 .usecase(dto.getUsecase())
@@ -28,7 +29,10 @@ public class LeisureConverter {
                 .businessName(dto.getBusinessName())
                 .region(dto.getRegion())
                 .location(locationConverter.toLocation(dto.getLocation()))
+                .productType(ProductType.LEISURE)
                 .build();
+        host.addProduct(leisure);
+        return leisure;
     }
 
     // Note : 업데이트에 인자로 들어갈 Leisure라서 id필요 X

@@ -9,6 +9,7 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import com.prgm.aroundthetown.room.dto.RoomCreateRequestDto;
 import com.prgm.aroundthetown.room.repository.RoomRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +62,7 @@ class RoomControllerTest extends ClassLevelTestConfig {
                 .optionNotice("optionNotice")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.HOTEL)
+                .productType(ProductType.ACCOMMODATION)
                 .businessName("미니컴퍼니")
                 .refundRule("환불 규정")
                 .location(Location.builder()
