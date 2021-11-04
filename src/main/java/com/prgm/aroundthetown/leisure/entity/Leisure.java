@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Entity
 @Table(name = "Leisure")
-@DiscriminatorValue("leisure")
+@DiscriminatorValue("LEISURE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
