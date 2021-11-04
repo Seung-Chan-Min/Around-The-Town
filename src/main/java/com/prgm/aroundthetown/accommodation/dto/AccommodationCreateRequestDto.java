@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.accommodation.dto;
 
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
-import com.prgm.aroundthetown.product.dto.ProductDto;
+import com.prgm.aroundthetown.product.dto.ProductCreateRequestDto;
 import lombok.*;
 
 @Getter
@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class AccommodationCreateRequestDto {
     private Long hostId;
-    private ProductDto productDto;
+    private ProductCreateRequestDto productDto;
     private String accommodationName;
     private String accommodationNotice;
     private String optionNotice;

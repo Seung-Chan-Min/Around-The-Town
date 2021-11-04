@@ -11,7 +11,7 @@ import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.product.dto.LocationDto;
-import com.prgm.aroundthetown.product.dto.ProductDto;
+import com.prgm.aroundthetown.product.dto.ProductCreateRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -96,10 +96,10 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
                 .optionNotice("optionNotice")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.HOTEL)
-                .productDto(ProductDto.builder()
+                .productDto(ProductCreateRequestDto.builder()
                         .businessName("미니컴퍼니")
                         .refundRule("환불 규정")
-                        .locationDto(LocationDto.builder()
+                        .location(LocationDto.builder()
                                 .howToVisit("방문하는 방법")
                                 .latitude(31.10000)
                                 .longitude(111.11111)
