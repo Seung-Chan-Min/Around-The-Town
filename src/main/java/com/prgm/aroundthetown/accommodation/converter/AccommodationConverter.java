@@ -6,6 +6,7 @@ import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationDto;
 import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationOption;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.dto.LocationDto;
@@ -52,6 +53,12 @@ public class AccommodationConverter {
                 .productType(ProductType.ACCOMMODATION)
                 .host(host)
                 .build();
+        createDto.getAccommodationOptions()
+                .forEach(accommodationOptionDto -> accommodation
+                        .addOption(AccommodationOption.builder()
+                                .accommodation(accommodation)
+                                .option(accommodationOptionDto.getAccommodationOptionCategory())
+                                .build()));
         host.addProduct(accommodation);
         return accommodation;
     }
