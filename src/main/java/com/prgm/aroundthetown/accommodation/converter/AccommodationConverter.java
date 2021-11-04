@@ -47,6 +47,7 @@ public class AccommodationConverter {
                                 .accommodation(accommodation)
                                 .option(accommodationOptionDto.getAccommodationOptionCategory())
                                 .build()));
+        host.addProduct(accommodation);
         return accommodation;
     }
 
