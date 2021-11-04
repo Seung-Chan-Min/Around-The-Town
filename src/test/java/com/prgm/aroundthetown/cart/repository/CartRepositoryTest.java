@@ -69,6 +69,7 @@ class CartRepositoryTest {
                 .accommodationCategory(AccommodationCategory.MOTEL)
                 .productType(ProductType.ACCOMMODATION)
                 .build();
+        accommodation.setProductType(ProductType.ACCOMMODATION);
         savedAccommodation = accommodationRepository.save(accommodation);
 
     }
