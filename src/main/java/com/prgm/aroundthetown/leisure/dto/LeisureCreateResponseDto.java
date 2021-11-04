@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class LeisureCreateResponse {
+public class LeisureCreateResponseDto {
     private Long id;
     private String leisureInfomation;
     private String usecase;

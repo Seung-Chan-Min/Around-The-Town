@@ -4,11 +4,11 @@ import com.prgm.aroundthetown.common.exception.NotFoundException;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.leisure.converter.LeisureConverter;
-import com.prgm.aroundthetown.leisure.dto.LeisureCreateRequest;
-import com.prgm.aroundthetown.leisure.dto.LeisureDeleteByIdResponse;
-import com.prgm.aroundthetown.leisure.dto.LeisureFindByIdResponse;
-import com.prgm.aroundthetown.leisure.dto.LeisureUpdateRequest;
-import com.prgm.aroundthetown.leisure.dto.LeisureUpdateResponse;
+import com.prgm.aroundthetown.leisure.dto.LeisureCreateRequestDto;
+import com.prgm.aroundthetown.leisure.dto.LeisureDeleteResponseDto;
+import com.prgm.aroundthetown.leisure.dto.LeisureResponseDto;
+import com.prgm.aroundthetown.leisure.dto.LeisureUpdateRequestDto;
+import com.prgm.aroundthetown.leisure.dto.LeisureUpdateResponseDto;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.leisure.repository.LeisureRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class LeisureServiceImpl implements LeisureService{
 
     @Override
     @Transactional
-    public Long create(LeisureCreateRequest dto) {
+    public Long create(LeisureCreateRequestDto dto) {
         Host host = hostRepository.findById(dto.getHostId())
             .orElseThrow(() -> new NotFoundException("Host is not found."));
         Leisure leisure = leisureConverter.toLeisure(dto, host);
@@ -34,7 +34,7 @@ public class LeisureServiceImpl implements LeisureService{
     }
 
     @Override
-    public LeisureFindByIdResponse findById(Long id) {
+    public LeisureResponseDto findById(Long id) {
         return leisureRepository.findById(id)
             .map(leisureConverter::toFindByIdResponse)
             .orElseThrow(() -> new NotFoundException("Leisure is not found."));
@@ -42,7 +42,7 @@ public class LeisureServiceImpl implements LeisureService{
 
     @Override
     @Transactional
-    public LeisureUpdateResponse update(LeisureUpdateRequest dto) {
+    public LeisureUpdateResponseDto update(LeisureUpdateRequestDto dto) {
         Leisure leisure = leisureRepository.findById(dto.getId())
             .orElseThrow(() -> new NotFoundException("Leisure is not found."));
         return leisureConverter.toUpdateResponse(leisure.update(leisureConverter.toLeisure(dto)));
@@ -50,11 +50,11 @@ public class LeisureServiceImpl implements LeisureService{
 
     @Override
     @Transactional
-    public LeisureDeleteByIdResponse deleteById(Long id) {
-        LeisureDeleteByIdResponse leisureDeleteByIdResponse = leisureRepository.findById(id)
+    public LeisureDeleteResponseDto deleteById(Long id) {
+        LeisureDeleteResponseDto leisureDeleteResponseDto = leisureRepository.findById(id)
             .map(leisureConverter::toDeleteByIdResponse)
             .orElseThrow(() -> new NotFoundException("Leisure is not found."));
         leisureRepository.deleteById(id);
-        return leisureDeleteByIdResponse;
+        return leisureDeleteResponseDto;
     }
 }

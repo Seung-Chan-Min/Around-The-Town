@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class LeisureCreateRequest {
+public class LeisureUpdateRequestDto {
+    private Long id;
     private String leisureInformation;
     private String usecase;
     private String leisureNotice;
     private LocalDateTime expirationDate;
     private LeisureCategory category;
-    private Long hostId;
     private String refundRule;
     private String phoneNumber;
     private String businessRegistrationNumber;

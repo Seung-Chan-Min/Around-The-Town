@@ -13,7 +13,7 @@ public class LeisureConverter {
 
     private final LocationConverter locationConverter;
 
-    public Leisure toLeisure(final LeisureCreateRequest dto, final Host host) {
+    public Leisure toLeisure(final LeisureCreateRequestDto dto, final Host host) {
         return Leisure.builder()
                 .host(host)
                 .leisureInformation(dto.getLeisureInformation())
@@ -32,7 +32,7 @@ public class LeisureConverter {
     }
 
     // Note : 업데이트에 인자로 들어갈 Leisure라서 id필요 X
-    public Leisure toLeisure(final LeisureUpdateRequest dto) {
+    public Leisure toLeisure(final LeisureUpdateRequestDto dto) {
         return Leisure.builder()
                 .leisureInformation(dto.getLeisureInformation())
                 .usecase(dto.getUsecase())
@@ -49,8 +49,8 @@ public class LeisureConverter {
                 .build();
     }
 
-    public LeisureFindByIdResponse toFindByIdResponse(final Leisure leisure) {
-        return LeisureFindByIdResponse.builder()
+    public LeisureResponseDto toFindByIdResponse(final Leisure leisure) {
+        return LeisureResponseDto.builder()
                 .id(leisure.getProductId())
                 .leisureInformation(leisure.getLeisureInformation())
                 .usecase(leisure.getUsecase())
@@ -67,8 +67,8 @@ public class LeisureConverter {
                 .build();
     }
 
-    public LeisureDeleteByIdResponse toDeleteByIdResponse(final Leisure leisure) {
-        return LeisureDeleteByIdResponse.builder()
+    public LeisureDeleteResponseDto toDeleteByIdResponse(final Leisure leisure) {
+        return LeisureDeleteResponseDto.builder()
                 .id(leisure.getProductId())
                 .leisureInformation(leisure.getLeisureInformation())
                 .usecase(leisure.getUsecase())
@@ -85,8 +85,8 @@ public class LeisureConverter {
                 .build();
     }
 
-    public LeisureUpdateResponse toUpdateResponse(final Leisure leisure) {
-        return LeisureUpdateResponse.builder()
+    public LeisureUpdateResponseDto toUpdateResponse(final Leisure leisure) {
+        return LeisureUpdateResponseDto.builder()
                 .id(leisure.getProductId())
                 .leisureInformation(leisure.getLeisureInformation())
                 .usecase(leisure.getUsecase())
