@@ -122,7 +122,6 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
                         .content(objectMapper.writeValueAsString(accommodationCreateRequestDto)))
                 .andExpect(status().isCreated())
                 .andDo(print());
-
     }
 
     @Test

@@ -16,7 +16,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@DiscriminatorValue("accommodation")
+@DiscriminatorValue("Accommodation")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

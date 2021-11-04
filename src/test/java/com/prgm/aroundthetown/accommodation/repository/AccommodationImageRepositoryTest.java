@@ -7,6 +7,7 @@ import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,7 @@ class AccommodationImageRepositoryTest {
                 .optionNotice("option")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
+                .productType(ProductType.ACCOMMODATION)
                 .build();
         accommodationRepository.save(accommodation);
     }
