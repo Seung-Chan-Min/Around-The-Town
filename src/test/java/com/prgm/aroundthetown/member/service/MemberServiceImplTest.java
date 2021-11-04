@@ -23,7 +23,7 @@ class MemberServiceImplTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    private Long setupMemberId;
+    private Long savedMemberId;
 
     @BeforeEach
     void setUp() {
@@ -32,7 +32,7 @@ class MemberServiceImplTest {
                 .phoneNumber("01012345678")
                 .email("seung@naver.com")
                 .build();
-        setupMemberId = memberRepository.save(member).getId();
+        savedMemberId = memberRepository.save(member).getId();
     }
 
     @Test
@@ -58,7 +58,7 @@ class MemberServiceImplTest {
     @DisplayName("FindById를 할 수 있다.")
     @Transactional
     void testFindById() {
-        assertThat(memberServiceImpl.findById(setupMemberId).getEmail(), is("seung@naver.com"));
+        assertThat(memberServiceImpl.findById(savedMemberId).getEmail(), is("seung@naver.com"));
     }
 
     @Test
@@ -67,18 +67,17 @@ class MemberServiceImplTest {
     void testUpdateMember() {
         // Given
         final MemberUpdateDto dto = MemberUpdateDto.builder()
-                .id(setupMemberId)
                 .password("바뀐비밀번호")
                 .phoneNumber("01012345678")
                 .email("seung@naver.com")
                 .build();
 
         // When
-        memberServiceImpl.updateMember(dto);
+        memberServiceImpl.updateMember(savedMemberId, dto);
 
         // Then
         final Member updatedEntity = memberRepository.findAll().get(0);
-        assertThat(updatedEntity.getId(), is(setupMemberId));
+        assertThat(updatedEntity.getId(), is(savedMemberId));
         assertThat(updatedEntity.getPassword(), is("바뀐비밀번호"));
     }
 
@@ -86,8 +85,8 @@ class MemberServiceImplTest {
     @DisplayName("Delete를 할 수 있다.")
     @Transactional
     void testDeleteMember() {
-//        assertThat(memberRepository.findById(setupMemberId).get().getIsDeleted(), is(false));
-        memberServiceImpl.deleteMember(setupMemberId);
-        assertThat(memberRepository.findById(setupMemberId).get().getIsDeleted(), is(true));
+        assertThat(memberRepository.getById(savedMemberId).getIsDeleted(), is(false));
+        memberServiceImpl.deleteMember(savedMemberId);
+        assertThat(memberRepository.getById(savedMemberId).getIsDeleted(), is(true));
     }
 }

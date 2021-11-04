@@ -9,6 +9,7 @@ import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.review.entity.ReviewImage;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,6 +69,7 @@ class ReviewImageRepositoryTest {
                 .optionNotice("option")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
+                .productType(ProductType.ACCOMMODATION)
                 .build();
         final Accommodation savedAccommodation = accommodationRepository.save(accommodation);
 

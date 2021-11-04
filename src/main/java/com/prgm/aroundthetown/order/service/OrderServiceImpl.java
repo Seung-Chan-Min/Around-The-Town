@@ -2,6 +2,7 @@ package com.prgm.aroundthetown.order.service;
 
 import com.prgm.aroundthetown.order.converter.OrderConverter;
 import com.prgm.aroundthetown.order.dto.OrderCreateRequestDto;
+import com.prgm.aroundthetown.order.dto.OrderDto;
 import com.prgm.aroundthetown.order.dto.OrderProductCreateRequestDto;
 import com.prgm.aroundthetown.order.entity.Order;
 import com.prgm.aroundthetown.order.repository.OrderRepository;
@@ -28,4 +29,13 @@ public class OrderServiceImpl implements OrderService {
 
         return orderId;
     }
+
+    public OrderDto findById(final Long orderId) {
+        return orderConverTer.toDto(orderRepository.getById(orderId));
+    }
+
+//    @Transactional
+//    public OrderDeleteResponseDto deleteOrder() {
+//        
+//    }
 }

@@ -58,9 +58,8 @@ public class Review extends BaseEntity {
         reviewImages.add(image);
     }
 
-    public void update(final String content, final int score, final List<ReviewImage> reviewImages) {
+    public void update(final String content, final int score) {
         this.content = content;
         this.score = score;
-        this.reviewImages = reviewImages;
     }
 }

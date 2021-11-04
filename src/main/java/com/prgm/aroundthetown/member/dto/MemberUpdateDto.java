@@ -7,7 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class MemberUpdateDto {
-    private Long id;
     private String password;
     private String phoneNumber;
     private String email;

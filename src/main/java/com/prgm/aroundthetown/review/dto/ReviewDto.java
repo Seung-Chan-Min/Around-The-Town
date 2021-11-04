@@ -1,9 +1,6 @@
 package com.prgm.aroundthetown.review.dto;
 
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.member.entity.Member;
-import com.prgm.aroundthetown.review.entity.ReviewImage;
-import java.util.List;
+import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import lombok.*;
 
 @Getter
@@ -14,7 +11,6 @@ public class ReviewDto {
     private Long reviewId;
     private String content;
     private int score;
-    private Member member;
-    private Accommodation accommodation;
-    private List<ReviewImage> reviewImages;
+    private String accommodationName;
+    private AccommodationCategory accommodationCategory;
 }

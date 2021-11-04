@@ -1,10 +1,8 @@
 package com.prgm.aroundthetown.cart.converter;
 
-import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
 import com.prgm.aroundthetown.cart.dto.CartFindByIdResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
-import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.member.converter.MemberConverter;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.ProductRepository;
@@ -28,19 +26,11 @@ public class CartConverter {
                 .build();
     }
 
-    public CartFindByIdResponseDto toFindByIdDto(final Cart entity) throws Exception {
-        if (entity.getProduct().getClass().equals(Accommodation.class)) {
-            return CartFindByIdResponseDto.builder()
-                    .cartId(entity.getCartId())
-                    .productDto(productConverter.accommodationToDto((Accommodation) entity.getProduct()))
-                    .memberDto(memberConverter.toDto(entity.getMember()))
-                    .build();
-        } else if (entity.getProduct().getClass().equals(Leisure.class)) {
-            return CartFindByIdResponseDto.builder()
-                    .cartId(entity.getCartId())
-                    .productDto(productConverter.leisureToDto((Leisure) entity.getProduct()))
-                    .memberDto(memberConverter.toDto(entity.getMember()))
-                    .build();
-        } else throw new Exception("존재하지 않는 Product Type 입니다.");
+    public CartFindByIdResponseDto toFindByIdDto(final Cart entity) {
+        return CartFindByIdResponseDto.builder()
+                .cartId(entity.getCartId())
+                .productDto(productConverter.toDto(entity.getProduct()))
+                .memberDto(memberConverter.toDto(entity.getMember()))
+                .build();
     }
 }
