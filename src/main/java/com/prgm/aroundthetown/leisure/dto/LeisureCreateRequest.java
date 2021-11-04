@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class LeisureCreateRequest {
-    private Long hostId;
     private String leisureInformation;
     private String usecase;
     private String leisureNotice;
     private LocalDateTime expirationDate;
     private LeisureCategory category;
+    private Long hostId;
     private String refundRule;
     private String phoneNumber;
     private String businessRegistrationNumber;
