@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Getter
 @Entity
-@Table(name = "leisure")
+@Table(name = "Leisure")
 @DiscriminatorValue("leisure")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -21,8 +21,6 @@ import java.util.Objects;
 //@SQLDelete(sql = "UPDATE table_leisure SET is_deleted = true WHERE id=?")
 //@Where(clause = "is_deleted = false")
 public class Leisure extends Product {
-    // TODO :: service에서 연관관계 편의 메소드 추가
-
     @Column(name = "leisure_information")
     @Lob
     private String leisureInformation;

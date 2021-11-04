@@ -10,6 +10,7 @@ import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import com.prgm.aroundthetown.wishlist.dto.WishListCreateRequestDto;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
 import com.prgm.aroundthetown.wishlist.repository.WishListRepository;
@@ -88,6 +89,7 @@ class WishListControllerTest {
                 .optionNotice("option")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
+                .productType(ProductType.ACCOMMODATION)
                 .build();
         savedAccommodation = accommodationRepository.save(accommodation);
         savedAccommodationId = savedAccommodation.getProductId();

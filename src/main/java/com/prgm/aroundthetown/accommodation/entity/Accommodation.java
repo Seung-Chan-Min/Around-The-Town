@@ -16,7 +16,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@DiscriminatorValue("accommodation")
+@DiscriminatorValue("Accommodation")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -25,7 +25,6 @@ import java.util.*;
 @Where(clause = "is_deleted = false")
 @DynamicInsert
 public class Accommodation extends Product {
-
     @Column(name = "accommodation_name")
     private String accommodationName;
 

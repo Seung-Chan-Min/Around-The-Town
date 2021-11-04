@@ -13,6 +13,7 @@ import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
+import com.prgm.aroundthetown.product.entity.ProductType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -87,6 +88,7 @@ class CartControllerTest {
                 .optionNotice("option")
                 .guide("guide")
                 .accommodationCategory(AccommodationCategory.MOTEL)
+                .productType(ProductType.ACCOMMODATION)
                 .build();
         savedAccommodation = accommodationRepository.save(accommodation);
         savedAccommodationId = savedAccommodation.getProductId();
@@ -114,6 +116,9 @@ class CartControllerTest {
                 .andDo(print());
 
         assertThat(cartRepository.findAll().size(), is(2));
+        assertThat(cartRepository.findAll().get(1).getProduct().getProductId(), is(savedAccommodationId));
+        assertThat(cartRepository.findAll().get(1).getProduct().getBusinessName(), is("businessName"));
+        assertThat(cartRepository.findAll().get(1).getProduct().getProductType(), is(ProductType.ACCOMMODATION));
     }
 
     @Test
