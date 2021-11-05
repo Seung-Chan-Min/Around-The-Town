@@ -1,9 +1,6 @@
 package com.prgm.aroundthetown.accommodation.contoller;
 
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.*;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.service.AccommodationService;
 import com.prgm.aroundthetown.product.Region;
@@ -64,13 +61,13 @@ public class AccommodationController {
         return ResponseEntity.ok(deletedAccommodationName);
     }
 
-//    @PatchMapping("/hosts/accommodations/{accommodationId}")
-//    public ResponseEntity<AccommodationUpdateResponseDto> updateAccommodation(
-//            @PathVariable final Long accommodationId,
-//            @RequestBody final AccommodationUpdateRequestDto accommodationUpdateDto
-//    ) {
-//        final AccommodationUpdateResponseDto accommodationUpdateResponseDto = accommodationService
-//                .update(accommodationId, accommodationUpdateDto);
-//        return ResponseEntity.ok(accommodationUpdateResponseDto);
-//    }
+    @PatchMapping("/hosts/accommodations/{accommodationId}")
+    public ResponseEntity<AccommodationUpdateResponseDto> updateAccommodation(
+            @PathVariable final Long accommodationId,
+            @RequestBody final AccommodationUpdateRequestDto accommodationUpdateDto
+    ) {
+        final AccommodationUpdateResponseDto accommodationUpdateResponseDto = accommodationService
+                .update(accommodationId, accommodationUpdateDto);
+        return ResponseEntity.ok(accommodationUpdateResponseDto);
+    }
 }

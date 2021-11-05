@@ -15,4 +15,6 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, Lo
     List<Accommodation> getAccommodationByAccommodationCategoryAndRegion(AccommodationCategory category, Region region);
 
     void deleteAccommodationByHostAndProductId(Host host, Long productId);
+
+    Accommodation findByProductId(Long productId);
 }

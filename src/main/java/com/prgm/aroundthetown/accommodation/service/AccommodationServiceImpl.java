@@ -1,10 +1,7 @@
 package com.prgm.aroundthetown.accommodation.service;
 
 import com.prgm.aroundthetown.accommodation.converter.AccommodationConverter;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.*;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
@@ -70,14 +67,14 @@ public class AccommodationServiceImpl implements AccommodationService {
         return accommodationConverter.entityToAccommodationDeleteDto(accommodation);
     }
 
-//    @Override
-//    @Transactional
-//    public AccommodationUpdateResponseDto update(final Long accommodationId, final AccommodationUpdateRequestDto updateRequestDto) {
-//        final Host host = hostRepository.getById(updateRequestDto.getHostId()); //login 대체제
-//        final Product accommodation = productRepository.findByHost(host);
-//        accommodationConverter.update(updateRequestDto, accommodation);
-//
-//        return accommodationConverter.entityToResponseAccommodationUpdateDto(returnAccommodation);
-//    }
+    @Override
+    @Transactional
+    public AccommodationUpdateResponseDto update(final Long accommodationId, final AccommodationUpdateRequestDto updateRequestDto) {
+        final Accommodation accommodation = accommodationRepository.findByProductId(accommodationId);
+        accommodationConverter.update(updateRequestDto, accommodation);
+        productRepository.save(accommodation);
+
+        return accommodationConverter.entityToResponseAccommodationUpdateDto(accommodation);
+    }
 
 }
