@@ -330,58 +330,58 @@ class AccommodationControllerTest extends ClassLevelTestConfig {
         assertThat(lastInsertValue.size(), is(2));
     }
 
-//    @Test
-//    @DisplayName("사장님이 숙소(Accommodation)를 수정할 수 있다.")
-//    @Transactional
-//    @Rollback(value = false)
-//    @Order(4)
-//    void updateAccommodation() throws Exception {
-//        //given
-//        final var option1 = AccommodationOptionDto.builder()
-//                .accommodationOptionCategory(AccommodationOptionCategory.NETFLIX)
-//                .build();
-//        final var option2 = AccommodationOptionDto.builder()
-//                .accommodationOptionCategory(AccommodationOptionCategory.BREAKFAST)
-//                .build();
-//        final List<AccommodationOptionDto> accommodationOptions = Arrays.asList(option1, option2);
-//        final AccommodationUpdateRequestDto accommodationUpdateRequestDto = AccommodationUpdateRequestDto.builder()
-//                .accommodationName("update 숙박업체 이름")
-//                .accommodationNotice("update 숙박업체 공지")
-//                .optionNotice("update 옵션 공지")
-//                .optionNotice("update optionNotice")
-//                .guide("update guide")
-//                .accommodationCategory(AccommodationCategory.HOTEL)
-//                .productDto(ProductCreateRequestDto.builder()
-//                        .businessName("update 미니컴퍼니")
-//                        .refundRule("update 환불 규정")
-//                        .location(LocationDto.builder()
-//                                .howToVisit("update 방문하는 방법")
-//                                .latitude(31.10000)
-//                                .longitude(111.11111)
-//                                .content("update 버스타고 50분")
-//                                .build())
-//                        .phoneNumber("update 01022223333")
-//                        .businessRegistrationNumber("update 192293293847")
-//                        .businessAddress("update 경기도 용인시 죽전동")
-//                        .region(Region.GYEONGGI)
-//                        .build())
-//                .accommodationOptions(accommodationOptions)
-//                .hostId(host.getId())
-//                .build();
-//
-//        //when
-//        mockMvc.perform(patch("/api/v1/hosts/accommodations/{accommodationId}", accommodation.getProductId())
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .characterEncoding(StandardCharsets.UTF_8)
-//                        .content(objectMapper.writeValueAsString(accommodationUpdateRequestDto)))
-//                .andExpect(status().isOk())
-//                .andDo(print());
-//
-//        //then (마지막에 set(옵션) 넣은거 잘 들어가지는지 확인)
-//        final List<Accommodation> accommodations = accommodationRepository.findAll();
-//        final var lastInsertValue = accommodations.get(accommodations.size() - 1).getOptions();
-//        assertThat(lastInsertValue.size(), is(2));
-//    }
+    @Test
+    @DisplayName("사장님이 숙소(Accommodation)를 수정할 수 있다.")
+    @Transactional
+    @Rollback(value = false)
+    @Order(4)
+    void updateAccommodation() throws Exception {
+        //given
+        final var option1 = AccommodationOptionDto.builder()
+                .accommodationOptionCategory(AccommodationOptionCategory.NETFLIX)
+                .build();
+        final var option2 = AccommodationOptionDto.builder()
+                .accommodationOptionCategory(AccommodationOptionCategory.BREAKFAST)
+                .build();
+        final List<AccommodationOptionDto> accommodationOptions = Arrays.asList(option1, option2);
+        final AccommodationUpdateRequestDto accommodationUpdateRequestDto = AccommodationUpdateRequestDto.builder()
+                .accommodationName("update 숙박업체 이름")
+                .accommodationNotice("update 숙박업체 공지")
+                .optionNotice("update 옵션 공지")
+                .optionNotice("update optionNotice")
+                .guide("update guide")
+                .accommodationCategory(AccommodationCategory.HOTEL)
+                .productDto(ProductCreateRequestDto.builder()
+                        .businessName("update 미니컴퍼니")
+                        .refundRule("update 환불 규정")
+                        .location(LocationDto.builder()
+                                .howToVisit("update 방문하는 방법")
+                                .latitude(31.10000)
+                                .longitude(111.11111)
+                                .content("update 버스타고 50분")
+                                .build())
+                        .phoneNumber("update 01022223333")
+                        .businessRegistrationNumber("update 192293293847")
+                        .businessAddress("update 경기도 용인시 죽전동")
+                        .region(Region.GYEONGGI)
+                        .build())
+                .accommodationOptions(accommodationOptions)
+                .hostId(host.getId())
+                .build();
+
+        //when
+        mockMvc.perform(patch("/api/v1/hosts/accommodations/{accommodationId}", accommodation.getProductId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .content(objectMapper.writeValueAsString(accommodationUpdateRequestDto)))
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        //then (마지막에 set(옵션) 넣은거 잘 들어가지는지 확인)
+        final List<Accommodation> accommodations = accommodationRepository.findAll();
+        final var lastInsertValue = accommodations.get(accommodations.size() - 1).getOptions();
+        assertThat(lastInsertValue.size(), is(2));
+    }
 
     @Test
     @DisplayName("등록된 숙소들 전부 확인 가능하다.")
