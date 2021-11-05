@@ -1,9 +1,6 @@
 package com.prgm.aroundthetown.accommodation.service;
 
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateRequestDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationCreateResponseDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationDeleteDto;
-import com.prgm.aroundthetown.accommodation.dto.AccommodationResponseDto;
+import com.prgm.aroundthetown.accommodation.dto.*;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;
 import com.prgm.aroundthetown.product.Region;
 
@@ -21,5 +18,5 @@ public interface AccommodationService {
 
     AccommodationDeleteDto deleteByAccommodationId(final Long hostId, Long accommodationId);
 
-//    AccommodationUpdateResponseDto update(final Long accommodationId, AccommodationUpdateRequestDto updateRequestDto);
+    AccommodationUpdateResponseDto update(final Long accommodationId, AccommodationUpdateRequestDto updateRequestDto);
 }

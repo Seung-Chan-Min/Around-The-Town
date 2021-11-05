@@ -105,7 +105,7 @@ public class AccommodationConverter {
                 .build();
     }
 
-    public void update(final AccommodationUpdateRequestDto updateRequestDto, final Product accommodation) {
+    public void update(final AccommodationUpdateRequestDto updateRequestDto, final Accommodation accommodation) {
         accommodation.update(
                 updateRequestDto.getProductDto().getRefundRule(),
                 updateRequestDto.getProductDto().getPhoneNumber(),
@@ -114,6 +114,13 @@ public class AccommodationConverter {
                 updateRequestDto.getProductDto().getBusinessName(),
                 updateRequestDto.getProductDto().getRegion(),
                 getLocation(updateRequestDto.getProductDto().getLocation())
+        );
+        accommodation.update(
+                updateRequestDto.getAccommodationName(),
+                updateRequestDto.getAccommodationNotice(),
+                updateRequestDto.getOptionNotice(),
+                updateRequestDto.getGuide(),
+                accommodation.getAccommodationCategory()
         );
     }
 
