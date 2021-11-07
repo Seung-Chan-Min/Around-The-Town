@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class ReviewFindByIdResponseDto {
+public class ReviewResponseDto {
     private MemberDto memberDto;
     private AccommodationDto accommodationDto;
     private Long reviewId;
