@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.member.converter;
 
-import com.prgm.aroundthetown.member.dto.MemberCreateRequestDto;
-import com.prgm.aroundthetown.member.dto.MemberResponseDto;
+import com.prgm.aroundthetown.member.dto.MemberCreateDto;
+import com.prgm.aroundthetown.member.dto.MemberDto;
 import com.prgm.aroundthetown.member.dto.MemberFindByEmailResponseDto;
 import com.prgm.aroundthetown.member.dto.MemberFindByPhoneNumberResponseDto;
 import com.prgm.aroundthetown.member.entity.Member;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MemberConverter {
-    public MemberResponseDto toDto(final Member entity) {
-        return MemberResponseDto.builder()
+    public MemberDto toDto(final Member entity) {
+        return MemberDto.builder()
                 .memberId(entity.getId())
                 .password(entity.getPassword())
                 .phoneNumber(entity.getPhoneNumber())
@@ -36,7 +36,7 @@ public class MemberConverter {
             .build();
     }
 
-    public Member toEntity(final MemberCreateRequestDto dto) {
+    public Member toEntity(final MemberCreateDto dto) {
         return Member.builder()
                 .password(dto.getPassword())
                 .phoneNumber(dto.getPhoneNumber())

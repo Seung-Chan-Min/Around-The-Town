@@ -22,8 +22,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.SQLDelete;
 
 @Getter
 @Table(name = "leisure")
@@ -32,8 +30,6 @@ import org.hibernate.annotations.SQLDelete;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@SQLDelete(sql = "UPDATE product SET is_deleted = true WHERE product_id=?")
-@DynamicInsert
 public class Leisure extends Product {
     // TODO :: service에서 연관관계 편의 메소드 추가
 
