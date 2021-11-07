@@ -1,15 +1,17 @@
 package com.prgm.aroundthetown.wishlist.controller;
 
 import com.prgm.aroundthetown.wishlist.dto.WishListCreateRequestDto;
-import com.prgm.aroundthetown.wishlist.dto.WishListFindByIdResponseDto;
+import com.prgm.aroundthetown.wishlist.dto.WishListResponseDto;
 import com.prgm.aroundthetown.wishlist.service.WishListServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/member")
 @RequiredArgsConstructor
 public class WishListController {
     private final WishListServiceImpl service;
@@ -22,19 +24,27 @@ public class WishListController {
         return new ResponseEntity<>(wishListIdResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/wishList/{wishListId}")
-    public ResponseEntity<WishListFindByIdResponseDto> findById(
+    @GetMapping("/wishLists/{wishListId}")
+    public ResponseEntity<WishListResponseDto> findById(
             @PathVariable final Long wishListId
     ) throws Exception {
-        final WishListFindByIdResponseDto res = service.findById(wishListId);
+        final WishListResponseDto res = service.findById(wishListId);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @DeleteMapping("/wishList/{wishListId}")
-    public ResponseEntity deleteWishList(
+    @GetMapping("/wishLists")
+    public ResponseEntity<List<WishListResponseDto>> findAll(
+            @RequestParam final Long memberId
+    ) throws Exception {
+        final List<WishListResponseDto> res = service.findAll(memberId);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/wishLists/{wishListId}")
+    public ResponseEntity<WishListResponseDto> deleteWishList(
             @PathVariable final Long wishListId
     ) {
-        service.deleteWishList(wishListId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        final WishListResponseDto res = service.deleteWishList(wishListId);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }

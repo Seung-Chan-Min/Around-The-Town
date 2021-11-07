@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +48,7 @@ class WishListControllerTest {
     @Autowired
     private AccommodationRepository accommodationRepository;
 
+    private Long savedMemberId1;
     private Long savedMemberId2;
     private Accommodation savedAccommodation;
     private Long savedAccommodationId;
@@ -61,6 +61,7 @@ class WishListControllerTest {
                 .email("aaa@skfm")
                 .build();
         final Member savedMember1 = memberRepository.save(member1);
+        savedMemberId1 = savedMember1.getId();
         final Member member2 = Member.builder()
                 .password("1234")
                 .phoneNumber("01012345678")
@@ -102,7 +103,7 @@ class WishListControllerTest {
     }
 
     @Test
-    @DisplayName("POST /api/v1/wishList 테스트")
+    @DisplayName("member가 wishList를 생성할 수 있다.")
     @Transactional
     void createWishList() throws Exception {
         final WishListCreateRequestDto createReq = WishListCreateRequestDto.builder()
@@ -110,7 +111,7 @@ class WishListControllerTest {
                 .memberId(savedMemberId2)
                 .build();
 
-        mockMvc.perform(post("/api/v1/wishList")
+        mockMvc.perform(post("/api/v1/member/wishList")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createReq)))
                 .andExpect(status().isCreated())
@@ -120,25 +121,35 @@ class WishListControllerTest {
     }
 
     @Test
-    @DisplayName("GET /api/v1/wishList/{wishListId} 테스트")
+    @DisplayName("member가 단일 wishList 조회를 할 수 있다.")
     @Transactional
     void testFindById() throws Exception {
         final Long req = wishListRepository.findAll().get(0).getWishlistId();
 
-        mockMvc.perform(get("/api/v1/wishList/{wishListId}", req)
+        mockMvc.perform(get("/api/v1/member/wishLists/{wishListId}", req)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
 
     @Test
-    @DisplayName("DELETE /api/v1/wishList/{wishListId} 테스트")
+    @DisplayName("member에 해당하는 전체 wishList 조회를 할 수 있다.")
     @Transactional
-    @Rollback(value = false)
+    void testFindAll() throws Exception {
+        mockMvc.perform(get("/api/v1/member/wishLists")
+                        .param("memberId", String.valueOf(savedMemberId1))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("member가 wishList를 단일 삭제 할 수 있다.")
+    @Transactional
     void deleteWishList() throws Exception {
         final Long req = wishListRepository.findAll().get(0).getWishlistId();
 
-        mockMvc.perform(delete("/api/v1/wishList/{wishListId}", req)
+        mockMvc.perform(delete("/api/v1/member/wishLists/{wishListId}", req)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
