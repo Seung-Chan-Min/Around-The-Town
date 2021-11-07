@@ -1,8 +1,8 @@
 package com.prgm.aroundthetown.order.converter;
 
-import com.prgm.aroundthetown.member.repository.MemberRepository;
-import com.prgm.aroundthetown.order.dto.OrderCreateRequestDto;
-import com.prgm.aroundthetown.order.dto.OrderDto;
+import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.order.dto.OrderFindByIdResponseDto;
+import com.prgm.aroundthetown.order.dto.OrderResponseDto;
 import com.prgm.aroundthetown.order.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,20 +10,19 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class OrderConverter {
-    private final MemberRepository memberRepository;
     private final OrderProductConverter orderProductConverter;
 
-    public Order toEntity(final OrderCreateRequestDto dto) {
-        return Order.builder()
-                .member(memberRepository.getById(dto.getMemberId()))
-                .build();
-    }
-
-    public OrderDto toDto(final Order entity) {
-        return OrderDto.builder()
+    public OrderResponseDto toDto(final Order entity) {
+        return OrderResponseDto.builder()
                 .orderId(entity.getOrderId())
                 .memberId(entity.getMember().getId())
                 .orderProductDtos(orderProductConverter.toDtos(entity.getOrderProducts()))
+                .build();
+    }
+
+    public OrderFindByIdResponseDto toFindByIdDto(final MemberDto memberDto) {
+        return OrderFindByIdResponseDto.builder()
+                .memberDto(memberDto)
                 .build();
     }
 }
