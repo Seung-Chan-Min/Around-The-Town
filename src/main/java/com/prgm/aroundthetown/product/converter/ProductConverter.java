@@ -1,8 +1,8 @@
 package com.prgm.aroundthetown.product.converter;
 
-import com.prgm.aroundthetown.accommodation.converter.AccommodationConverter;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.leisure.converter.LeisureConverter;
+import com.prgm.aroundthetown.leisure.dto.LeisureDto;
 import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.product.dto.*;
 import com.prgm.aroundthetown.product.entity.Product;
@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ProductConverter {
-    private final AccommodationConverter accommodationConverter;
-    //private final LeisureConverter leisureConverter;
     private final LocationConverter locationConverter;
 
     public ProductDto toDto(final Product product) {
@@ -35,12 +33,25 @@ public class ProductConverter {
                 .build();
 
         if (product.getProductType().equals(ProductType.ACCOMMODATION)) {
-            productDto.setAccommodationDto(accommodationConverter.toDto((Accommodation) product));
-            return productDto;
+            final Accommodation accommodation = (Accommodation) product;
+            productDto.setAccommodationDto(AccommodationDto.builder()
+                    .accommodationName(accommodation.getAccommodationName())
+                    .accommodationCategory(accommodation.getAccommodationCategory())
+                    .accommodationNotice(accommodation.getAccommodationNotice())
+                    .optionNotice(accommodation.getOptionNotice())
+                    .guide(accommodation.getGuide())
+                    .build());
         } else {
-            //productDto.setLeisureDto(leisureConverter.toDto((Leisure) product));
-            return productDto;
+            final Leisure leisure = (Leisure) product;
+            productDto.setLeisureDto(LeisureDto.builder()
+                    .leisureCategory(leisure.getLeisureCategory())
+                    .leisureInfomation(leisure.getLeisureInformation())
+                    .usecase(leisure.getUsecase())
+                    .leisureNotice(leisure.getLeisureNotice())
+                    .expirationDate(leisure.getExpirationDate())
+                    .build());
         }
+        return productDto;
     }
 
     public ProductResponseDto toResponse(final Leisure leisure) {
