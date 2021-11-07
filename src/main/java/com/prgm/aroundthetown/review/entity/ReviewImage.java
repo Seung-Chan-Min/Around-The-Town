@@ -1,7 +1,9 @@
 package com.prgm.aroundthetown.review.entity;
 
+import com.prgm.aroundthetown.annotation.SoftDeletableEntity;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@SoftDeletableEntity
+@SQLDelete(sql = "UPDATE review_image SET is_deleted = true WHERE review_image_id=?")
 public class ReviewImage extends BaseEntity {
 
     @Id
