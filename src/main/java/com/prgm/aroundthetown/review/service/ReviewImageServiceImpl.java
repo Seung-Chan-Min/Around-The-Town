@@ -16,8 +16,9 @@ public class ReviewImageServiceImpl implements ReviewImageService {
     private final ReviewImageRepository reviewImageRepository;
     private final ReviewRepository reviewRepository;
 
+    @Override
     @Transactional
-    public void createReviewImage(final List<String> reviewImages, final Long reviewId) {
+    public void createReviewImage(final Long reviewId, final List<String> reviewImages) {
         for (final String imagePath : reviewImages) {
             reviewImageRepository.save(ReviewImage.builder()
                     .IMAGE_PATH(imagePath)
@@ -26,6 +27,7 @@ public class ReviewImageServiceImpl implements ReviewImageService {
         }
     }
 
+    @Override
     @Transactional
     public void deleteAllReviewImage(final Long reviewId) {
         reviewRepository.getById(reviewId)

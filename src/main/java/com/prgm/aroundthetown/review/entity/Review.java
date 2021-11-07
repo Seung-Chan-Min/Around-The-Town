@@ -1,9 +1,11 @@
 package com.prgm.aroundthetown.review.entity;
 
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.annotation.SoftDeletableEntity;
 import com.prgm.aroundthetown.common.entity.BaseEntity;
 import com.prgm.aroundthetown.member.entity.Member;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@SoftDeletableEntity
+@SQLDelete(sql = "UPDATE review SET is_deleted = true WHERE review_id=?")
 public class Review extends BaseEntity {
 
     @Id
