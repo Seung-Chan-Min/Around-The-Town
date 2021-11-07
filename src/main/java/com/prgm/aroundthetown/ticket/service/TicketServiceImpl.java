@@ -47,7 +47,7 @@ public class TicketServiceImpl implements TicketService {
     public List<TicketFindAllByLeisureResponseDto> findAllByLeisure(Long leisureId) {
         Leisure leisure = leisureRepository.findById(leisureId)
             .orElseThrow(() -> new NotFoundException("Host is not found."));
-        return ticketRepository.findAllByLeisure(leisure).stream()
+        return ticketRepository.getAllByLeisure(leisure).stream()
             .map(ticketConverter::toFindAllByLeisureResponse)
             .collect(Collectors.toList());
     }

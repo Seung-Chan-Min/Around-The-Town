@@ -44,7 +44,7 @@ public class LeisureController {
 
     @PostMapping("/leisure")
     public ResponseEntity<Long> createLeisure(@RequestBody final LeisureCreateRequestDto request) {
-        return new ResponseEntity<>(leisureService.create(request), HttpStatus.CREATED); // Todo : OK , CREATED ?
+        return new ResponseEntity<>(leisureService.create(request), HttpStatus.CREATED);
     }
 
     @GetMapping("/leisure/{leisureId}")

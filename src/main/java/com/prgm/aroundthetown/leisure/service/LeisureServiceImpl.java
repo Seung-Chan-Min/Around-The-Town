@@ -47,7 +47,7 @@ public class LeisureServiceImpl implements LeisureService{
 
     @Override
     public List<LeisureFindAllByCategoryResponseDto> findAllByLeisureCategory(LeisureCategory category) {
-        return leisureRepository.findAllByLeisureCategory(category).stream()
+        return leisureRepository.getAllByLeisureCategory(category).stream()
             .map(leisureConverter::toFindAllByCategoryResponse)
             .collect(Collectors.toList());
     }
@@ -55,7 +55,7 @@ public class LeisureServiceImpl implements LeisureService{
     public List<LeisureFindAllByHostResponseDto> findAllByHost(Long hostId) {
         Host host = hostRepository.findById(hostId)
             .orElseThrow(() -> new NotFoundException("Host is not found."));
-        return leisureRepository.findAllByHost(host).stream()
+        return leisureRepository.getAllByHost(host).stream()
             .map(leisureConverter::toFindAllByHostResponse)
             .collect(Collectors.toList());
     }
