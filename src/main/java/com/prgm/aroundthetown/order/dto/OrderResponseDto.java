@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class OrderDto {
+public class OrderResponseDto {
     private Long orderId;
     private Long memberId;
     private List<OrderProductDto> orderProductDtos = new ArrayList<>();

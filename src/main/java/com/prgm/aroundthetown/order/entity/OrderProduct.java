@@ -1,8 +1,10 @@
 package com.prgm.aroundthetown.order.entity;
 
+import com.prgm.aroundthetown.annotation.SoftDeletableEntity;
 import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.product.entity.Product;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 
@@ -11,6 +13,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@SoftDeletableEntity
+@SQLDelete(sql = "UPDATE order_product SET is_deleted = true WHERE order_product_id=?")
 public class OrderProduct extends BaseTimeAndDeletedEntity {
 
     @Id
