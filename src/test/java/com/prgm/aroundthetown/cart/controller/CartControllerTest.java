@@ -48,6 +48,7 @@ class CartControllerTest {
     @Autowired
     private AccommodationRepository accommodationRepository;
 
+    private Long savedMemberId1;
     private Long savedMemberId2;
     private Accommodation savedAccommodation;
     private Long savedAccommodationId;
@@ -60,6 +61,7 @@ class CartControllerTest {
                 .email("aaa@skfm")
                 .build();
         final Member savedMember1 = memberRepository.save(member1);
+        savedMemberId1 = savedMember1.getId();
         final Member member2 = Member.builder()
                 .password("1234")
                 .phoneNumber("01012345678")
@@ -96,50 +98,69 @@ class CartControllerTest {
         final Cart cart1 = Cart.builder()
                 .product(savedAccommodation)
                 .member(savedMember1)
+                .count(3)
                 .build();
         cartRepository.save(cart1);
+        cartRepository.save(Cart.builder()
+                .product(savedAccommodation)
+                .member(savedMember1)
+                .count(2)
+                .build());
     }
 
     @Test
-    @DisplayName("POST /api/v1/cart 테스트")
+    @DisplayName("member가 cart를 생성할 수 있다.")
     @Transactional
     void testCreateCart() throws Exception {
         final CartCreateRequestDto createReq = CartCreateRequestDto.builder()
                 .productId(savedAccommodationId)
                 .memberId(savedMemberId2)
+                .count(2)
                 .build();
 
-        mockMvc.perform(post("/api/v1/cart")
+        mockMvc.perform(post("/api/v1/member/cart")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createReq)))
                 .andExpect(status().isCreated())
                 .andDo(print());
 
-        assertThat(cartRepository.findAll().size(), is(2));
+        assertThat(cartRepository.findAll().size(), is(3));
         assertThat(cartRepository.findAll().get(1).getProduct().getProductId(), is(savedAccommodationId));
         assertThat(cartRepository.findAll().get(1).getProduct().getBusinessName(), is("businessName"));
         assertThat(cartRepository.findAll().get(1).getProduct().getProductType(), is(ProductType.ACCOMMODATION));
     }
 
     @Test
-    @DisplayName("GET /api/v1/cart/{cartId} 테스트")
+    @DisplayName("member가 단일 cart 조회를 할 수 있다.")
     @Transactional
     void testFindById() throws Exception {
         final Long req = cartRepository.findAll().get(0).getCartId();
 
-        mockMvc.perform(get("/api/v1/cart/{cartId}", req)
+        mockMvc.perform(get("/api/v1/member/carts/{cartId}", req)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
 
     @Test
-    @DisplayName("DELETE /api/v1/cart/{cartId} 테스트")
+    @DisplayName("member에 해당하는 전체 cart 조회를 할 수 있다.")
+    @Transactional
+    void testFindAll() throws Exception {
+        assertThat(memberRepository.getById(savedMemberId1).getCarts().size(), is(2));
+        mockMvc.perform(get("/api/v1/member/carts")
+                        .param("memberId", String.valueOf(savedMemberId1))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("member가 cart를 단일 삭제 할 수 있다.")
     @Transactional
     void testDeleteCart() throws Exception {
         final Long req = cartRepository.findAll().get(0).getCartId();
 
-        mockMvc.perform(delete("/api/v1/cart/{cartId}", req)
+        mockMvc.perform(delete("/api/v1/member/carts/{cartId}", req)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());
