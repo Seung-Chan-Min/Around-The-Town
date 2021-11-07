@@ -18,6 +18,6 @@ public class LeisureResponseDto {
     private String usecase;
     private String leisureNotice;
     private LocalDateTime expirationDate;
-    private LeisureCategory category;
+    private LeisureCategory leisureCategory;
     private ProductResponseDto productResponseDto;
 }

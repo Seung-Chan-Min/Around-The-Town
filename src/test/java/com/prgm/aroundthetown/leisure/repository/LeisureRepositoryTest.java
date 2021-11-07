@@ -55,7 +55,7 @@ class LeisureRepositoryTest {
                 .usecase("usecase")
                 .leisureNotice("notice")
                 .expirationDate(LocalDateTime.now())
-                .category(LeisureCategory.AMUSEMENTPARK)
+                .leisureCategory(LeisureCategory.AMUSEMENTPARK)
                 .build();
         leisureRepository.save(leisure);
 

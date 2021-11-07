@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class LeisureDto {
-    private LeisureCategory category;
+    private LeisureCategory leisureCategory;
     private String leisureInfomation;
     private String usecase;
     private String leisureNotice;

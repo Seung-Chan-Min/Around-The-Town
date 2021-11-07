@@ -57,7 +57,7 @@ class TicketImageRepositoryTest {
                 .usecase("usecase")
                 .leisureNotice("notice")
                 .expirationDate(LocalDateTime.now())
-                .category(LeisureCategory.AMUSEMENTPARK)
+                .leisureCategory(LeisureCategory.AMUSEMENTPARK)
                 .build();
         final Leisure savedLeisure = leisureRepository.save(leisure);
 

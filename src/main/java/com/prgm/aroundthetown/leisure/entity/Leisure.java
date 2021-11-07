@@ -2,15 +2,26 @@ package com.prgm.aroundthetown.leisure.entity;
 
 import com.prgm.aroundthetown.product.entity.Product;
 import com.prgm.aroundthetown.ticket.entity.Ticket;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.hibernate.annotations.SQLDelete;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Table(name = "leisure")
@@ -37,9 +48,9 @@ public class Leisure extends Product {
     @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
 
-    @Column(name = "category")
+    @Column(name = "leisure_category")
     @Enumerated(EnumType.STRING)
-    private LeisureCategory category;
+    private LeisureCategory leisureCategory;
 
     @OneToMany(mappedBy = "leisure", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
@@ -57,7 +68,7 @@ public class Leisure extends Product {
         this.usecase = leisure.getUsecase();
         this.leisureNotice = leisure.getLeisureNotice();
         this.expirationDate = leisure.getExpirationDate();
-        this.category = leisure.getCategory();
+        this.leisureCategory = leisure.getLeisureCategory();
         super.update(
                 leisure.getRefundRule(),
                 leisure.getPhoneNumber(),

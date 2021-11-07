@@ -19,7 +19,7 @@ public class LeisureConverter {
 
     public LeisureDto toDto(final Leisure leisure) {
         return LeisureDto.builder()
-                .category(leisure.getCategory())
+                .leisureCategory(leisure.getLeisureCategory())
                 .leisureInfomation(leisure.getLeisureInformation())
                 .usecase(leisure.getUsecase())
                 .leisureNotice(leisure.getLeisureNotice())
@@ -35,7 +35,7 @@ public class LeisureConverter {
                 .usecase(leisureDto.getUsecase())
                 .leisureNotice(leisureDto.getLeisureNotice())
                 .expirationDate(leisureDto.getExpirationDate())
-                .category(leisureDto.getCategory())
+                .leisureCategory(leisureDto.getLeisureCategory())
                 .refundRule(prductDto.getRefundRule())
                 .phoneNumber(prductDto.getPhoneNumber())
                 .businessRegistrationNumber(prductDto.getBusinessRegistrationNumber())
@@ -54,7 +54,7 @@ public class LeisureConverter {
                 .usecase(leisureDto.getUsecase())
                 .leisureNotice(leisureDto.getLeisureNotice())
                 .expirationDate(leisureDto.getExpirationDate())
-                .category(leisureDto.getCategory())
+                .leisureCategory(leisureDto.getLeisureCategory())
                 .refundRule(productDto.getRefundRule())
                 .phoneNumber(productDto.getPhoneNumber())
                 .businessRegistrationNumber(productDto.getBusinessRegistrationNumber())
@@ -72,7 +72,7 @@ public class LeisureConverter {
                 .usecase(leisure.getUsecase())
                 .leisureNotice(leisure.getLeisureNotice())
                 .expirationDate(leisure.getExpirationDate())
-                .category(leisure.getCategory())
+                .leisureCategory(leisure.getLeisureCategory())
                 .productResponseDto(productConverter.toResponse(leisure))
                 .build();
     }
@@ -84,7 +84,7 @@ public class LeisureConverter {
                 .usecase(leisure.getUsecase())
                 .leisureNotice(leisure.getLeisureNotice())
                 .expirationDate(leisure.getExpirationDate())
-                .category(leisure.getCategory())
+                .leisureCategory(leisure.getLeisureCategory())
                 .productResponseDto(productConverter.toResponse(leisure))
                 .build();
     }
@@ -96,7 +96,7 @@ public class LeisureConverter {
                 .usecase(leisure.getUsecase())
                 .leisureNotice(leisure.getLeisureNotice())
                 .expirationDate(leisure.getExpirationDate())
-                .category(leisure.getCategory())
+                .leisureCategory(leisure.getLeisureCategory())
                 .productResponseDto(productConverter.toResponse(leisure))
                 .build();
     }
@@ -108,7 +108,7 @@ public class LeisureConverter {
                 .usecase(leisure.getUsecase())
                 .leisureNotice(leisure.getLeisureNotice())
                 .expirationDate(leisure.getExpirationDate())
-                .category(leisure.getCategory())
+                .leisureCategory(leisure.getLeisureCategory())
                 .productDeleteResponseDto(productConverter.toDeleteResponse(leisure))
                 .build();
     }
@@ -120,7 +120,7 @@ public class LeisureConverter {
                 .usecase(leisure.getUsecase())
                 .leisureNotice(leisure.getLeisureNotice())
                 .expirationDate(leisure.getExpirationDate())
-                .category(leisure.getCategory())
+                .leisureCategory(leisure.getLeisureCategory())
                 .productUpdateResponseDto(productConverter.toUpdateResponse(leisure))
                 .build();
     }

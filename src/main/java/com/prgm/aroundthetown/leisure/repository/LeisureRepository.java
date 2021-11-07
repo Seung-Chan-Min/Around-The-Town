@@ -7,6 +7,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LeisureRepository extends JpaRepository<Leisure, Long> {
-    List<Leisure> findAllByLeisureCategory(LeisureCategory leisureCategory);
-    List<Leisure> findAllByHost(Host host);
+    List<Leisure> getAllByLeisureCategory(LeisureCategory leisureCategory);
+    List<Leisure> getAllByHost(Host host);
 }
