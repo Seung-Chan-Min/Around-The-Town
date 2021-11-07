@@ -1,13 +1,13 @@
 package com.prgm.aroundthetown.order.dto;
 
-import com.prgm.aroundthetown.product.dto.ProductDto;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class OrderProductDto {
-    private int count;
-    private ProductDto productDto;
+public class OrderFindAllByMemberResponseDto {
+    private List<OrderResponseDto> orderResponseDtos;
 }

@@ -1,11 +1,10 @@
 package com.prgm.aroundthetown.order.converter;
 
-import com.prgm.aroundthetown.order.dto.OrderProductCreateRequestDto;
 import com.prgm.aroundthetown.order.dto.OrderProductDto;
+import com.prgm.aroundthetown.order.entity.Order;
 import com.prgm.aroundthetown.order.entity.OrderProduct;
-import com.prgm.aroundthetown.order.repository.OrderRepository;
-import com.prgm.aroundthetown.product.ProductRepository;
 import com.prgm.aroundthetown.product.converter.ProductConverter;
+import com.prgm.aroundthetown.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,15 +14,15 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class OrderProductConverter {
-    private final ProductRepository productRepository;
-    private final OrderRepository orderRepository;
     private final ProductConverter productConverter;
 
-    public OrderProduct toEntity(final OrderProductCreateRequestDto dto, final Long orderId) {
+    public OrderProduct toEntity(final Product product,
+                                 final Order order,
+                                 final int count) {
         return OrderProduct.builder()
-                .product(productRepository.getById(dto.getProductId()))
-                .order(orderRepository.getById(orderId))
-                .count(dto.getCount())
+                .product(product)
+                .order(order)
+                .count(count)
                 .build();
     }
 
@@ -31,11 +30,9 @@ public class OrderProductConverter {
         return orderProducts
                 .stream()
                 .map(orderProduct -> OrderProductDto.builder()
-                        .orderId(orderProduct.getOrder().getOrderId())
                         .count(orderProduct.getCount())
                         .productDto(productConverter.toDto(orderProduct.getProduct()))
                         .build())
                 .collect(Collectors.toList());
     }
-
 }
