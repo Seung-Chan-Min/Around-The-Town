@@ -20,7 +20,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -106,7 +105,6 @@ class ReviewServiceImplTest {
     @Test
     @DisplayName("review를 생성할 수 있다.")
     @Transactional
-    @Rollback(value = false)
     void testCreateReview() {
         // Given
         final List<String> imagePaths = new ArrayList<>();
@@ -130,31 +128,4 @@ class ReviewServiceImplTest {
                 () -> assertThat(reviewRepository.findAll().get(1).getContent(), is("이 모텔 좀 좋네?"))
         );
     }
-
-    @Test
-    @DisplayName("member의 모든 review를 조회할 수 있다.")
-    @Transactional
-    void testFindAllReviewsByMember() {
-//        assertThat(reviewService.findAllReviewsByMember(savedMemberId).getMemberId(), is(savedMemberId));
-//        assertThat(reviewService.findAllReviewsByMember(savedMemberId).getReviewDtos().get(0).getAccommodationName(), is("name"));
-    }
-
-    @Test
-    @DisplayName("")
-    @Transactional
-    void testFindById() {
-    }
-
-    @Test
-    @DisplayName("")
-    @Transactional
-    void testUpdateReview() {
-    }
-
-    @Test
-    @DisplayName("")
-    @Transactional
-    void testDeleteReview() {
-    }
-
 }

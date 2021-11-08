@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class MemberCreateDto {
+public class MemberUpdateRequestDto {
     private String password;
     private String phoneNumber;
     private String email;

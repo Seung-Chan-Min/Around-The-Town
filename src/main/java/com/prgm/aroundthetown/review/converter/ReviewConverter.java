@@ -2,7 +2,7 @@ package com.prgm.aroundthetown.review.converter;
 
 import com.prgm.aroundthetown.accommodation.dto.AccommodationDto;
 import com.prgm.aroundthetown.accommodation.entity.Accommodation;
-import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.review.dto.ReviewCreateRequestDto;
 import com.prgm.aroundthetown.review.dto.ReviewDto;
@@ -27,11 +27,11 @@ public class ReviewConverter {
     }
 
     public ReviewResponseDto toResponseDto(final ReviewDto reviewDto,
-                                           final MemberDto memberDto,
+                                           final MemberResponseDto memberDto,
                                            final AccommodationDto accommodationDto,
                                            final List<String> reviewImagePaths) {
         return ReviewResponseDto.builder()
-                .memberDto(memberDto)
+                .memberResponseDto(memberDto)
                 .accommodationDto(accommodationDto)
                 .reviewId(reviewDto.getReviewId())
                 .content(reviewDto.getContent())

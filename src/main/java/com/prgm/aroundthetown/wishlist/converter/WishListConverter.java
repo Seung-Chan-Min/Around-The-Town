@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.wishlist.converter;
 
-import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.product.dto.ProductDto;
 import com.prgm.aroundthetown.product.entity.Product;
@@ -21,11 +21,11 @@ public class WishListConverter {
     }
 
     public WishListResponseDto toResponseDto(final Long wishListId,
-                                             final MemberDto memberDto,
+                                             final MemberResponseDto memberDto,
                                              final ProductDto productDto) {
         return WishListResponseDto.builder()
                 .wishListId(wishListId)
-                .memberDto(memberDto)
+                .memberResponseDto(memberDto)
                 .productDto(productDto)
                 .build();
     }

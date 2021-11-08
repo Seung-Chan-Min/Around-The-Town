@@ -2,7 +2,7 @@ package com.prgm.aroundthetown.cart.converter;
 
 import com.prgm.aroundthetown.cart.dto.CartResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
-import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.product.dto.ProductDto;
 import com.prgm.aroundthetown.product.entity.Product;
@@ -23,7 +23,7 @@ public class CartConverter {
     }
 
     public CartResponseDto toResponseDto(final Long cartId,
-                                         final MemberDto memberDto,
+                                         final MemberResponseDto memberDto,
                                          final ProductDto productDto,
                                          final int count) {
         return CartResponseDto.builder()

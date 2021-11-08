@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.cart.dto;
 
-import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.product.dto.ProductDto;
 import lombok.*;
 
@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class CartResponseDto {
     private Long cartId;
-    private MemberDto memberDto;
+    private MemberResponseDto memberDto;
     private ProductDto productDto;
     private int count;
 }

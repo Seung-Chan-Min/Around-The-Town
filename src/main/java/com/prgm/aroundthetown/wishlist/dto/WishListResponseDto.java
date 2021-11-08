@@ -1,6 +1,6 @@
 package com.prgm.aroundthetown.wishlist.dto;
 
-import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.product.dto.ProductDto;
 import lombok.*;
 
@@ -10,6 +10,6 @@ import lombok.*;
 @Builder
 public class WishListResponseDto {
     private Long wishListId;
-    private MemberDto memberDto;
+    private MemberResponseDto memberDto;
     private ProductDto productDto;
 }
