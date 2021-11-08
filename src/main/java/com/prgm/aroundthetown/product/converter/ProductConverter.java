@@ -41,6 +41,7 @@ public class ProductConverter {
                     .optionNotice(accommodation.getOptionNotice())
                     .guide(accommodation.getGuide())
                     .build());
+            productDto.setLeisureDto(LeisureDto.builder().build());
         } else {
             final Leisure leisure = (Leisure) product;
             productDto.setLeisureDto(LeisureDto.builder()
@@ -50,6 +51,7 @@ public class ProductConverter {
                     .leisureNotice(leisure.getLeisureNotice())
                     .expirationDate(leisure.getExpirationDate())
                     .build());
+            productDto.setAccommodationDto(AccommodationDto.builder().build());
         }
         return productDto;
     }

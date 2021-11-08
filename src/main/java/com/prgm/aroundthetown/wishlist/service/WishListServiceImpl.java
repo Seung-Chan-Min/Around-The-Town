@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.wishlist.service;
 
 import com.prgm.aroundthetown.member.converter.MemberConverter;
-import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.ProductRepository;
@@ -46,7 +46,7 @@ public class WishListServiceImpl implements WishListService {
     public WishListResponseDto findById(final Long wishListId) throws Exception {
         final WishList entity = repository.getById(wishListId);
         final ProductDto productDto = productConverter.toDto(entity.getProduct());
-        final MemberDto memberDto = memberConverter.toDto(entity.getMember());
+        final MemberResponseDto memberDto = memberConverter.toDto(entity.getMember());
         return wishListConverter.toResponseDto(wishListId, memberDto, productDto);
     }
 
@@ -69,7 +69,7 @@ public class WishListServiceImpl implements WishListService {
         entity.setIsDeleted(true);
         repository.save(entity);
         final ProductDto productDto = productConverter.toDto(entity.getProduct());
-        final MemberDto memberDto = memberConverter.toDto(entity.getMember());
+        final MemberResponseDto memberDto = memberConverter.toDto(entity.getMember());
         return wishListConverter.toResponseDto(wishListId, memberDto, productDto);
     }
 }

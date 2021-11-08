@@ -6,7 +6,6 @@ import com.prgm.aroundthetown.cart.dto.CartResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.cart.repository.CartRepository;
 import com.prgm.aroundthetown.member.converter.MemberConverter;
-import com.prgm.aroundthetown.member.dto.MemberDto;
 import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;

@@ -1,6 +1,5 @@
 package com.prgm.aroundthetown.order.dto;
 
-import com.prgm.aroundthetown.member.dto.MemberDto;
 import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import lombok.*;
 

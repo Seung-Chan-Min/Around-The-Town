@@ -1,28 +1,21 @@
 package com.prgm.aroundthetown.review.converter;
 
-import com.prgm.aroundthetown.accommodation.converter.AccommodationConverter;
-import com.prgm.aroundthetown.accommodation.repository.AccommodationRepository;
-import com.prgm.aroundthetown.member.converter.MemberConverter;
-import com.prgm.aroundthetown.member.repository.MemberRepository;
+import com.prgm.aroundthetown.accommodation.dto.AccommodationDto;
+import com.prgm.aroundthetown.accommodation.entity.Accommodation;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
+import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.review.dto.ReviewCreateRequestDto;
 import com.prgm.aroundthetown.review.dto.ReviewDto;
 import com.prgm.aroundthetown.review.dto.ReviewResponseDto;
 import com.prgm.aroundthetown.review.entity.Review;
-import com.prgm.aroundthetown.review.entity.ReviewImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class ReviewConverter {
-    private final MemberRepository memberRepository;
-    private final AccommodationRepository accommodationRepository;
-
-    private final MemberConverter memberConverter;
-    private final AccommodationConverter accommodationConverter;
-
     public ReviewDto toReviewDto(final Review entity) {
         return ReviewDto.builder()
                 .reviewId(entity.getReviewId())
@@ -33,34 +26,29 @@ public class ReviewConverter {
                 .build();
     }
 
-    public ReviewResponseDto toFindByIdResponseDto(final Review entity) {
+    public ReviewResponseDto toResponseDto(final ReviewDto reviewDto,
+                                           final MemberResponseDto memberDto,
+                                           final AccommodationDto accommodationDto,
+                                           final List<String> reviewImagePaths) {
         return ReviewResponseDto.builder()
-                .memberResponseDto(
-                        memberConverter.toDto(
-                                entity.getMember()
-                        ))
-                .accommodationDto(
-                        accommodationConverter.toDto(
-                                entity.getAccommodation()
-                        ))
-                .reviewId(entity.getReviewId())
-                .content(entity.getContent())
-                .score(entity.getScore())
-                .reviewImagePaths(
-                        entity.getReviewImages()
-                                .stream()
-                                .map(ReviewImage::getIMAGE_PATH)
-                                .collect(Collectors.toList()))
+                .memberResponseDto(memberDto)
+                .accommodationDto(accommodationDto)
+                .reviewId(reviewDto.getReviewId())
+                .content(reviewDto.getContent())
+                .score(reviewDto.getScore())
+                .reviewImagePaths(reviewImagePaths)
                 .build();
     }
 
 
-    public Review toEntity(final ReviewCreateRequestDto dto) {
+    public Review toEntity(final ReviewCreateRequestDto dto,
+                           final Member member,
+                           final Accommodation accommodation) {
         return Review.builder()
                 .content(dto.getContent())
                 .score(dto.getScore())
-                .member(memberRepository.getById(dto.getMemberId()))
-                .accommodation(accommodationRepository.getById(dto.getAccommodationId()))
+                .member(member)
+                .accommodation(accommodation)
                 .build();
     }
 

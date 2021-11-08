@@ -1,36 +1,36 @@
 package com.prgm.aroundthetown.cart.converter;
 
-import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
 import com.prgm.aroundthetown.cart.dto.CartResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
-import com.prgm.aroundthetown.member.converter.MemberConverter;
-import com.prgm.aroundthetown.member.repository.MemberRepository;
-import com.prgm.aroundthetown.product.ProductRepository;
-import com.prgm.aroundthetown.product.converter.ProductConverter;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
+import com.prgm.aroundthetown.member.entity.Member;
+import com.prgm.aroundthetown.product.dto.ProductDto;
+import com.prgm.aroundthetown.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class CartConverter {
-    private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
-
-    private final ProductConverter productConverter;
-    private final MemberConverter memberConverter;
-
-    public Cart toEntity(final CartCreateRequestDto dto) {
+    public Cart toEntity(final Product productEntity,
+                         final Member memberEntity,
+                         final int count) {
         return Cart.builder()
-                .product(productRepository.getById(dto.getProductId()))
-                .member(memberRepository.getById(dto.getMemberId()))
+                .product(productEntity)
+                .member(memberEntity)
+                .count(count)
                 .build();
     }
 
-    public CartResponseDto toFindByIdDto(final Cart entity) {
+    public CartResponseDto toResponseDto(final Long cartId,
+                                         final MemberResponseDto memberDto,
+                                         final ProductDto productDto,
+                                         final int count) {
         return CartResponseDto.builder()
-                .cartId(entity.getCartId())
-                .productDto(productConverter.toDto(entity.getProduct()))
-                .memberResponseDto(memberConverter.toDto(entity.getMember()))
+                .cartId(cartId)
+                .memberDto(memberDto)
+                .productDto(productDto)
+                .count(count)
                 .build();
     }
 }

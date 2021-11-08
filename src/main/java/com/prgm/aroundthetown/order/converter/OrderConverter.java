@@ -1,6 +1,5 @@
 package com.prgm.aroundthetown.order.converter;
 
-import com.prgm.aroundthetown.member.dto.MemberDto;
 import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.order.dto.OrderFindByIdResponseDto;
 import com.prgm.aroundthetown.order.dto.OrderResponseDto;
