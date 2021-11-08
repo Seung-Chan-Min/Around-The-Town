@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.member.entity;
 
+import com.prgm.aroundthetown.annotation.SoftDeletableEntity;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.order.entity.Order;
@@ -11,12 +12,15 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @Table(name = "member")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@SoftDeletableEntity
+@SQLDelete(sql = "UPDATE member SET is_deleted = true WHERE member_id=?")
 public class Member extends BaseTimeAndDeletedEntity {
 
     @Id

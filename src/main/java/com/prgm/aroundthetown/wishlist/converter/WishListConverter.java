@@ -30,7 +30,7 @@ public class WishListConverter {
         return WishListFindByIdResponseDto.builder()
                 .wishListId(entity.getWishlistId())
                 .productDto(productConverter.toDto(entity.getProduct()))
-                .memberDto(memberConverter.toDto(entity.getMember()))
+                .memberResponseDto(memberConverter.toDto(entity.getMember()))
                 .build();
     }
 }

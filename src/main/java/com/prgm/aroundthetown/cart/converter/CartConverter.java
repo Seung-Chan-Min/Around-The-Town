@@ -30,7 +30,7 @@ public class CartConverter {
         return CartFindByIdResponseDto.builder()
                 .cartId(entity.getCartId())
                 .productDto(productConverter.toDto(entity.getProduct()))
-                .memberDto(memberConverter.toDto(entity.getMember()))
+                .memberResponseDto(memberConverter.toDto(entity.getMember()))
                 .build();
     }
 }

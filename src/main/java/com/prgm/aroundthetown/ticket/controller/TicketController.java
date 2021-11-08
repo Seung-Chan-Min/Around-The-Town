@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.ticket.controller;
 
+import com.prgm.aroundthetown.common.response.ApiResponse;
 import com.prgm.aroundthetown.ticket.dto.TicketCreateRequestDto;
 import com.prgm.aroundthetown.ticket.dto.TicketDeleteResponseDto;
 import com.prgm.aroundthetown.ticket.dto.TicketFindAllByLeisureResponseDto;
@@ -28,41 +29,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class TicketController {
     private final TicketService ticketService;
 
-    // Todo : 중복코드 리펙토링
-    @ExceptionHandler // Todo : Test
-    private ResponseEntity<String> exceptionHandle(Exception exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    // Todo : 중복코드 리펙토링
-    @ExceptionHandler(NotFoundException.class)  // Todo : Test
-    private ResponseEntity<String> notFoundHandle(NotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
     @PostMapping("/tickets")
-    public ResponseEntity<Long> createTicket(@RequestBody final TicketCreateRequestDto request) {
-        return new ResponseEntity<>(ticketService.create(request), HttpStatus.CREATED); // Todo : OK , CREATED ?
+    public ResponseEntity<ApiResponse<Long>> createTicket(@RequestBody TicketCreateRequestDto request) {
+        return ResponseEntity.ok(ApiResponse.created(ticketService.create(request)));
     }
 
     @GetMapping("/tickets/{ticketId}")
-    public ResponseEntity<TicketResponseDto> findTicketById(@PathVariable final Long ticketId) {
-        return new ResponseEntity<>(ticketService.findById(ticketId), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<TicketResponseDto>> findTicketById(@PathVariable final Long ticketId) {
+        return ResponseEntity.ok(ApiResponse.ok(ticketService.findById(ticketId)));
     }
 
     @GetMapping("/tickets/leisure/{leisureId}")
-    public ResponseEntity<List<TicketFindAllByLeisureResponseDto>> findAllTicketByLeisure(@PathVariable final Long leisureId) {
-        return new ResponseEntity<>(ticketService.findAllByLeisure(leisureId), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<List<TicketFindAllByLeisureResponseDto>>> findAllTicketByLeisure(@PathVariable final Long leisureId) {
+        return ResponseEntity.ok(ApiResponse.ok(ticketService.findAllByLeisure(leisureId)));
     }
 
     @PutMapping("/tickets")
-    public ResponseEntity<TicketUpdateResponseDto> updateTicket(@RequestBody final TicketUpdateRequestDto request){
-        return new ResponseEntity<>(ticketService.update(request), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<TicketUpdateResponseDto>> updateTicket(@RequestBody final TicketUpdateRequestDto request){
+        return ResponseEntity.ok(ApiResponse.ok(ticketService.update(request)));
     }
 
     @DeleteMapping("/tickets/{ticketId}")
-    public ResponseEntity<TicketDeleteResponseDto> deleteTicketById(@PathVariable final Long ticketId) {
-        return new ResponseEntity<>(ticketService.deleteById(ticketId), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<TicketDeleteResponseDto>> deleteTicketById(@PathVariable final Long ticketId) {
+        return ResponseEntity.ok(ApiResponse.ok(ticketService.deleteById(ticketId)));
     }
 
 }

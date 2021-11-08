@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.review.dto;
 
 import com.prgm.aroundthetown.accommodation.dto.AccommodationDto;
-import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import lombok.*;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ReviewFindByIdResponseDto {
-    private MemberDto memberDto;
+    private MemberResponseDto memberResponseDto;
     private AccommodationDto accommodationDto;
     private Long reviewId;
     private String content;

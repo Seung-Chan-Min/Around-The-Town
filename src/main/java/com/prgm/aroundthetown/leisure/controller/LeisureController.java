@@ -30,18 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LeisureController {
     private final LeisureServiceImpl leisureService;
 
-    // Todo : 중복코드 리펙토링
-    @ExceptionHandler  // Todo : Test
-    private ResponseEntity<String> exceptionHandle(Exception exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    // Todo : 중복코드 리펙토링
-    @ExceptionHandler(NotFoundException.class)  // Todo : Test
-    private ResponseEntity<String> notFoundHandle(NotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
     @PostMapping("/leisure")
     public ResponseEntity<Long> createLeisure(@RequestBody final LeisureCreateRequestDto request) {
         return new ResponseEntity<>(leisureService.create(request), HttpStatus.CREATED);

@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.member.service;
 
-import com.prgm.aroundthetown.member.dto.MemberCreateDto;
-import com.prgm.aroundthetown.member.dto.MemberUpdateDto;
+import com.prgm.aroundthetown.member.dto.MemberCreateRequestDto;
+import com.prgm.aroundthetown.member.dto.MemberUpdateRequestDto;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +40,7 @@ class MemberServiceImplTest {
     @Transactional
     void testCreateMember() {
         // Given
-        final MemberCreateDto dto = MemberCreateDto.builder()
+        final MemberCreateRequestDto dto = MemberCreateRequestDto.builder()
                 .password("1234")
                 .phoneNumber("01011112222")
                 .email("test@naver.com")
@@ -66,7 +66,7 @@ class MemberServiceImplTest {
     @Transactional
     void testUpdateMember() {
         // Given
-        final MemberUpdateDto dto = MemberUpdateDto.builder()
+        final MemberUpdateRequestDto dto = MemberUpdateRequestDto.builder()
                 .password("바뀐비밀번호")
                 .phoneNumber("01012345678")
                 .email("seung@naver.com")

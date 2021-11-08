@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.host.entity;
 
+import com.prgm.aroundthetown.annotation.SoftDeletableEntity;
 import com.prgm.aroundthetown.common.entity.BaseTimeAndDeletedEntity;
 import com.prgm.aroundthetown.product.entity.Product;
 import lombok.AccessLevel;
@@ -11,11 +12,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @Table(name = "host")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SoftDeletableEntity
+@SQLDelete(sql = "UPDATE host SET is_deleted = true WHERE host_id=?")
 public class Host extends BaseTimeAndDeletedEntity {
 
     @Id

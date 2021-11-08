@@ -35,7 +35,7 @@ public class ReviewConverter {
 
     public ReviewFindByIdResponseDto toFindByIdResponseDto(final Review entity) {
         return ReviewFindByIdResponseDto.builder()
-                .memberDto(
+                .memberResponseDto(
                         memberConverter.toDto(
                                 entity.getMember()
                         ))
