@@ -23,12 +23,12 @@ public class CartConverter {
     }
 
     public CartResponseDto toResponseDto(final Long cartId,
-                                         final MemberResponseDto memberDto,
+                                         final MemberResponseDto memberResponseDto,
                                          final ProductDto productDto,
                                          final int count) {
         return CartResponseDto.builder()
                 .cartId(cartId)
-                .memberDto(memberDto)
+                .memberResponseDto(memberResponseDto)
                 .productDto(productDto)
                 .count(count)
                 .build();

@@ -8,7 +8,6 @@ import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.order.dto.OrderCreateRequestDto;
-import com.prgm.aroundthetown.order.dto.OrderProductCreateRequestDto;
 import com.prgm.aroundthetown.order.repository.OrderRepository;
 import com.prgm.aroundthetown.product.Location;
 import com.prgm.aroundthetown.product.Region;
@@ -19,9 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -104,21 +100,8 @@ class OrderServiceImplTest {
     @Transactional
     void testCreateOrder() {
         // Given
-        final OrderProductCreateRequestDto orderProductReq1 = OrderProductCreateRequestDto.builder()
-                .productId(savedAccommodationId1)
-                .count(3)
-                .build();
-        final OrderProductCreateRequestDto orderProductReq2 = OrderProductCreateRequestDto.builder()
-                .productId(savedAccommodationId2)
-                .count(4)
-                .build();
-        final List<OrderProductCreateRequestDto> orderProductReqs = new ArrayList<>();
-        orderProductReqs.add(orderProductReq1);
-        orderProductReqs.add(orderProductReq2);
-
         final OrderCreateRequestDto orderCreateReq = OrderCreateRequestDto.builder()
                 .memberId(savedMemberId)
-                .orderProductCreateRequestDtos(orderProductReqs)
                 .build();
 
         // When
@@ -128,11 +111,7 @@ class OrderServiceImplTest {
         assertAll("createOrder",
                 () -> assertThat(orderRepository.findAll().size(), is(1)),
                 () -> assertThat(orderRepository.getById(orderId).getOrderId(), is(orderId)),
-                () -> assertThat(orderRepository.getById(orderId).getMember().getId(), is(savedMemberId)),
-                () -> assertThat(orderRepository.getById(orderId).getOrderProducts().size(), is(2)),
-                () -> assertThat(orderRepository.getById(orderId).getOrderProducts().get(0).getProduct().getProductId(), is(savedAccommodationId1)),
-                () -> assertThat(orderRepository.getById(orderId).getOrderProducts().get(1).getProduct().getProductId(), is(savedAccommodationId2)),
-                () -> assertThat(orderRepository.getById(orderId).getOrderProducts().get(1).getOrder().getOrderId(), is(orderId))
+                () -> assertThat(orderRepository.getById(orderId).getMember().getId(), is(savedMemberId))
         );
     }
 }

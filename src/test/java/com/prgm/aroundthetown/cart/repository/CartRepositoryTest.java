@@ -9,6 +9,7 @@ import com.prgm.aroundthetown.host.repository.HostRepository;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.Location;
+import com.prgm.aroundthetown.product.ProductRepository;
 import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.product.entity.ProductType;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +34,8 @@ class CartRepositoryTest {
     private HostRepository hostRepository;
     @Autowired
     private AccommodationRepository accommodationRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     private Accommodation savedAccommodation;
     private Member savedMember;
@@ -84,7 +87,8 @@ class CartRepositoryTest {
         assertThat(cartRepository.findAll().size(), is(1));
 
         // 연관관계 mapping
-        assertThat(accommodationRepository.findAll().get(0).getCarts().size(), is(1));
+//        assertThat(accommodationRepository.findAll().get(0).getCarts().size(), is(1));
+        assertThat(productRepository.findAll().get(0).getCarts().size(), is(1));
         assertThat(memberRepository.findAll().get(0).getCarts().size(), is(1));
     }
 

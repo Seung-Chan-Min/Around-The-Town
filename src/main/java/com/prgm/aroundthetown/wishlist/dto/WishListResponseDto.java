@@ -10,6 +10,6 @@ import lombok.*;
 @Builder
 public class WishListResponseDto {
     private Long wishListId;
-    private MemberResponseDto memberDto;
+    private MemberResponseDto memberResponseDto;
     private ProductDto productDto;
 }

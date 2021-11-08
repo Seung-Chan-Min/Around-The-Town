@@ -27,11 +27,11 @@ public class ReviewConverter {
     }
 
     public ReviewResponseDto toResponseDto(final ReviewDto reviewDto,
-                                           final MemberResponseDto memberDto,
+                                           final MemberResponseDto memberResponseDto,
                                            final AccommodationDto accommodationDto,
                                            final List<String> reviewImagePaths) {
         return ReviewResponseDto.builder()
-                .memberResponseDto(memberDto)
+                .memberResponseDto(memberResponseDto)
                 .accommodationDto(accommodationDto)
                 .reviewId(reviewDto.getReviewId())
                 .content(reviewDto.getContent())

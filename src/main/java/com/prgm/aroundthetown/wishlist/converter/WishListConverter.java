@@ -21,11 +21,11 @@ public class WishListConverter {
     }
 
     public WishListResponseDto toResponseDto(final Long wishListId,
-                                             final MemberResponseDto memberDto,
+                                             final MemberResponseDto memberResponseDto,
                                              final ProductDto productDto) {
         return WishListResponseDto.builder()
                 .wishListId(wishListId)
-                .memberResponseDto(memberDto)
+                .memberResponseDto(memberResponseDto)
                 .productDto(productDto)
                 .build();
     }
