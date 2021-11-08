@@ -19,13 +19,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prgm.aroundthetown.host.entity.Host;
 import com.prgm.aroundthetown.host.repository.HostRepository;
-import com.prgm.aroundthetown.host.service.HostServiceImpl;
 import com.prgm.aroundthetown.leisure.dto.LeisureCreateRequestDto;
-import com.prgm.aroundthetown.leisure.entity.Leisure;
 import com.prgm.aroundthetown.leisure.entity.LeisureCategory;
 import com.prgm.aroundthetown.leisure.repository.LeisureRepository;
 import com.prgm.aroundthetown.leisure.service.LeisureServiceImpl;
-import com.prgm.aroundthetown.product.ProductRepository;
 import com.prgm.aroundthetown.product.Region;
 import com.prgm.aroundthetown.product.dto.LocationDto;
 import com.prgm.aroundthetown.product.dto.ProductCreateRequestDto;
@@ -44,7 +41,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 
 @Slf4j
