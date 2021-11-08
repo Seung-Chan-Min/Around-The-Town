@@ -7,6 +7,7 @@ import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.cart.repository.CartRepository;
 import com.prgm.aroundthetown.member.converter.MemberConverter;
 import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.ProductRepository;
@@ -46,7 +47,7 @@ public class CartServiceImpl implements CartService {
     public CartResponseDto findById(final Long cartId) throws Exception {
         final Cart entity = cartRepository.getById(cartId);
         final ProductDto productDto = productConverter.toDto(entity.getProduct());
-        final MemberDto memberDto = memberConverter.toDto(entity.getMember());
+        final MemberResponseDto memberDto = memberConverter.toDto(entity.getMember());
         return cartConverter.toResponseDto(cartId, memberDto, productDto, entity.getCount());
     }
 
@@ -70,7 +71,7 @@ public class CartServiceImpl implements CartService {
         entity.setIsDeleted(true);
         cartRepository.save(entity);
         final ProductDto productDto = productConverter.toDto(entity.getProduct());
-        final MemberDto memberDto = memberConverter.toDto(entity.getMember());
+        final MemberResponseDto memberDto = memberConverter.toDto(entity.getMember());
         return cartConverter.toResponseDto(cartId, memberDto, productDto, entity.getCount());
     }
 }

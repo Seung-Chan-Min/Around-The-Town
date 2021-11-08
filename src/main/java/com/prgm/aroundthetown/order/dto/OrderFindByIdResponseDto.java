@@ -1,6 +1,7 @@
 package com.prgm.aroundthetown.order.dto;
 
 import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -11,6 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class OrderFindByIdResponseDto {
-    private MemberDto memberDto;
+    private MemberResponseDto memberResponseDto;
     private List<OrderProductDto> orderProductDtos = new ArrayList<>();
 }

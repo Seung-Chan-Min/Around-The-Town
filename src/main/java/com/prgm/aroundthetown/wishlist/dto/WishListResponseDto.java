@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class WishListFindByIdResponseDto {
+public class WishListResponseDto {
     private Long wishListId;
     private HostDto hostDto;
     private ProductDto productDto;

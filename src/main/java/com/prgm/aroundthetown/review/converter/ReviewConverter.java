@@ -6,7 +6,7 @@ import com.prgm.aroundthetown.member.converter.MemberConverter;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.review.dto.ReviewCreateRequestDto;
 import com.prgm.aroundthetown.review.dto.ReviewDto;
-import com.prgm.aroundthetown.review.dto.ReviewFindByIdResponseDto;
+import com.prgm.aroundthetown.review.dto.ReviewResponseDto;
 import com.prgm.aroundthetown.review.entity.Review;
 import com.prgm.aroundthetown.review.entity.ReviewImage;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +33,8 @@ public class ReviewConverter {
                 .build();
     }
 
-    public ReviewFindByIdResponseDto toFindByIdResponseDto(final Review entity) {
-        return ReviewFindByIdResponseDto.builder()
+    public ReviewResponseDto toFindByIdResponseDto(final Review entity) {
+        return ReviewResponseDto.builder()
                 .memberResponseDto(
                         memberConverter.toDto(
                                 entity.getMember()

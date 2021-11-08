@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class CartFindByIdResponseDto {
+public class CartResponseDto {
     private Long cartId;
     private HostDto hostDto;
     private ProductDto productDto;

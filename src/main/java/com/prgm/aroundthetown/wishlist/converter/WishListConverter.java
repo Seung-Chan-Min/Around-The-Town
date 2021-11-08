@@ -5,7 +5,7 @@ import com.prgm.aroundthetown.member.repository.MemberRepository;
 import com.prgm.aroundthetown.product.ProductRepository;
 import com.prgm.aroundthetown.product.converter.ProductConverter;
 import com.prgm.aroundthetown.wishlist.dto.WishListCreateRequestDto;
-import com.prgm.aroundthetown.wishlist.dto.WishListFindByIdResponseDto;
+import com.prgm.aroundthetown.wishlist.dto.WishListResponseDto;
 import com.prgm.aroundthetown.wishlist.entity.WishList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,8 +26,8 @@ public class WishListConverter {
                 .build();
     }
 
-    public WishListFindByIdResponseDto toFindByIdDto(final WishList entity) {
-        return WishListFindByIdResponseDto.builder()
+    public WishListResponseDto toFindByIdDto(final WishList entity) {
+        return WishListResponseDto.builder()
                 .wishListId(entity.getWishlistId())
                 .productDto(productConverter.toDto(entity.getProduct()))
                 .memberResponseDto(memberConverter.toDto(entity.getMember()))

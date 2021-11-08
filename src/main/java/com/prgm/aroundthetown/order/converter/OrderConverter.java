@@ -1,6 +1,7 @@
 package com.prgm.aroundthetown.order.converter;
 
 import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.order.dto.OrderFindByIdResponseDto;
 import com.prgm.aroundthetown.order.dto.OrderResponseDto;
 import com.prgm.aroundthetown.order.entity.Order;
@@ -20,9 +21,9 @@ public class OrderConverter {
                 .build();
     }
 
-    public OrderFindByIdResponseDto toFindByIdDto(final MemberDto memberDto) {
+    public OrderFindByIdResponseDto toFindByIdDto(final MemberResponseDto memberResponseDto) {
         return OrderFindByIdResponseDto.builder()
-                .memberDto(memberDto)
+                .memberResponseDto(memberResponseDto)
                 .build();
     }
 }

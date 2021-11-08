@@ -1,7 +1,7 @@
 package com.prgm.aroundthetown.cart.converter;
 
 import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
-import com.prgm.aroundthetown.cart.dto.CartFindByIdResponseDto;
+import com.prgm.aroundthetown.cart.dto.CartResponseDto;
 import com.prgm.aroundthetown.cart.entity.Cart;
 import com.prgm.aroundthetown.member.converter.MemberConverter;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
@@ -26,8 +26,8 @@ public class CartConverter {
                 .build();
     }
 
-    public CartFindByIdResponseDto toFindByIdDto(final Cart entity) {
-        return CartFindByIdResponseDto.builder()
+    public CartResponseDto toFindByIdDto(final Cart entity) {
+        return CartResponseDto.builder()
                 .cartId(entity.getCartId())
                 .productDto(productConverter.toDto(entity.getProduct()))
                 .memberResponseDto(memberConverter.toDto(entity.getMember()))
