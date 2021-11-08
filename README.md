@@ -68,3 +68,5 @@
 <br/>
 
 ## ☕ 회고
+
+[회고록](https://backend-devcourse.notion.site/5520404b56c34ecda7ec43a2f624b147)
