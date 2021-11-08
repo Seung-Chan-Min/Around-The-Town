@@ -21,9 +21,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,10 +33,15 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@AutoConfigureRestDocs
 @AutoConfigureMockMvc
 @SpringBootTest
 class OrderControllerTest {
@@ -109,7 +116,7 @@ class OrderControllerTest {
     @Test
     @DisplayName("member가 order를 생성할 수 있다.")
     @Transactional
-    void createOrder() throws Exception {
+    void testCreateOrder() throws Exception {
         final OrderProductCreateRequestDto orderProductCreateRequestDto1 =
                 OrderProductCreateRequestDto.builder()
                         .productId(savedAccommodationId)
@@ -131,8 +138,21 @@ class OrderControllerTest {
         mockMvc.perform(post("/api/v1/member/order")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(req)))
-                .andExpect(status().isCreated())
-                .andDo(print());
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("create_order",
+                        requestFields(
+                                fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 Id"),
+                                fieldWithPath("orderProductCreateRequestDtos.[]").type(JsonFieldType.ARRAY).description("주문 상품 생성 DTO 목록"),
+                                fieldWithPath("orderProductCreateRequestDtos.[].productId").type(JsonFieldType.NUMBER).description("상품 Id"),
+                                fieldWithPath("orderProductCreateRequestDtos.[].count").type(JsonFieldType.NUMBER).description("상품 갯수")
+                        ),
+                        responseFields(
+                                fieldWithPath("statusCode").type(JsonFieldType.NUMBER).description("StatusCode"),
+                                fieldWithPath("serverDatetime").type(JsonFieldType.STRING).description("ServerDatetime"),
+                                fieldWithPath("data").type(JsonFieldType.NUMBER).description("주문 Id")
+                        )
+                ));
 
         assertThat(orderRepository.findAll().size(), is(2));
         assertThat(orderRepository.findAll().get(1).getOrderProducts().get(1).getCount()
@@ -142,34 +162,148 @@ class OrderControllerTest {
     @Test
     @DisplayName("member가 단일 order를 조회할 수 있다.")
     @Transactional
-    void findById() throws Exception {
+    void testFindById() throws Exception {
         mockMvc.perform(get("/api/v1/member/orders/{orderId}", orderRepository.findAll().get(0).getOrderId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(print());
+                .andDo(print())
+                .andDo(document("find_order",
+                        pathParameters(
+                                parameterWithName("orderId").description("주문 Id")
+                        ),
+                        responseFields(
+                                fieldWithPath("statusCode").type(JsonFieldType.NUMBER).description("StatusCode"),
+                                fieldWithPath("serverDatetime").type(JsonFieldType.STRING).description("ServerDatetime"),
+                                fieldWithPath("data.memberResponseDto").type(JsonFieldType.OBJECT).description("멤버 정보 DTO"),
+                                fieldWithPath("data.memberResponseDto.memberId").type(JsonFieldType.NUMBER).description("회원 Id"),
+                                fieldWithPath("data.memberResponseDto.password").type(JsonFieldType.STRING).description("비밀번호"),
+                                fieldWithPath("data.memberResponseDto.phoneNumber").type(JsonFieldType.STRING).description("회원 전화번호"),
+                                fieldWithPath("data.memberResponseDto.email").type(JsonFieldType.STRING).description("회원 이메일"),
+                                fieldWithPath("data.orderProductDtos.[]").type(JsonFieldType.ARRAY).description("주문 상품 정보 DTO 목록"),
+                                fieldWithPath("data.orderProductDtos.[].count").type(JsonFieldType.NUMBER).description("주문 갯수"),
+                                fieldWithPath("data.orderProductDtos.[].productDto").type(JsonFieldType.OBJECT).description("상품 정보 DTO"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.productId").type(JsonFieldType.NUMBER).description("상품 Id"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto").type(JsonFieldType.OBJECT).description("숙소 정보 DTO"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.accommodationName").type(JsonFieldType.STRING).description("숙소명"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.accommodationCategory").type(JsonFieldType.STRING).description("숙소종류"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.accommodationNotice").type(JsonFieldType.STRING).description("안내사항"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.optionNotice").type(JsonFieldType.STRING).description("숙소옵션"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.guide").type(JsonFieldType.STRING).description("숙소가이드"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto").type(JsonFieldType.OBJECT).description("레저 정보 DTO"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.leisureCategory").description("레저 카테고리"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.leisureInfomation").description("레저 정보"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.usecase").description("usecase"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.leisureNotice").description("안내사항"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.expirationDate").description("유효기한"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.region").type(JsonFieldType.STRING).description("지역"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.refundRule").type(JsonFieldType.STRING).description("환불규정"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto").type(JsonFieldType.OBJECT).description("위치 정보 DTO"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto.howToVisit").description("오시는길 정보"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto.latitude").description("위도"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto.longitude").description("경도"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto.content").description("교통편 상세정보"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.phoneNumber").type(JsonFieldType.STRING).description("회사 전화번호"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.businessRegistrationNumber").type(JsonFieldType.STRING).description("사업자 번호"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.businessAddress").type(JsonFieldType.STRING).description("사업자 주소"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.businessName").type(JsonFieldType.STRING).description("사업자 명")
+                        )
+                ));
     }
 
     @Test
     @DisplayName("member에 해당하는 모든 order를 조회할 수 있다.")
     @Transactional
-    void findAllByMember() throws Exception {
+    void testFindAllByMember() throws Exception {
         mockMvc.perform(get("/api/v1/member/orders")
                         .param("memberId", String.valueOf(savedMemberId1))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(print());
+                .andDo(print())
+                .andDo(document("find_orders",
+                        responseFields(
+                                fieldWithPath("statusCode").type(JsonFieldType.NUMBER).description("StatusCode"),
+                                fieldWithPath("serverDatetime").type(JsonFieldType.STRING).description("ServerDatetime"),
+                                fieldWithPath("data.[].orderId").type(JsonFieldType.NUMBER).description("주문 Id"),
+                                fieldWithPath("data.[].memberId").type(JsonFieldType.NUMBER).description("회원 Id"),
+                                fieldWithPath("data.[].orderProductDtos.[]").type(JsonFieldType.ARRAY).description("주문 상품 정보 DTO 목록"),
+                                fieldWithPath("data.[].orderProductDtos.[].count").type(JsonFieldType.NUMBER).description("주문 갯수"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto").type(JsonFieldType.OBJECT).description("상품 정보 DTO"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.productId").type(JsonFieldType.NUMBER).description("상품 Id"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.accommodationDto").type(JsonFieldType.OBJECT).description("숙소 정보 DTO"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.accommodationDto.accommodationName").type(JsonFieldType.STRING).description("숙소명"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.accommodationDto.accommodationCategory").type(JsonFieldType.STRING).description("숙소종류"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.accommodationDto.accommodationNotice").type(JsonFieldType.STRING).description("안내사항"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.accommodationDto.optionNotice").type(JsonFieldType.STRING).description("숙소옵션"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.accommodationDto.guide").type(JsonFieldType.STRING).description("숙소가이드"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.leisureDto").type(JsonFieldType.OBJECT).description("레저 정보 DTO"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.leisureDto.leisureCategory").description("레저 카테고리"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.leisureDto.leisureInfomation").description("레저 정보"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.leisureDto.usecase").description("usecase"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.leisureDto.leisureNotice").description("안내사항"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.leisureDto.expirationDate").description("유효기한"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.region").type(JsonFieldType.STRING).description("지역"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.refundRule").type(JsonFieldType.STRING).description("환불규정"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.locationDto").type(JsonFieldType.OBJECT).description("위치 정보 DTO"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.locationDto.howToVisit").description("오시는길 정보"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.locationDto.latitude").description("위도"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.locationDto.longitude").description("경도"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.locationDto.content").description("교통편 상세정보"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.phoneNumber").type(JsonFieldType.STRING).description("회사 전화번호"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.businessRegistrationNumber").type(JsonFieldType.STRING).description("사업자 번호"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.businessAddress").type(JsonFieldType.STRING).description("사업자 주소"),
+                                fieldWithPath("data.[].orderProductDtos.[].productDto.businessName").type(JsonFieldType.STRING).description("사업자 명")
+                        )
+                ));
     }
 
     @Test
     @DisplayName("member가 order를 삭제할 수 있다.")
     @Transactional
-    void deleteOrder() throws Exception {
+    void testDeleteOrder() throws Exception {
         assertThat(orderRepository.findAll().get(0).getIsDeleted(), is(false));
 
         mockMvc.perform(delete("/api/v1/member/orders/{orderId}", orderRepository.findAll().get(0).getOrderId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(print());
+                .andDo(print())
+                .andDo(document("delete_orders",
+                        pathParameters(
+                                parameterWithName("orderId").description("주문 Id")
+                        ),
+                        responseFields(
+                                fieldWithPath("statusCode").type(JsonFieldType.NUMBER).description("StatusCode"),
+                                fieldWithPath("serverDatetime").type(JsonFieldType.STRING).description("ServerDatetime"),
+                                fieldWithPath("data.orderId").type(JsonFieldType.NUMBER).description("주문 Id"),
+                                fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 Id"),
+                                fieldWithPath("data.orderProductDtos.[]").type(JsonFieldType.ARRAY).description("주문 상품 정보 DTO 목록"),
+                                fieldWithPath("data.orderProductDtos.[].count").type(JsonFieldType.NUMBER).description("주문 갯수"),
+                                fieldWithPath("data.orderProductDtos.[].productDto").type(JsonFieldType.OBJECT).description("상품 정보 DTO"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.productId").type(JsonFieldType.NUMBER).description("상품 Id"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto").type(JsonFieldType.OBJECT).description("숙소 정보 DTO"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.accommodationName").type(JsonFieldType.STRING).description("숙소명"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.accommodationCategory").type(JsonFieldType.STRING).description("숙소종류"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.accommodationNotice").type(JsonFieldType.STRING).description("안내사항"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.optionNotice").type(JsonFieldType.STRING).description("숙소옵션"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.accommodationDto.guide").type(JsonFieldType.STRING).description("숙소가이드"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto").type(JsonFieldType.OBJECT).description("레저 정보 DTO"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.leisureCategory").description("레저 카테고리"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.leisureInfomation").description("레저 정보"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.usecase").description("usecase"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.leisureNotice").description("안내사항"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.leisureDto.expirationDate").description("유효기한"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.region").type(JsonFieldType.STRING).description("지역"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.refundRule").type(JsonFieldType.STRING).description("환불규정"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto").type(JsonFieldType.OBJECT).description("위치 정보 DTO"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto.howToVisit").description("오시는길 정보"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto.latitude").description("위도"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto.longitude").description("경도"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.locationDto.content").description("교통편 상세정보"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.phoneNumber").type(JsonFieldType.STRING).description("회사 전화번호"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.businessRegistrationNumber").type(JsonFieldType.STRING).description("사업자 번호"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.businessAddress").type(JsonFieldType.STRING).description("사업자 주소"),
+                                fieldWithPath("data.orderProductDtos.[].productDto.businessName").type(JsonFieldType.STRING).description("사업자 명")
+                        )
+                ));
 
         assertThat(orderRepository.findAll().get(0).getIsDeleted(), is(true));
     }
