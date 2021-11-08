@@ -18,23 +18,29 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
+@AutoConfigureRestDocs
 class RoomControllerTest extends ClassLevelTestConfig {
 
     @Autowired
@@ -99,26 +105,73 @@ class RoomControllerTest extends ClassLevelTestConfig {
                 .maxStock(10)
                 .build();
 
-        mockMvc.perform(post("/api/v1/hosts/accommodations/{productId}", accommodation.getProductId())
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/hosts/accommodations/{productId}", accommodation.getProductId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(roomCreateResponseDto)))
                 .andExpect(status().isCreated())
-                .andDo(print());
+                .andDo(print())
+                .andDo(document("room-save",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("productId").description("상품 아이디")
+                        ),
+                        requestFields(
+                                fieldWithPath("roomName").type(JsonFieldType.STRING).description("방이름"),
+                                fieldWithPath("roomInformation").type(JsonFieldType.STRING).description("방정보"),
+                                fieldWithPath("standardPeople").type(JsonFieldType.NUMBER).description("기준인원"),
+                                fieldWithPath("maximumPeople").type(JsonFieldType.NUMBER).description("최대인원"),
+                                fieldWithPath("price").type(JsonFieldType.NUMBER).description("가격"),
+                                fieldWithPath("maxStock").type(JsonFieldType.NUMBER).description("최초 재고수량"),
+                                fieldWithPath("reservationNotice").type(JsonFieldType.STRING).description("예약 공지")
+
+                        ),
+                        responseFields(
+                                fieldWithPath("roomName").type(JsonFieldType.STRING).description("등록된 방 이름")
+                        )
+                ));
+        ;
     }
 
     @Test
     @Transactional
     @Rollback(value = false)
-    @DisplayName("체크인 날짜에 따라서 남은 객실들의 정보를 확인할 수 있다.")
+    @DisplayName("accommodation 에 등록되어있는 방들을 검색할 수 있다.")
     @Order(2)
     void getRoomCheckIn() throws Exception {
         //given
         //when
         //then
-        mockMvc.perform(get("/api/v1/accommodations/{accommodationId}", accommodation.getProductId())
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/accommodations/{accommodationId}", accommodation.getProductId())
                         .param("check-in", String.valueOf(LocalDate.now().plusDays(1)))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(print());
+                .andDo(print())
+                .andDo(document("room-get",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("accommodationId").description("숙박정보")
+                        ),
+                        requestParameters(
+                                parameterWithName("check-in").description("체크인 날짜")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].accommodationDto").type(JsonFieldType.OBJECT).description("숙박DTO"),
+                                fieldWithPath("[].accommodationDto.accommodationName").type(JsonFieldType.STRING).description("공지사항"),
+                                fieldWithPath("[].accommodationDto.accommodationCategory").type(JsonFieldType.STRING).description("숙박업소 카테고리"),
+                                fieldWithPath("[].accommodationDto.accommodationNotice").type(JsonFieldType.STRING).description("숙소 공지"),
+                                fieldWithPath("[].accommodationDto.optionNotice").type(JsonFieldType.STRING).description("옵션 공지"),
+                                fieldWithPath("[].accommodationDto.guide").type(JsonFieldType.STRING).description("가이드"),
+                                fieldWithPath("[].roomName").type(JsonFieldType.STRING).description("방이름"),
+                                fieldWithPath("[].reservationNotice").type(JsonFieldType.STRING).description("방공지"),
+                                fieldWithPath("[].roomInformation").type(JsonFieldType.STRING).description("방정보"),
+                                fieldWithPath("[].standardPeople").type(JsonFieldType.NUMBER).description("기준인원"),
+                                fieldWithPath("[].maximumPeople").type(JsonFieldType.NUMBER).description("최대인원"),
+                                fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("가격"),
+                                fieldWithPath("[].remains").type(JsonFieldType.NUMBER).description("최초 재고수량")
+                        )
+                ));
+        ;
     }
 }
