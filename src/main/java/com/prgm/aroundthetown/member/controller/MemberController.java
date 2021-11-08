@@ -1,10 +1,10 @@
 package com.prgm.aroundthetown.member.controller;
 
-import com.prgm.aroundthetown.member.dto.MemberCreateDto;
-import com.prgm.aroundthetown.member.dto.MemberDto;
+import com.prgm.aroundthetown.member.dto.MemberCreateRequestDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.dto.MemberFindByEmailResponseDto;
 import com.prgm.aroundthetown.member.dto.MemberFindByPhoneNumberResponseDto;
-import com.prgm.aroundthetown.member.dto.MemberUpdateDto;
+import com.prgm.aroundthetown.member.dto.MemberUpdateRequestDto;
 import com.prgm.aroundthetown.member.service.MemberServiceImpl;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -26,25 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberServiceImpl memberService;
 
-    // Todo : 중복코드 리펙토링
-    @ExceptionHandler  // Todo : Test
-    private ResponseEntity<String> exceptionHandle(Exception exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    // Todo : 중복코드 리펙토링
-    @ExceptionHandler(NotFoundException.class)  // Todo : Test
-    private ResponseEntity<String> notFoundHandle(NotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
     @PostMapping("/members")
-    public ResponseEntity<Long> createMember(@RequestBody final MemberCreateDto request) {
+    public ResponseEntity<Long> createMember(@RequestBody final MemberCreateRequestDto request) {
         return new ResponseEntity<>(memberService.createMember(request), HttpStatus.CREATED);
     }
 
     @GetMapping("/members/{memberId}")
-    public ResponseEntity<MemberDto> findMemberById(@PathVariable final Long memberId) {
+    public ResponseEntity<MemberResponseDto> findMemberById(@PathVariable final Long memberId) {
         return new ResponseEntity<>(memberService.findById(memberId), HttpStatus.OK);
     }
 
@@ -61,7 +49,7 @@ public class MemberController {
     @PutMapping("/members/{memberId}")
     public ResponseEntity<Long> updateMember(
         @PathVariable final Long memberId,
-        @RequestBody final MemberUpdateDto request){
+        @RequestBody final MemberUpdateRequestDto request){
         return new ResponseEntity<>(memberService.updateMember(memberId, request), HttpStatus.OK);
     }
 
