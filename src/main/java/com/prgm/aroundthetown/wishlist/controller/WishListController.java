@@ -1,10 +1,10 @@
 package com.prgm.aroundthetown.wishlist.controller;
 
+import com.prgm.aroundthetown.common.response.ApiResponse;
 import com.prgm.aroundthetown.wishlist.dto.WishListCreateRequestDto;
 import com.prgm.aroundthetown.wishlist.dto.WishListResponseDto;
 import com.prgm.aroundthetown.wishlist.service.WishListServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,34 +17,30 @@ public class WishListController {
     private final WishListServiceImpl service;
 
     @PostMapping("/wishList")
-    public ResponseEntity<Long> createWishList(
+    public ResponseEntity<ApiResponse<Long>> createWishList(
             @RequestBody final WishListCreateRequestDto req
     ) {
-        final Long wishListIdResponse = service.createWishList(req);
-        return new ResponseEntity<>(wishListIdResponse, HttpStatus.CREATED);
+        return ResponseEntity.ok(ApiResponse.created(service.createWishList(req)));
     }
 
     @GetMapping("/wishLists/{wishListId}")
-    public ResponseEntity<WishListResponseDto> findById(
+    public ResponseEntity<ApiResponse<WishListResponseDto>> findById(
             @PathVariable final Long wishListId
     ) throws Exception {
-        final WishListResponseDto res = service.findById(wishListId);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(service.findById(wishListId)));
     }
 
     @GetMapping("/wishLists")
-    public ResponseEntity<List<WishListResponseDto>> findAll(
+    public ResponseEntity<ApiResponse<List<WishListResponseDto>>> findAll(
             @RequestParam final Long memberId
     ) throws Exception {
-        final List<WishListResponseDto> res = service.findAll(memberId);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(service.findAll(memberId)));
     }
 
     @DeleteMapping("/wishLists/{wishListId}")
-    public ResponseEntity<WishListResponseDto> deleteWishList(
+    public ResponseEntity<ApiResponse<WishListResponseDto>> deleteWishList(
             @PathVariable final Long wishListId
     ) {
-        final WishListResponseDto res = service.deleteWishList(wishListId);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(service.deleteWishList(wishListId)));
     }
 }

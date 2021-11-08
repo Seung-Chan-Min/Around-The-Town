@@ -1,12 +1,12 @@
 package com.prgm.aroundthetown.order.controller;
 
+import com.prgm.aroundthetown.common.response.ApiResponse;
 import com.prgm.aroundthetown.order.dto.OrderCreateRequestDto;
 import com.prgm.aroundthetown.order.dto.OrderFindByIdResponseDto;
 import com.prgm.aroundthetown.order.dto.OrderResponseDto;
 import com.prgm.aroundthetown.order.service.OrderProductServiceImpl;
 import com.prgm.aroundthetown.order.service.OrderServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,36 +20,34 @@ public class OrderController {
     private final OrderProductServiceImpl orderProductService;
 
     @PostMapping("/order")
-    public ResponseEntity<Long> createOrder(
+    public ResponseEntity<ApiResponse<Long>> createOrder(
             @RequestBody final OrderCreateRequestDto req
     ) {
         final Long orderId = orderService.createOrder(req);
         orderProductService.createOrderProduct(orderId, req.getOrderProductCreateRequestDtos());
-        return new ResponseEntity<>(orderId, HttpStatus.CREATED);
+        return ResponseEntity.ok(ApiResponse.created(orderId));
     }
 
     @GetMapping("/orders/{orderId}")
-    public ResponseEntity<OrderFindByIdResponseDto> findById(
+    public ResponseEntity<ApiResponse<OrderFindByIdResponseDto>> findById(
             @PathVariable final Long orderId
     ) {
         final OrderFindByIdResponseDto res = orderService.findById(orderId);
         res.setOrderProductDtos(orderProductService.getOrderProductDtos(orderId));
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(res));
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderResponseDto>> findAllByMember(
+    public ResponseEntity<ApiResponse<List<OrderResponseDto>>> findAllByMember(
             @RequestParam final Long memberId
     ) {
-        final List<OrderResponseDto> res = orderService.findAllOrdersByMember(memberId);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(orderService.findAllOrdersByMember(memberId)));
     }
 
     @DeleteMapping("/orders/{orderId}")
-    public ResponseEntity<OrderResponseDto> deleteOrder(
+    public ResponseEntity<ApiResponse<OrderResponseDto>> deleteOrder(
             @PathVariable final Long orderId
     ) {
-        final OrderResponseDto res = orderService.deleteOrder(orderId);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(orderService.deleteOrder(orderId)));
     }
 }

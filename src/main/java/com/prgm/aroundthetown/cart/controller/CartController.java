@@ -3,8 +3,8 @@ package com.prgm.aroundthetown.cart.controller;
 import com.prgm.aroundthetown.cart.dto.CartCreateRequestDto;
 import com.prgm.aroundthetown.cart.dto.CartResponseDto;
 import com.prgm.aroundthetown.cart.service.CartServiceImpl;
+import com.prgm.aroundthetown.common.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,34 +17,30 @@ public class CartController {
     private final CartServiceImpl service;
 
     @PostMapping("/cart")
-    public ResponseEntity<Long> createCart(
+    public ResponseEntity<ApiResponse<Long>> createCart(
             @RequestBody final CartCreateRequestDto req
     ) {
-        final Long cartIdResponse = service.createCart(req);
-        return new ResponseEntity<>(cartIdResponse, HttpStatus.CREATED);
+        return ResponseEntity.ok(ApiResponse.created(service.createCart(req)));
     }
 
     @GetMapping("/carts/{cartId}")
-    public ResponseEntity<CartResponseDto> findById(
+    public ResponseEntity<ApiResponse<CartResponseDto>> findById(
             @PathVariable final Long cartId
     ) throws Exception {
-        final CartResponseDto res = service.findById(cartId);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(service.findById(cartId)));
     }
 
     @GetMapping("/carts")
-    public ResponseEntity<List<CartResponseDto>> findAll(
+    public ResponseEntity<ApiResponse<List<CartResponseDto>>> findAll(
             @RequestParam final Long memberId
     ) throws Exception {
-        final List<CartResponseDto> res = service.findAll(memberId);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(service.findAll(memberId)));
     }
 
     @DeleteMapping("/carts/{cartId}")
-    public ResponseEntity<CartResponseDto> deleteCart(
+    public ResponseEntity<ApiResponse<CartResponseDto>> deleteCart(
             @PathVariable final Long cartId
     ) {
-        final CartResponseDto res = service.deleteCart(cartId);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(ApiResponse.ok(service.deleteCart(cartId)));
     }
 }
