@@ -125,7 +125,7 @@ class CartControllerTest {
                 .count(2)
                 .build();
 
-        mockMvc.perform(post("/api/v1/member/cart")
+        mockMvc.perform(post("/api/v1/cart")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createReq)))
                 .andExpect(status().isOk())
@@ -155,7 +155,7 @@ class CartControllerTest {
     void testFindById() throws Exception {
         final Long req = cartRepository.findAll().get(0).getCartId();
 
-        mockMvc.perform(get("/api/v1/member/carts/{cartId}", req)
+        mockMvc.perform(get("/api/v1/carts/{cartId}", req)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -207,7 +207,7 @@ class CartControllerTest {
     @Transactional
     void testFindAll() throws Exception {
         assertThat(memberRepository.getById(savedMemberId1).getCarts().size(), is(2));
-        mockMvc.perform(get("/api/v1/member/carts")
+        mockMvc.perform(get("/api/v1/carts")
                         .param("memberId", String.valueOf(savedMemberId1))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -259,7 +259,7 @@ class CartControllerTest {
     void testDeleteCart() throws Exception {
         final Long req = cartRepository.findAll().get(0).getCartId();
 
-        mockMvc.perform(delete("/api/v1/member/carts/{cartId}", req)
+        mockMvc.perform(delete("/api/v1/carts/{cartId}", req)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())

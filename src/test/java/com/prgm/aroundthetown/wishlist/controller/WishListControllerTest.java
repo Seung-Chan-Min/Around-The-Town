@@ -118,7 +118,7 @@ class WishListControllerTest {
                 .memberId(savedMemberId2)
                 .build();
 
-        mockMvc.perform(post("/api/v1/member/wishList")
+        mockMvc.perform(post("/api/v1/wishList")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createReq)))
                 .andExpect(status().isOk())
@@ -144,7 +144,7 @@ class WishListControllerTest {
     void testFindById() throws Exception {
         final Long req = wishListRepository.findAll().get(0).getWishlistId();
 
-        mockMvc.perform(get("/api/v1/member/wishLists/{wishListId}", req)
+        mockMvc.perform(get("/api/v1/wishLists/{wishListId}", req)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -194,7 +194,7 @@ class WishListControllerTest {
     @DisplayName("member에 해당하는 전체 wishList 조회를 할 수 있다.")
     @Transactional
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/api/v1/member/wishLists")
+        mockMvc.perform(get("/api/v1/wishLists")
                         .param("memberId", String.valueOf(savedMemberId1))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -245,7 +245,7 @@ class WishListControllerTest {
     void testDeleteWishList() throws Exception {
         final Long req = wishListRepository.findAll().get(0).getWishlistId();
 
-        mockMvc.perform(delete("/api/v1/member/wishLists/{wishListId}", req)
+        mockMvc.perform(delete("/api/v1/wishLists/{wishListId}", req)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())

@@ -135,7 +135,7 @@ class OrderControllerTest {
                                 orderProductCreateRequestDto2))
                 .build();
 
-        mockMvc.perform(post("/api/v1/member/order")
+        mockMvc.perform(post("/api/v1/order")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(req)))
                 .andExpect(status().isOk())
@@ -163,7 +163,7 @@ class OrderControllerTest {
     @DisplayName("member가 단일 order를 조회할 수 있다.")
     @Transactional
     void testFindById() throws Exception {
-        mockMvc.perform(get("/api/v1/member/orders/{orderId}", orderRepository.findAll().get(0).getOrderId())
+        mockMvc.perform(get("/api/v1/orders/{orderId}", orderRepository.findAll().get(0).getOrderId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -214,7 +214,7 @@ class OrderControllerTest {
     @DisplayName("member에 해당하는 모든 order를 조회할 수 있다.")
     @Transactional
     void testFindAllByMember() throws Exception {
-        mockMvc.perform(get("/api/v1/member/orders")
+        mockMvc.perform(get("/api/v1/orders")
                         .param("memberId", String.valueOf(savedMemberId1))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -262,7 +262,7 @@ class OrderControllerTest {
     void testDeleteOrder() throws Exception {
         assertThat(orderRepository.findAll().get(0).getIsDeleted(), is(false));
 
-        mockMvc.perform(delete("/api/v1/member/orders/{orderId}", orderRepository.findAll().get(0).getOrderId())
+        mockMvc.perform(delete("/api/v1/orders/{orderId}", orderRepository.findAll().get(0).getOrderId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())

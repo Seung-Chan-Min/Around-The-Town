@@ -156,7 +156,7 @@ class ReviewControllerTest {
                 .reviewImagePaths(List.of("image/path/01"))
                 .build();
 
-        mockMvc.perform(post("/api/v1/member/review")
+        mockMvc.perform(post("/api/v1/review")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(req)))
                 .andExpect(status().isOk())
@@ -184,7 +184,7 @@ class ReviewControllerTest {
     @DisplayName("member가 단일 review를 조회할 수 있다.")
     @Transactional
     void testFindById() throws Exception {
-        mockMvc.perform(get("/api/v1/member/reviews/{reviewId}", reviewRepository.findAll().get(0).getReviewId())
+        mockMvc.perform(get("/api/v1/reviews/{reviewId}", reviewRepository.findAll().get(0).getReviewId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -218,7 +218,7 @@ class ReviewControllerTest {
     @DisplayName("member에 해당하는 모든 review를 조회할 수 있다.")
     @Transactional
     void testFindAllByMember() throws Exception {
-        mockMvc.perform(get("/api/v1/member/reviews")
+        mockMvc.perform(get("/api/v1/reviews")
                         .param("memberId", String.valueOf(savedMemberId1))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -247,7 +247,7 @@ class ReviewControllerTest {
                 .reviewImagePaths(List.of("update/path/1", "update/path/2"))
                 .build();
 
-        mockMvc.perform(patch("/api/v1/member/reviews/{reviewId}", reviewRepository.findAll().get(0).getReviewId())
+        mockMvc.perform(patch("/api/v1/reviews/{reviewId}", reviewRepository.findAll().get(0).getReviewId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(req)))
                 .andExpect(status().isOk())
@@ -290,7 +290,7 @@ class ReviewControllerTest {
     void testDeleteReview() throws Exception {
         assertThat(reviewRepository.findAll().get(0).getIsDeleted(), is(false));
 
-        mockMvc.perform(delete("/api/v1/member/reviews/{reviewId}", reviewRepository.findAll().get(0).getReviewId())
+        mockMvc.perform(delete("/api/v1/reviews/{reviewId}", reviewRepository.findAll().get(0).getReviewId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
