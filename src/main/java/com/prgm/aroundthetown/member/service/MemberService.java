@@ -12,5 +12,5 @@ public interface MemberService {
     MemberFindByEmailResponseDto findByEmail(final String email);
     MemberFindByPhoneNumberResponseDto findByPhoneNumber(final String phoneNumber);
     Long updateMember(final Long memberId, final MemberUpdateRequestDto dto);
-    void deleteMember(final Long memberId);
+    Long deleteMember(final Long memberId);
 }

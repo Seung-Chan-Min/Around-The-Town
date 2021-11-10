@@ -1,4 +1,4 @@
-package com.prgm.aroundthetown.accommodation.contoller;
+package com.prgm.aroundthetown.accommodation.controller;
 
 import com.prgm.aroundthetown.accommodation.dto.*;
 import com.prgm.aroundthetown.accommodation.entity.AccommodationCategory;

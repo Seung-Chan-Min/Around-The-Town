@@ -81,12 +81,12 @@ class MemberServiceImplTest {
         assertThat(updatedEntity.getPassword(), is("바뀐비밀번호"));
     }
 
-    @Test
-    @DisplayName("Delete를 할 수 있다.")
-    @Transactional
-    void testDeleteMember() {
-        assertThat(memberRepository.getById(savedMemberId).getIsDeleted(), is(false));
-        memberServiceImpl.deleteMember(savedMemberId);
-        assertThat(memberRepository.getById(savedMemberId).getIsDeleted(), is(true));
-    }
+//    @Test
+//    @DisplayName("Delete를 할 수 있다.")
+//    @Transactional
+//    void testDeleteMember() {
+//        assertThat(memberRepository.getById(savedMemberId).getIsDeleted(), is(false));
+//        memberServiceImpl.deleteMember(savedMemberId);
+//        assertThat(memberRepository.getById(savedMemberId).getIsDeleted(), is(true));
+//    }
 }

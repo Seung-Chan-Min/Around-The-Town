@@ -11,15 +11,18 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
-
+  h2:
+    console:
+      enabled: true
 server:
   servlet:
     encoding:
+      force-response: true
       charset: UTF-8
       enabled: true
       force: true
-
 logging:
   level:
-    org.hibernate.SQL: debug
-#    org.hibernate.type: trace
+    org:
+      hibernate:
+        SQL: info

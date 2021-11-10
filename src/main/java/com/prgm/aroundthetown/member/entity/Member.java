@@ -20,7 +20,7 @@ import org.hibernate.annotations.SQLDelete;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SoftDeletableEntity
-@SQLDelete(sql = "UPDATE member SET is_deleted = true WHERE member_id=?")
+//@SQLDelete(sql = "UPDATE member SET is_deleted = true WHERE member_id=?")
 public class Member extends BaseTimeAndDeletedEntity {
 
     @Id

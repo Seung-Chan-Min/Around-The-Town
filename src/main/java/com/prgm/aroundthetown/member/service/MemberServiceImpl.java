@@ -3,12 +3,14 @@ package com.prgm.aroundthetown.member.service;
 import com.prgm.aroundthetown.common.exception.NotFoundException;
 import com.prgm.aroundthetown.member.converter.MemberConverter;
 import com.prgm.aroundthetown.member.dto.MemberCreateRequestDto;
-import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.dto.MemberFindByEmailResponseDto;
 import com.prgm.aroundthetown.member.dto.MemberFindByPhoneNumberResponseDto;
+import com.prgm.aroundthetown.member.dto.MemberResponseDto;
 import com.prgm.aroundthetown.member.dto.MemberUpdateRequestDto;
 import com.prgm.aroundthetown.member.entity.Member;
 import com.prgm.aroundthetown.member.repository.MemberRepository;
+import java.util.List;
+import javax.persistence.NonUniqueResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,16 +37,18 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberFindByEmailResponseDto findByEmail(String email) {
-        return repository.findByEmail(email)
-            .map(converter::toFindByEmailResponseDto)
+        List<Member> members = repository.findAllByEmail(email)
             .orElseThrow(() -> new NotFoundException("Member is not found."));
+        if(members.size() != 1) throw new NonUniqueResultException("Email is not unique.");
+        return converter.toFindByEmailResponseDto(members.get(0));
     }
 
     @Override
     public MemberFindByPhoneNumberResponseDto findByPhoneNumber(String phoneNumber) {
-        return repository.findByPhoneNumber(phoneNumber)
-            .map(converter::toFindByPhoneNumberResponseDto)
+        List<Member> members = repository.findAllByPhoneNumber(phoneNumber)
             .orElseThrow(() -> new NotFoundException("Member is not found."));
+        if(members.size() != 1) throw new NonUniqueResultException("PhoneNumber is not unique.");
+        return converter.toFindByPhoneNumberResponseDto(members.get(0));
     }
 
     @Override
@@ -57,9 +61,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void deleteMember(final Long memberId) {
-        final Member entity = repository.getById(memberId);
-        entity.setIsDeleted(true);
-        repository.save(entity);
+    public Long deleteMember(final Long memberId) {
+        Long foundId = repository.findById(memberId)
+            .orElseThrow(() -> new NotFoundException("Member is not found."))
+            .getId();
+        repository.deleteById(foundId);
+        return foundId;
     }
 }

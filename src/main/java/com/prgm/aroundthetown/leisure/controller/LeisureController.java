@@ -1,5 +1,6 @@
 package com.prgm.aroundthetown.leisure.controller;
 
+import com.prgm.aroundthetown.common.response.ApiResponse;
 import com.prgm.aroundthetown.leisure.dto.LeisureCreateRequestDto;
 import com.prgm.aroundthetown.leisure.dto.LeisureDeleteResponseDto;
 import com.prgm.aroundthetown.leisure.dto.LeisureFindAllByCategoryResponseDto;
@@ -31,33 +32,33 @@ public class LeisureController {
     private final LeisureServiceImpl leisureService;
 
     @PostMapping("/leisure")
-    public ResponseEntity<Long> createLeisure(@RequestBody final LeisureCreateRequestDto request) {
-        return new ResponseEntity<>(leisureService.create(request), HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse<Long>> createLeisure(@RequestBody final LeisureCreateRequestDto request) {
+        return ResponseEntity.ok(ApiResponse.created(leisureService.create(request)));
     }
 
     @GetMapping("/leisure/{leisureId}")
-    public ResponseEntity<LeisureResponseDto> findLeisureById(@PathVariable final Long leisureId) {
-        return new ResponseEntity<>(leisureService.findById(leisureId), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<LeisureResponseDto>> findLeisureById(@PathVariable final Long leisureId) {
+        return ResponseEntity.ok(ApiResponse.ok(leisureService.findById(leisureId)));
     }
 
     @GetMapping("/leisure/leisureCategories/{leisureCategory}")
-    public ResponseEntity<List<LeisureFindAllByCategoryResponseDto>> findAllLeisureByLeisureCategory(@PathVariable final LeisureCategory leisureCategory) {
-        return new ResponseEntity<>(leisureService.findAllByLeisureCategory(leisureCategory), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<List<LeisureFindAllByCategoryResponseDto>>> findAllLeisureByLeisureCategory(@PathVariable final LeisureCategory leisureCategory) {
+        return ResponseEntity.ok(ApiResponse.ok(leisureService.findAllByLeisureCategory(leisureCategory)));
     }
 
     @GetMapping("/leisure/hosts/{hostId}")
-    public ResponseEntity<List<LeisureFindAllByHostResponseDto>> findAllLeisureByHost(@PathVariable final Long hostId) {
-        return new ResponseEntity<>(leisureService.findAllByHost(hostId), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<List<LeisureFindAllByHostResponseDto>>> findAllLeisureByHost(@PathVariable final Long hostId) {
+        return ResponseEntity.ok(ApiResponse.ok(leisureService.findAllByHost(hostId)));
     }
 
     @PutMapping("/leisure")
-    public ResponseEntity<LeisureUpdateResponseDto> updateLeisure(@RequestBody final LeisureUpdateRequestDto request){
-        return new ResponseEntity<>(leisureService.update(request), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<LeisureUpdateResponseDto>> updateLeisure(@RequestBody final LeisureUpdateRequestDto request){
+        return ResponseEntity.ok(ApiResponse.ok(leisureService.update(request)));
     }
 
     @DeleteMapping("/leisure/{leisureId}")
-    public ResponseEntity<LeisureDeleteResponseDto> deleteLeisureById(@PathVariable final Long leisureId) {
-        return new ResponseEntity<>(leisureService.deleteById(leisureId), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<LeisureDeleteResponseDto>> deleteLeisureById(@PathVariable final Long leisureId) {
+        return ResponseEntity.ok(ApiResponse.ok(leisureService.deleteById(leisureId)));
     }
 
 }
