@@ -1,0 +1,45 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+
+== 주문 (Order)
+
+=== 주문 등록
+
+.Request
+include::{snippets}/OrderController/create-order/http-request.adoc[]
+include::{snippets}/OrderController/create-order/request-fields.adoc[]
+
+.Response
+include::{snippets}/OrderController/create-order/http-response.adoc[]
+include::{snippets}/OrderController/create-order/response-fields.adoc[]
+
+=== 주문 단일 조회
+
+.Request
+include::{snippets}/OrderController/find-order/http-request.adoc[]
+include::{snippets}/OrderController/find-order/path-parameters.adoc[]
+
+.Response
+include::{snippets}/OrderController/find-order/http-response.adoc[]
+include::{snippets}/OrderController/find-order/response-fields.adoc[]
+
+=== 멤버의 주문 전체 조회
+
+.Request
+include::{snippets}/OrderController/find-orders-of-member/http-request.adoc[]
+
+.Response
+include::{snippets}/OrderController/find-orders-of-member/http-response.adoc[]
+include::{snippets}/OrderController/find-orders-of-member/response-fields.adoc[]
+
+=== 주문 단일 삭제
+
+.Request
+include::{snippets}/OrderController/delete-order/http-request.adoc[]
+include::{snippets}/OrderController/delete-order/path-parameters.adoc[]
+
+.Response
+include::{snippets}/OrderController/delete-order/http-response.adoc[]
+include::{snippets}/OrderController/delete-order/response-fields.adoc[]
