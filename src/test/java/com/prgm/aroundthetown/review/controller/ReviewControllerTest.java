@@ -161,7 +161,7 @@ class ReviewControllerTest {
                         .content(objectMapper.writeValueAsString(req)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("create_review",
+                .andDo(document("ReviewController/create-review",
                         requestFields(
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("후기 작성내용"),
                                 fieldWithPath("score").type(JsonFieldType.NUMBER).description("평점"),
@@ -188,7 +188,7 @@ class ReviewControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("find_review",
+                .andDo(document("ReviewController/find-review",
                         pathParameters(
                                 parameterWithName("reviewId").description("후기 Id")
                         ),
@@ -223,7 +223,7 @@ class ReviewControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("find_reviews_of_member",
+                .andDo(document("ReviewController/find-reviews-of-member",
                         responseFields(
                                 fieldWithPath("statusCode").type(JsonFieldType.NUMBER).description("StatusCode"),
                                 fieldWithPath("serverDatetime").type(JsonFieldType.STRING).description("ServerDatetime"),
@@ -252,7 +252,7 @@ class ReviewControllerTest {
                         .content(objectMapper.writeValueAsString(req)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("update_review",
+                .andDo(document("ReviewController/update-review",
                         requestFields(
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("후기 작성내용"),
                                 fieldWithPath("score").type(JsonFieldType.NUMBER).description("평점"),
@@ -294,7 +294,7 @@ class ReviewControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("delete_review",
+                .andDo(document("ReviewController/delete-review",
                         pathParameters(
                                 parameterWithName("reviewId").description("후기 Id")
                         ),

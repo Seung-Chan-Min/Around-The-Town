@@ -1,0 +1,55 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+
+== 숙소 후기 목록 (Review)
+
+=== 숙소 후기 등록
+
+.Request
+include::{snippets}/ReviewController/create-review/http-request.adoc[]
+include::{snippets}/ReviewController/create-review/request-fields.adoc[]
+
+.Response
+include::{snippets}/ReviewController/create-review/http-response.adoc[]
+include::{snippets}/ReviewController/create-review/response-fields.adoc[]
+
+=== 숙소 후기 단일 조회
+
+.Request
+include::{snippets}/ReviewController/find-review/http-request.adoc[]
+include::{snippets}/ReviewController/find-review/path-parameters.adoc[]
+
+.Response
+include::{snippets}/ReviewController/find-review/http-response.adoc[]
+include::{snippets}/ReviewController/find-review/response-fields.adoc[]
+
+=== 멤버의 숙소 후기 전체 조회
+
+.Request
+include::{snippets}/ReviewController/find-reviews-of-member/http-request.adoc[]
+
+.Response
+include::{snippets}/ReviewController/find-reviews-of-member/http-response.adoc[]
+include::{snippets}/ReviewController/find-reviews-of-member/response-fields.adoc[]
+
+=== 숙소 후기 수정
+
+.Request
+include::{snippets}/ReviewController/update-review/http-request.adoc[]
+include::{snippets}/ReviewController/update-review/request-fields.adoc[]
+
+.Response
+include::{snippets}/ReviewController/update-review/http-response.adoc[]
+include::{snippets}/ReviewController/update-review/response-fields.adoc[]
+
+=== 숙소 후기 단일 삭제
+
+.Request
+include::{snippets}/ReviewController/delete-review/http-request.adoc[]
+include::{snippets}/ReviewController/delete-review/path-parameters.adoc[]
+
+.Response
+include::{snippets}/ReviewController/delete-review/http-response.adoc[]
+include::{snippets}/ReviewController/delete-review/response-fields.adoc[]
