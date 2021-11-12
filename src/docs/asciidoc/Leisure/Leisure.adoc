@@ -1,0 +1,85 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../target/generated-snippets
+endif::[]
+
+= Board API Documentation
+:toc:
+
+== 레저 (Leisure)
+
+=== 1. Leisure 등록
+
+==== POST /api/v1/leisure
+
+.Request
+include::{snippets}/LeisureController/createLeisure/http-request.adoc[]
+include::{snippets}/LeisureController/createLeisure/request-fields.adoc[]
+
+.Response
+include::{snippets}/LeisureController/createLeisure/http-response.adoc[]
+include::{snippets}/LeisureController/createLeisure/response-fields.adoc[]
+
+=== 2. Leisure 단일 조회
+
+==== GET /api/v1/leisure/{leisureId}
+
+.Request
+include::{snippets}/LeisureController/findLeisureById/http-request.adoc[]
+
+.Response
+include::{snippets}/LeisureController/findLeisureById/http-response.adoc[]
+include::{snippets}/LeisureController/findLeisureById/response-fields.adoc[]
+
+
+=== 3. 카테고리를 이용한 Leisure 전체 조회
+
+==== GET /api/v1/leisure/leisureCategories/{leisureCategory}
+
+.Request
+include::{snippets}/LeisureController/findAllLeisureByLeisureCategory/http-request.adoc[]
+
+.Response
+include::{snippets}/LeisureController/findAllLeisureByLeisureCategory/http-response.adoc[]
+include::{snippets}/LeisureController/findAllLeisureByLeisureCategory/response-fields.adoc[]
+
+
+
+=== 4. Host를 이용한 Leisure 전체 조회
+
+==== GET /api/v1/leisure/hosts/{hostId}
+
+.Request
+include::{snippets}/LeisureController/findAllLeisureByHost/http-request.adoc[]
+
+.Response
+include::{snippets}/LeisureController/findAllLeisureByHost/http-response.adoc[]
+include::{snippets}/LeisureController/findAllLeisureByHost/response-fields.adoc[]
+
+
+=== 5. Leisure 단일 업데이트
+
+==== GET /api/v1/leisure
+
+.Request
+include::{snippets}/LeisureController/updateLeisure/http-request.adoc[]
+include::{snippets}/LeisureController/updateLeisure/request-fields.adoc[]
+
+.Response
+include::{snippets}/LeisureController/updateLeisure/http-response.adoc[]
+include::{snippets}/LeisureController/updateLeisure/response-fields.adoc[]
+
+
+
+=== 6. Leisure 단일 삭제
+
+==== GET /api/v1/leisure/{leisureId}
+
+.Request
+include::{snippets}/LeisureController/deleteLeisureById/http-request.adoc[]
+
+.Response
+include::{snippets}/LeisureController/deleteLeisureById/http-response.adoc[]
+include::{snippets}/LeisureController/deleteLeisureById/response-fields.adoc[]
+
+
