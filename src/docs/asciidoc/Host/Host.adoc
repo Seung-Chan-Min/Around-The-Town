@@ -1,0 +1,37 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+
+== 사장님(HOST)
+
+=== 사장님 정보 등록
+
+=== /api/v1/hosts/{hostId}/accommodations
+
+.Request
+
+
+.Response
+=== 사장님이 보유한 숙박시설 조회
+
+=== /api/v1/hosts/{hostId}/accommodations
+
+.Request
+include::{snippets}/accommodation-get/http-request.adoc[]
+include::{snippets}/accommodation-get/path-parameters.adoc[]
+
+.Response
+include::{snippets}/accommodation-get/http-response.adoc[]
+include::{snippets}/accommodation-get/response-fields.adoc[]
+
+=== 사장님이 정보 등록
+
+=== /api/v1/hosts
+
+.Request
+include::{snippets}/host-save/http-request.adoc[]
+include::{snippets}/host-save/request-fields.adoc[]
+
+.Response
+include::{snippets}/host-save/http-response.adoc[]

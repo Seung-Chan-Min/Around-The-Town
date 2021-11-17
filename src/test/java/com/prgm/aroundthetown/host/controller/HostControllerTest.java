@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -51,6 +50,11 @@ class HostControllerTest {
                                 fieldWithPath("hostName").type(JsonFieldType.STRING).description("사장님이름"),
                                 fieldWithPath("hostEmail").type(JsonFieldType.STRING).description("사장님이메일"),
                                 fieldWithPath("hostPhoneNumber").type(JsonFieldType.STRING).description("사장님전화번호")
+                        ),
+                        responseFields(
+                                fieldWithPath("statusCode").description(JsonFieldType.NUMBER).description("StatusCode"),
+                                fieldWithPath("serverDatetime").description(JsonFieldType.STRING).description("ServerDatetime"),
+                                fieldWithPath("data").description(JsonFieldType.NUMBER).description("host Id")
                         )
                 ));
     }
