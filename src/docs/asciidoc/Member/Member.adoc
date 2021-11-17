@@ -1,0 +1,86 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../target/generated-snippets
+endif::[]
+
+= Board API Documentation
+:toc:
+
+== 멤버 (Member)
+
+=== 1. Member 등록
+
+==== POST /api/v1/members
+
+.Request
+include::{snippets}/MemberController/createMember/http-request.adoc[]
+include::{snippets}/MemberController/createMember/request-fields.adoc[]
+
+.Response
+include::{snippets}/MemberController/createMember/http-response.adoc[]
+include::{snippets}/MemberController/createMember/response-fields.adoc[]
+
+
+=== 2. Member 단일 조회
+
+==== GET /api/v1/members/{memberId}
+
+.Request
+include::{snippets}/MemberController/findMemberById/http-request.adoc[]
+
+.Response
+include::{snippets}/MemberController/findMemberById/http-response.adoc[]
+include::{snippets}/MemberController/findMemberById/response-fields.adoc[]
+
+
+
+=== 3. Email을 이용한 Member 조회
+
+==== POST /api/v1/members/email/{email}
+
+.Request
+include::{snippets}/MemberController/findMemberByEmail/http-request.adoc[]
+
+.Response
+include::{snippets}/MemberController/findMemberByEmail/http-response.adoc[]
+include::{snippets}/MemberController/findMemberByEmail/response-fields.adoc[]
+
+
+
+=== 4. 전화번호를 이용한 Member 조회
+
+==== POST /api/v1/members/phoneNumber/{phoneNumber}
+
+.Request
+include::{snippets}/MemberController/findMemberByPhoneNumber/http-request.adoc[]
+
+.Response
+include::{snippets}/MemberController/findMemberByPhoneNumber/http-response.adoc[]
+include::{snippets}/MemberController/findMemberByPhoneNumber/response-fields.adoc[]
+
+
+
+=== 5. Member 단일 업데이트
+
+==== POST /api/v1/members/{memberId}
+
+.Request
+include::{snippets}/MemberController/updateMember/http-request.adoc[]
+include::{snippets}/MemberController/updateMember/request-fields.adoc[]
+
+.Response
+include::{snippets}/MemberController/updateMember/http-response.adoc[]
+include::{snippets}/MemberController/updateMember/response-fields.adoc[]
+
+
+
+=== 6. Member 단일 삭제
+
+==== POST /api/v1/members/{memberId}
+
+.Request
+include::{snippets}/MemberController/deleteMember/http-request.adoc[]
+
+.Response
+include::{snippets}/MemberController/deleteMember/http-response.adoc[]
+include::{snippets}/MemberController/deleteMember/response-fields.adoc[]
