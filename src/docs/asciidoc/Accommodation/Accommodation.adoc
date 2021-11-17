@@ -1,0 +1,66 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+
+== 숙소
+
+=== 숙박업체 등록
+
+=== /api/v1/hosts/accommodations
+
+.Request
+include::{snippets}/accommodation-save/http-request.adoc[]
+include::{snippets}/accommodation-save/request-fields.adoc[]
+
+.Response
+include::{snippets}/accommodation-save/http-response.adoc[]
+include::{snippets}/accommodation-save/response-fields.adoc[]
+
+=== 지역, 카테고리로 검색
+
+=== /api/v1/accommodations?category={category}&region={region}
+
+.Request
+include::{snippets}/category-region-get/http-request.adoc[]
+include::{snippets}/category-region-get/request-parameters.adoc[]
+
+.Response
+include::{snippets}/category-region-get/http-response.adoc[]
+include::{snippets}/category-region-get/response-fields.adoc[]
+
+=== 전체 숙박 업소 조회
+
+=== /api/v1/accommodation-all
+
+.Request
+include::{snippets}/accommodation-all/http-request.adoc[]
+
+.Response
+include::{snippets}/accommodation-all/http-response.adoc[]
+include::{snippets}/accommodation-all/response-fields.adoc[]
+
+=== 숙박업소 제거
+
+=== /api/v1/hosts/{hostId}/accommodations/{accommodationId}
+
+.Request
+include::{snippets}/accommodation-delete/http-request.adoc[]
+include::{snippets}/accommodation-delete/path-parameters.adoc[]
+
+.Response
+include::{snippets}/accommodation-delete/http-response.adoc[]
+include::{snippets}/accommodation-delete/response-fields.adoc[]
+
+=== 숙박업소 수정
+
+=== /api/v1/hosts/accommodations/{accommodationId}
+
+.Request
+include::{snippets}/accommodation-update/path-parameters.adoc[]
+include::{snippets}/accommodation-update/http-request.adoc[]
+include::{snippets}/accommodation-update/request-fields.adoc[]
+
+.Response
+include::{snippets}/accommodation-update/http-response.adoc[]
+include::{snippets}/accommodation-update/response-fields.adoc[]

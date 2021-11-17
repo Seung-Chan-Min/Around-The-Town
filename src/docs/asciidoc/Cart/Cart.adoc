@@ -1,0 +1,45 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+
+== 장바구니 (Cart)
+
+=== 장바구니 등록
+
+.Request
+include::{snippets}/CartController/create-cart/http-request.adoc[]
+include::{snippets}/CartController/create-cart/request-fields.adoc[]
+
+.Response
+include::{snippets}/CartController/create-cart/http-response.adoc[]
+include::{snippets}/CartController/create-cart/response-fields.adoc[]
+
+=== 장바구니 단일 조회
+
+.Request
+include::{snippets}/CartController/find-cart/http-request.adoc[]
+include::{snippets}/CartController/find-cart/path-parameters.adoc[]
+
+.Response
+include::{snippets}/CartController/find-cart/http-response.adoc[]
+include::{snippets}/CartController/find-cart/response-fields.adoc[]
+
+=== 멤버의 장바구니 전체 조회
+
+.Request
+include::{snippets}/CartController/find-carts-of-member/http-request.adoc[]
+
+.Response
+include::{snippets}/CartController/find-carts-of-member/http-response.adoc[]
+include::{snippets}/CartController/find-carts-of-member/response-fields.adoc[]
+
+=== 장바구니 단일 삭제
+
+.Request
+include::{snippets}/CartController/delete-cart/http-request.adoc[]
+include::{snippets}/CartController/delete-cart/path-parameters.adoc[]
+
+.Response
+include::{snippets}/CartController/delete-cart/http-response.adoc[]
+include::{snippets}/CartController/delete-cart/response-fields.adoc[]

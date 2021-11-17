@@ -1,0 +1,27 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+
+== 객실 (ROOM)
+
+== 객실 등록
+
+.Request
+include::{snippets}/room-save/path-parameters.adoc[]
+include::{snippets}/room-save/http-request.adoc[]
+include::{snippets}/room-save/request-fields.adoc[]
+
+.Response
+include::{snippets}/room-save/http-response.adoc[]
+include::{snippets}/room-save/response-fields.adoc[]
+
+== 객실 조회
+
+.Request
+include::{snippets}/room-get/path-parameters.adoc[]
+include::{snippets}/room-get/http-request.adoc[]
+
+.Response
+include::{snippets}/room-get/http-response.adoc[]
+include::{snippets}/room-get/response-fields.adoc[]

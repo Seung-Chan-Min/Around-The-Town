@@ -1,0 +1,72 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../target/generated-snippets
+endif::[]
+
+= Board API Documentation
+:toc:
+
+== 티켓 (Ticket)
+
+=== 1. Ticket 등록
+
+==== POST /api/v1/tickets
+
+.Request
+include::{snippets}/TicketController/createTicket/http-request.adoc[]
+include::{snippets}/TicketController/createTicket/request-fields.adoc[]
+
+.Response
+include::{snippets}/TicketController/createTicket/http-response.adoc[]
+include::{snippets}/TicketController/createTicket/response-fields.adoc[]
+
+=== 2. Ticket 단일 조회
+
+==== GET /api/v1/tickets/{ticketId}
+
+.Request
+include::{snippets}/TicketController/findTicketById/http-request.adoc[]
+
+.Response
+include::{snippets}/TicketController/findTicketById/http-response.adoc[]
+include::{snippets}/TicketController/findTicketById/response-fields.adoc[]
+
+
+=== 3. Leisure를 이용한 Ticket 전체 조회
+
+==== GET /api/v1/tickets/leisure/{leisureId}
+
+.Request
+include::{snippets}/TicketController/findAllTicketByLeisure/http-request.adoc[]
+
+.Response
+include::{snippets}/TicketController/findAllTicketByLeisure/http-response.adoc[]
+include::{snippets}/TicketController/findAllTicketByLeisure/response-fields.adoc[]
+
+
+=== 4. Ticket 단일 업데이트
+
+==== GET /api/v1/tickets
+
+.Request
+include::{snippets}/TicketController/updateTicket/http-request.adoc[]
+include::{snippets}/TicketController/updateTicket/request-fields.adoc[]
+
+.Response
+include::{snippets}/TicketController/updateTicket/http-response.adoc[]
+include::{snippets}/TicketController/updateTicket/response-fields.adoc[]
+
+
+
+=== 5. Ticket 단일 삭제
+
+==== GET /api/v1/tickets/{ticketId}
+
+.Request
+include::{snippets}/TicketController/deleteTicketById/http-request.adoc[]
+
+.Response
+include::{snippets}/TicketController/deleteTicketById/http-response.adoc[]
+include::{snippets}/TicketController/deleteTicketById/response-fields.adoc[]
+
+
