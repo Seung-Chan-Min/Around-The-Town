@@ -56,7 +56,7 @@
 
 ## 🗂️ ERD
 
-![ERD](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b5068b6a-b0c2-471a-b9c5-affa88c607ac/%EB%8F%99%EB%84%A4%ED%95%9C%EB%B0%94%ED%80%B4_%ED%85%8C%EC%9D%B4%EB%B8%94%EA%B5%AC%EC%A1%B02.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211105%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211105T063900Z&X-Amz-Expires=86400&X-Amz-Signature=3fd7e72946e9e28b7418f9a8c5e07d3b025439e4a92ae0c2b14d75b192a3a0a0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EB%258F%2599%25EB%2584%25A4%25ED%2595%259C%25EB%25B0%2594%25ED%2580%25B4%2520%25ED%2585%258C%25EC%259D%25B4%25EB%25B8%2594%25EA%25B5%25AC%25EC%25A1%25B02.jpg%22)
+![ERD](https://backend-devcourse.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb4a81596-fd05-4755-ac14-5420e82dc3bc%2F%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-11-20_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.30.06.png?table=block&id=3d21b63b-e535-45f3-b45d-65073b12958d&spaceId=a557051f-c7ef-49b4-83dc-fbd1373d5693&width=2000&userId=&cache=v2)
 
 <br/>
 
