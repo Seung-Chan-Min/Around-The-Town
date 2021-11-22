@@ -6,7 +6,6 @@
 |:------:|:---:|:---:|
 |<img src="https://avatars.githubusercontent.com/u/60170616?v=4" width="100" height="100"/>|<img href="https://github.com/jcu011" src="https://avatars.githubusercontent.com/u/15929412?s=400&u=3676187e69a292d74de052753baa512d024e4335&v=4" width="100" height="100" />|<img src="https://avatars.githubusercontent.com/u/48939305?v=4" width="100" height="100"/>|
 |[🐱 Github](https://github.com/cse0518)|🐱 [Github](https://github.com/jcu011) <br/> [🍯Blog](https://barbera.tistory.com/)|[🐱Github](https://github.com/minhee0327)|
-|주문/결제 API|지도 API|검색 API|
 |Product Owner|Developer|Scrum Master|
 
 <br/>
