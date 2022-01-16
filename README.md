@@ -4,11 +4,10 @@
 
 |최승은|전찬의|강민희|
 |:------:|:---:|:---:|
-|<img src="https://avatars.githubusercontent.com/u/60170616?v=4" width="100" height="100"/>|<img href="https://github.com/jcu011" src="https://avatars.githubusercontent.com/u/15929412?s=400&u=3676187e69a292d74de052753baa512d024e4335&v=4" width="100" height="100" />|<img src="https://avatars.githubusercontent.com/u/48939305?v=4" width="100" height="100"/>|
+|<img src="https://avatars.githubusercontent.com/u/60170616?v=4" width="150" height="150"/>|<img href="https://github.com/jcu011" src="https://avatars.githubusercontent.com/u/15929412?s=400&u=3676187e69a292d74de052753baa512d024e4335&v=4" width="150" height="150" />|<img src="https://avatars.githubusercontent.com/u/48939305?v=4" width="150" height="150"/>|
 |[🐱 Github](https://github.com/cse0518)|🐱 [Github](https://github.com/jcu011) <br/> [🍯Blog](https://barbera.tistory.com/)|[🐱Github](https://github.com/minhee0327)|
 |Product Owner|Developer|Scrum Master|
 
-<br/>
 <br/>
 
 ## 🏡 프로젝트 소개
@@ -19,7 +18,7 @@
     - 회원: 장바구니와 위시리스트를 이용한 주문/결제/후기 API 를 제공.
 - [통합 문서 관리](https://backend-devcourse.notion.site/Around-The-Town-d3c47e1994f548c6aaf68e82c100b3c2)
 
-<br/><br/>
+<br/>
 
 ## 🎯 프로젝트 목표
 
@@ -34,7 +33,6 @@
     - RestDocs 를 이용한 API 명세서를 작성한다.
     - SpringBoot & Spring Data JPA 를 활용한다.
 
-<br/>
 <br/>
 
 ## 📆 개발 기간
@@ -62,7 +60,7 @@
 ## 💰 API Specification
 
 * [Notion](https://backend-devcourse.notion.site/API-Spec-9a1fbd68e2994cb5b52e0d16023f3d42)
-* [RestDocs](#)
+* [RestDocs](https://github.com/Seung-Chan-Min/Around-The-Town/tree/main/src/docs/asciidoc)
 
 <br/>
 
